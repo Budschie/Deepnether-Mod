@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cube_all",
+    "textures": {
+        "all": "deepnether:block/nether_crystal_green"
+    }
+}

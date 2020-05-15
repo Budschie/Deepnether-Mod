@@ -1,0 +1,6 @@
+{
+    "parent": "minecraft:block/cross",
+    "textures": {
+        "cross": "deepnether:block/nether_dust_grass"
+    }
+}
