@@ -5,6 +5,7 @@ import static de.budschie.deepnether.networking.DeepnetherPacketHandler.INSTANCE
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.budschie.deepnether.biomes.BiomeFeatureAdder;
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.commands.CommandPlaceStructure;
 import de.budschie.deepnether.commands.CommandSaveSelection;
@@ -16,6 +17,7 @@ import de.budschie.deepnether.gui.NetherBlastFurnaceGUI;
 import de.budschie.deepnether.networking.FogSeedMessageRecieve;
 import de.budschie.deepnether.networking.PullFogMessage;
 import de.budschie.deepnether.tileentities.RecipesDeepnetherBlastFurnace;
+import de.budschie.deepnether.worldgen.Features;
 import de.budschie.deepnether.worldgen.structureSaving.StructureDataProviderRegistry;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -44,7 +46,10 @@ public class DeepnetherMain
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public DeepnetherMain() {
+    public DeepnetherMain() 
+    {
+        Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -72,6 +77,8 @@ public class DeepnetherMain
     	RecipesDeepnetherBlastFurnace.registerModRecipes();
     	
     	StructureDataProviderRegistry.addEntriesFromRegistry();
+    	
+    	BiomeFeatureAdder.addFeatures();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) 
