@@ -1,5 +1,6 @@
 package de.budschie.deepnether.worldgen;
 
+import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -32,20 +33,21 @@ public class TestFeature extends Feature<IFeatureConfig>
 	{
 		if(object == null)
 		{
-			object = new PaletteStructure().loadIntoMemory("soos");
+			try
+			{
+				object = new PaletteStructure().loadIntoMemory("soos");
+			} 
+			catch (FileNotFoundException e)
+			{
+				e.printStackTrace();
+			}
 		}
-		
+
 		PaletteStructure.place(object, pos, worldIn.getWorld());
+		//TestStructureData data = (TestStructureData) StructureDataProviderRegistry.<TestArguments>getEntry("test").get(args);
 		
-		TestArguments args = new TestArguments();
+		//StructureDataHandler.addStructure(data.getWorld(), data);
 		
-		args.pos = pos;
-		args.world = worldIn.getWorld();
-		
-		TestStructureData data = (TestStructureData) StructureDataProviderRegistry.<TestArguments>getEntry("a").get(args);
-		
-		StructureDataHandler.addStructure(data.getWorld(), data);
-		
-		return false;
+		return true;
 	}
 }
