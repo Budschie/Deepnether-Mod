@@ -11,11 +11,14 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ChestBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.structure.StructurePiece;
 
 public abstract class StructureBase 
 {
@@ -127,10 +130,14 @@ public abstract class StructureBase
 		}
 	}
 	
-	public StructureBufferObject loadIntoMemory(String name)
+	public StructureBufferObject loadIntoMemory(String name) throws FileNotFoundException
 	{
 		StructureBufferObject object = null;
 		File file = new File(StructureConst.BASE_PATH + "\\" + name + ".structure");
+		
+		if(!file.exists())
+			throw new FileNotFoundException("The file " + file.getAbsolutePath() + " doesn't exist.");
+		
 	   // ArrayList<BlockObject> util;
 		//NBTTagCompound compound = CompressedStreamTools.read(file);
 		CompoundNBT compound = null;
@@ -195,29 +202,76 @@ public abstract class StructureBase
 		ArrayList<BlockObject> blocks = object.blocks;
 		ArrayList<CompoundNBT> te = object.tileEntities;
 		
+		//System.out.println("There are " + blocks.size() + " blocks and " + te.size() + " tile entities in the current building.");
+		
 		//BlockPos pos = new BlockPos(x,y,z);
 		for(BlockObject block : blocks)
 		{
 			//System.out.println("Found block with state: " + block.getBlock());
-			if(block.getBlock() == Blocks.STRUCTURE_VOID.getDefaultState())
-			{
-				//continue;
-			}
-			else
+			if(block.getBlock() != Blocks.STRUCTURE_VOID.getDefaultState())
 			{
 				world.setBlockState(block.getBlockPosWithOffset(pos), block.getBlock(), 2);
 			}
 		}
 		
-		for(CompoundNBT compound : te)
+		if(te != null)
 		{
-			BlockPos tileEntityBlockPos = new BlockPos(compound.getShort("x"), compound.getShort("y"), compound.getShort("z")).add(pos);
-			
-			compound.remove("x");
-			compound.remove("y");
-			compound.remove("z");
-			
-			world.setTileEntity(tileEntityBlockPos, TileEntity.create(compound));
+			for(CompoundNBT compound : te)
+			{
+				BlockPos tileEntityBlockPos = new BlockPos(compound.getShort("x"), compound.getShort("y"), compound.getShort("z")).add(pos);
+				
+				compound.remove("x");
+				compound.remove("y");
+				compound.remove("z");
+				
+				world.setTileEntity(tileEntityBlockPos, TileEntity.create(compound));
+			}
+		}
+	}
+	
+	public static void place(StructureBufferObject object, BlockPos pos, IWorld world)
+	{
+		ArrayList<BlockObject> blocks = object.blocks;
+		ArrayList<CompoundNBT> te = object.tileEntities;
+		
+		//System.out.println("There are " + blocks.size() + " blocks and " + te.size() + " tile entities in the current building.");
+		
+		//BlockPos pos = new BlockPos(x,y,z);
+		for(BlockObject block : blocks)
+		{
+			//System.out.println("Found block with state: " + block.getBlock());
+			if(block.getBlock() != Blocks.STRUCTURE_VOID.getDefaultState())
+			{
+				world.setBlockState(block.getBlockPosWithOffset(pos), block.getBlock(), 2);
+			}
+		}
+		
+		if(te != null)
+		{
+			for(CompoundNBT compound : te)
+			{
+				BlockPos tileEntityBlockPos = new BlockPos(compound.getShort("x"), compound.getShort("y"), compound.getShort("z")).add(pos);
+				
+				compound.remove("x");
+				compound.remove("y");
+				compound.remove("z");
+				
+				TileEntity teInner = world.getTileEntity(tileEntityBlockPos);
+				
+				if(teInner == null)
+				{
+					System.out.println("Tile entity was null!");
+				}
+				else
+				{
+					compound.putInt("x", tileEntityBlockPos.getX());
+					compound.putInt("y", tileEntityBlockPos.getY());
+					compound.putInt("z", tileEntityBlockPos.getZ());
+
+					teInner.read(compound);
+					teInner.markDirty();
+				}
+			}
 		}
 	}
 	
