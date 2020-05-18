@@ -14,6 +14,7 @@ import de.budschie.deepnether.worldgen.structureSaving.TestArguments;
 import de.budschie.deepnether.worldgen.structureSaving.TestStructureData;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.feature.Feature;
@@ -42,8 +43,13 @@ public class TestFeature extends Feature<IFeatureConfig>
 				e.printStackTrace();
 			}
 		}
+		
+		System.out.println("Test before");
 
-		PaletteStructure.place(object, pos, worldIn.getWorld());
+		PaletteStructure.place(object, pos, worldIn);
+		
+		System.out.println("Test after");
+		
 		//TestStructureData data = (TestStructureData) StructureDataProviderRegistry.<TestArguments>getEntry("test").get(args);
 		
 		//StructureDataHandler.addStructure(data.getWorld(), data);
