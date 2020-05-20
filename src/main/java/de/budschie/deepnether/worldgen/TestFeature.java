@@ -36,7 +36,7 @@ public class TestFeature extends Feature<IFeatureConfig>
 		{
 			try
 			{
-				object = new PaletteStructure().loadIntoMemory("soos");
+				object = new PaletteStructure().loadIntoMemory("test2");
 			} 
 			catch (FileNotFoundException e)
 			{
@@ -50,9 +50,14 @@ public class TestFeature extends Feature<IFeatureConfig>
 		
 		System.out.println("Test after");
 		
-		//TestStructureData data = (TestStructureData) StructureDataProviderRegistry.<TestArguments>getEntry("test").get(args);
+		TestArguments args = new TestArguments();
 		
-		//StructureDataHandler.addStructure(data.getWorld(), data);
+		args.pos = pos;
+		args.world = worldIn;
+		
+		TestStructureData data = (TestStructureData) StructureDataProviderRegistry.<TestArguments>getEntry("test").get(args);
+		
+		StructureDataHandler.addStructure(data.getWorld(), data);
 		
 		return true;
 	}
