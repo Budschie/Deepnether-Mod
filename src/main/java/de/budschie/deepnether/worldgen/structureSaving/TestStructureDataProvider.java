@@ -1,8 +1,7 @@
 package de.budschie.deepnether.worldgen.structureSaving;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.test.TestArgArgument;
-import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 
 public class TestStructureDataProvider implements IStructureDataProvider<TestArguments>
 {
@@ -15,7 +14,7 @@ public class TestStructureDataProvider implements IStructureDataProvider<TestArg
 	}
 
 	@Override
-	public StructureData getDefault(World world)
+	public StructureData getDefault(IWorld world)
 	{
 		return new StructureData(id, this);
 	}

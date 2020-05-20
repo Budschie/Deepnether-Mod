@@ -1,12 +1,12 @@
 package de.budschie.deepnether.worldgen.structureSaving;
 
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 
 public interface IStructureDataProvider<T>
 {
 	public StructureData get(T generatorData);
-	public StructureData getDefault(World world);
+	public StructureData getDefault(IWorld world);
 	
 	public String getRegistryID();
 	

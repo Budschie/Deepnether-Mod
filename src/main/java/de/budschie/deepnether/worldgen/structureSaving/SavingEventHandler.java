@@ -21,44 +21,46 @@ public class SavingEventHandler
 	{
 		if(event.getWorld() == null)
 			return;
-		if(event.getWorld().getWorld() == null)
+		if(event.getWorld().isRemote())
 			return;
-		if(event.getWorld().getWorld().isRemote)
-			return;
-		
-		StructureDataHandler.readChunk(event.getChunk().getPos(), event.getChunk().getWorldForge().getWorld());
+		System.out.println("Loading structures...");
+		StructureDataHandler.readChunk(event.getChunk().getPos(), event.getChunk().getWorldForge());
 	}
 	
 	@SubscribeEvent
 	public static void onSaveChunk(ChunkEvent.Unload event)
 	{
-		if(event.getWorld().getWorld().isRemote)
+		if(event.getWorld().isRemote())
 			return;
-		StructureDataHandler.removeChunk(event.getChunk().getPos(), event.getChunk().getWorldForge().getWorld());
+		System.out.println("Saving structures...");
+		StructureDataHandler.removeChunk(event.getChunk().getPos(), event.getChunk().getWorldForge());
 	}
 	
 	@SubscribeEvent
 	public static void onLoadWorld(WorldEvent.Load event)
 	{
 		
-		if(event.getWorld().getWorld().isRemote)
+		if(event.getWorld().isRemote())
 			return;
+		System.out.println("Loading headers...");
 		StructureDataHandler.loadHeaders(((ServerWorld)event.getWorld()).getSaveHandler().getWorldDirectory().getAbsolutePath().toString());
 	}
 	
 	@SubscribeEvent
 	public static void onSaveWorld(WorldEvent.Save event)
 	{
-		if(event.getWorld().getWorld().isRemote)
+		if(event.getWorld().isRemote())
 			return;
-		StructureDataHandler.onSaveEntireWorld(((ServerWorld)event.getWorld().getWorld()).getSaveHandler(), event.getWorld().getWorld(), false);
+		System.out.println("Saving world...");
+		StructureDataHandler.onSaveEntireWorld(((ServerWorld)event.getWorld()).getSaveHandler(), event.getWorld(), false);
 	}
 	
 	@SubscribeEvent
 	public static void onUnloadWorld(WorldEvent.Unload event)
 	{
-		if(event.getWorld().getWorld().isRemote)
+		if(event.getWorld().isRemote())
 			return;
+		System.out.println("Saving structures...");
 		StructureDataHandler.onUnloadWorld(((ServerWorld)event.getWorld().getWorld()).getSaveHandler(), event.getWorld().getWorld());
 	}
 }

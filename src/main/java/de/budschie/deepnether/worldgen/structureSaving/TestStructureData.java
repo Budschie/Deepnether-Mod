@@ -3,12 +3,11 @@ package de.budschie.deepnether.worldgen.structureSaving;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class TestStructureData extends StructureData
 {
 
-	public TestStructureData(World world, BlockPos pos, AxisAlignedBB aabb, int id, IStructureDataProvider<?> provider)
+	public TestStructureData(net.minecraft.world.IWorld world, BlockPos pos, AxisAlignedBB aabb, int id, IStructureDataProvider<?> provider)
 	{
 		super(world, pos, aabb, id, provider);
 	}

@@ -8,18 +8,18 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.dimension.DimensionType;
 
 public class StructureData
 {
-	protected World world;
+	protected IWorld world;
 	protected BlockPos pos;
 	protected AxisAlignedBB aabb;
 	protected int id;
 	IStructureDataProvider<?> provider;
 	
-	public StructureData(World world, BlockPos pos, AxisAlignedBB aabb, int id, IStructureDataProvider<?> provider)
+	public StructureData(IWorld world, BlockPos pos, AxisAlignedBB aabb, int id, IStructureDataProvider<?> provider)
 	{
 		this.world = world;
 		this.pos = pos;
@@ -35,7 +35,7 @@ public class StructureData
 		this.provider = provider;
 	}
 	
-	public World getWorld()
+	public IWorld getWorld()
 	{
 		return world;
 	}
@@ -52,6 +52,8 @@ public class StructureData
 	
 	public AxisAlignedBB getTranslatedAABB()
 	{
+		if(aabb == null || getPos() == null)
+			return new AxisAlignedBB(0, 0, 0, 1, 1, 1);
 		return aabb.offset(getPos());
 	}
 	
