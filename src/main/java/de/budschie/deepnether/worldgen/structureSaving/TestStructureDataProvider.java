@@ -1,6 +1,7 @@
 package de.budschie.deepnether.worldgen.structureSaving;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.IWorld;
 
 public class TestStructureDataProvider implements IStructureDataProvider<TestArguments>
@@ -10,13 +11,13 @@ public class TestStructureDataProvider implements IStructureDataProvider<TestArg
 	@Override
 	public StructureData get(TestArguments generatorData)
 	{
-		return new TestStructureData(generatorData.world, generatorData.pos, null, id++, this);
+		return new TestStructureData(generatorData.world, generatorData.pos, new AxisAlignedBB(0, 0, 0, 6, 5, 3), id++, this);
 	}
 
 	@Override
 	public StructureData getDefault(IWorld world)
 	{
-		return new StructureData(id, this);
+		return new TestStructureData(id, this);
 	}
 
 	@Override
@@ -36,5 +37,4 @@ public class TestStructureDataProvider implements IStructureDataProvider<TestArg
 	{
 		id = compound.getInt("id");
 	}
-	
 }

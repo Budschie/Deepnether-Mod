@@ -1,14 +1,20 @@
 package de.budschie.deepnether.worldgen.structureSaving;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.google.common.collect.Lists;
+
+import de.budschie.deepnether.entity.EntityInit;
 import de.budschie.deepnether.main.DeepnetherMain;
+import net.minecraft.entity.EntityType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.dimension.DimensionType;
 
 public class StructureData
@@ -60,7 +66,6 @@ public class StructureData
 	/** Called when the structure is going to be saved on the disk. Please call this via <b>{@code super.save}</b>; there is some critical stuff here **/
 	public void save(CompoundNBT compound)
 	{
-		compound.putInt("internal_id", id);
 		compound.putString("world", this.world.getDimension().getType().getRegistryName().toString());
 	}
 	
@@ -70,20 +75,22 @@ public class StructureData
 		this.world = DeepnetherMain.server.getWorld(DimensionType.byName(new ResourceLocation(compound.getString("world"))));
 	}
 	
+	public int getID()
+	{
+		return id;
+	}
+	
 	public ArrayList<ChunkPos> getContainingChunks()
 	{
 		ArrayList<ChunkPos> positions = new ArrayList<ChunkPos>();
 		
 		AxisAlignedBB translated = getTranslatedAABB();
 		
-		for(int x = (int) translated.minX; x <= translated.maxX; x++)
+		for(int x = (int) translated.minX; x <= translated.maxX; x+=16)
 		{
-			for(int y = (int) translated.minY; y <= translated.maxY; y++)
+			for(int z = (int) translated.minZ; z <= translated.maxZ; z+=16)
 			{
-				for(int z = (int) translated.minZ; z <= translated.maxZ; z++)
-				{
-					positions.add(new ChunkPos(new BlockPos(x, 0, z)));
-				}
+				positions.add(new ChunkPos(new BlockPos(x, 0, z)));
 			}
 		}
 		

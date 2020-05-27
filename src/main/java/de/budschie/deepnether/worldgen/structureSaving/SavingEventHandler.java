@@ -16,6 +16,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(bus = Bus.FORGE)
 public class SavingEventHandler
 {
+	public static boolean loadedWorld = false;
+	public static boolean isSavingEntireWorld = false;
+	
 	@SubscribeEvent
 	public static void onLoadChunk(ChunkEvent.Load event)
 	{
@@ -23,8 +26,7 @@ public class SavingEventHandler
 			return;
 		if(event.getWorld().isRemote())
 			return;
-		System.out.println("Loading structures...");
-		StructureDataHandler.readChunk(event.getChunk().getPos(), event.getChunk().getWorldForge());
+		StructureDataHandler.readChunk(event.getChunk().getPos(), event.getWorld());
 	}
 	
 	@SubscribeEvent
@@ -33,17 +35,18 @@ public class SavingEventHandler
 		if(event.getWorld().isRemote())
 			return;
 		System.out.println("Saving structures...");
+		if(isSavingEntireWorld) throw new IllegalStateException("This REALLY shouldnt happen");
 		StructureDataHandler.removeChunk(event.getChunk().getPos(), event.getChunk().getWorldForge());
 	}
 	
 	@SubscribeEvent
 	public static void onLoadWorld(WorldEvent.Load event)
 	{
-		
 		if(event.getWorld().isRemote())
 			return;
 		System.out.println("Loading headers...");
 		StructureDataHandler.loadHeaders(((ServerWorld)event.getWorld()).getSaveHandler().getWorldDirectory().getAbsolutePath().toString());
+		loadedWorld = true;
 	}
 	
 	@SubscribeEvent
@@ -51,8 +54,10 @@ public class SavingEventHandler
 	{
 		if(event.getWorld().isRemote())
 			return;
+		isSavingEntireWorld = true;
 		System.out.println("Saving world...");
 		StructureDataHandler.onSaveEntireWorld(((ServerWorld)event.getWorld()).getSaveHandler(), event.getWorld(), false);
+		isSavingEntireWorld = false;
 	}
 	
 	@SubscribeEvent
@@ -60,7 +65,9 @@ public class SavingEventHandler
 	{
 		if(event.getWorld().isRemote())
 			return;
+		isSavingEntireWorld = true;
 		System.out.println("Saving structures...");
 		StructureDataHandler.onUnloadWorld(((ServerWorld)event.getWorld().getWorld()).getSaveHandler(), event.getWorld().getWorld());
+		isSavingEntireWorld = false;
 	}
 }
