@@ -3,6 +3,7 @@ package de.budschie.deepnether.main;
 import de.budschie.deepnether.dimension.DimensionDeepnether;
 import de.budschie.deepnether.networking.DeepnetherPacketHandler;
 import de.budschie.deepnether.networking.FogSeedMessageRecieve;
+import de.budschie.deepnether.networking.StructureIDPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.TickEvent;
@@ -11,6 +12,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.network.PacketDistributor.PacketTarget;
 
 @EventBusSubscriber(bus = Bus.FORGE, modid = References.MODID, value = Dist.CLIENT)
 public class ClientBaseEvents
@@ -29,6 +31,8 @@ public class ClientBaseEvents
 		DeepnetherPacketHandler.INSTANCE.send(PacketDistributor.ALL.noArg(), message);
 	}
 	*/
+	
+	static int i = 0;
 	
 	@SubscribeEvent
 	public static void onTick(TickEvent.WorldTickEvent tickEvent)

@@ -16,7 +16,9 @@ import de.budschie.deepnether.entity.renders.EntityRenderInit;
 import de.budschie.deepnether.gui.NetherBlastFurnaceGUI;
 import de.budschie.deepnether.networking.FogSeedMessageRecieve;
 import de.budschie.deepnether.networking.PullFogMessage;
+import de.budschie.deepnether.networking.StructureIDPacket;
 import de.budschie.deepnether.tileentities.RecipesDeepnetherBlastFurnace;
+import de.budschie.deepnether.worldgen.BigTreeFeature;
 import de.budschie.deepnether.worldgen.Features;
 import de.budschie.deepnether.worldgen.structureSaving.StructureDataProviderRegistry;
 import net.minecraft.client.gui.ScreenManager;
@@ -48,8 +50,6 @@ public class DeepnetherMain
 
     public DeepnetherMain() 
     {
-        Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -60,10 +60,13 @@ public class DeepnetherMain
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         
         DimensionInit.MOD_DIM_DREG.register(FMLJavaModLoadingContext.get().getModEventBus());
+        
+        Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        Features.PLACEMENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-    }
+     }
     
     int disc = 0;
     //preinit
@@ -72,6 +75,7 @@ public class DeepnetherMain
         // some preinit code
     	INSTANCE.<FogSeedMessageRecieve>registerMessage(disc++, FogSeedMessageRecieve.class, FogSeedMessageRecieve::encodeAtServer, FogSeedMessageRecieve::decodeAtClient, FogSeedMessageRecieve::handleAtClient);
     	INSTANCE.<PullFogMessage>registerMessage(disc++, PullFogMessage.class, PullFogMessage::pull, PullFogMessage::pulled, PullFogMessage::handleAtServer);
+    	INSTANCE.<StructureIDPacket>registerMessage(disc++, StructureIDPacket.class, StructureIDPacket::encodeAtServer, StructureIDPacket::decodeAtClient, StructureIDPacket::handleAtClient);
     	//LOGGER.info("HELLO FROM PREINIT");
         //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     	RecipesDeepnetherBlastFurnace.registerModRecipes();
@@ -91,8 +95,8 @@ public class DeepnetherMain
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_PURPLE, RenderType.getTranslucent());
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_RED, RenderType.getTranslucent());
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_YELLOW, RenderType.getTranslucent());
-    	
-    	EntityRenderInit.registerEntityRenders();
+    	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_LEAVES, RenderType.getTranslucent());
+    	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_WITHERED_LEAVES, RenderType.getTranslucent());
     	
     	ScreenManager.registerFactory(DeepNetherBlastFurnaceContainer.TYPE, NetherBlastFurnaceGUI.FACTORY);
         // do something that can only be done on the client
