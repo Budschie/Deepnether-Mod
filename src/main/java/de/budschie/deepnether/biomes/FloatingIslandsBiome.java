@@ -1,11 +1,17 @@
 package de.budschie.deepnether.biomes;
 
+import java.util.List;
 import java.util.Random;
 
 import de.budschie.deepnether.block.BlockInit;
+import de.budschie.deepnether.dimension.DeepnetherChunkGenerator;
+import de.budschie.deepnether.dimension.DimensionDeepnether;
+import de.budschie.deepnether.entity.EntityInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.pattern.BlockMatcher;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.GenerationStage.Decoration;
@@ -19,6 +25,9 @@ import net.minecraft.world.gen.placement.Placement;
 
 public class FloatingIslandsBiome extends DeepnetherBiomeBase
 {
+	public static SpawnListEntry TRAP_ENTRY;
+	public static SpawnListEntry SHADOW_ENTRY;
+	
 	public static class FloatingIslandsBiomeBuilder extends Builder
 	{
 		public FloatingIslandsBiomeBuilder()
@@ -30,9 +39,35 @@ public class FloatingIslandsBiome extends DeepnetherBiomeBase
 	public FloatingIslandsBiome(Builder builder)
 	{
 		super(builder);
-		ConfiguredPlacement<CountRangeConfig> placementDylithite = Placement.COUNT_RANGE.configure(new CountRangeConfig(7, 50, 0, 140));
-		this.addFeature(Decoration.UNDERGROUND_ORES, Feature.ORE.withConfiguration(new OreFeatureConfig(COMPRESSED_NETHERRACK, BlockInit.DYLITHITE_ORE.getDefaultState(), 4)).withPlacement(placementDylithite));
 	}
+	
+	/*
+	@Override
+	public List<SpawnListEntry> getSpawnablesPositioned(BlockPos pos, EntityClassification classification)
+	{
+		List<SpawnListEntry> list = super.getSpawnablesPositioned(pos, classification);
+		if(pos.getY() < DeepnetherChunkGenerator.cloudMinHeigth)
+		{
+			if(classification == EntityClassification.MONSTER)
+			{
+				if(TRAP_ENTRY == null)
+				{
+					TRAP_ENTRY = new SpawnListEntry(EntityInit.SHADOW_TRAP, 3, 1, 5);
+				}
+				
+				if(SHADOW_ENTRY == null)
+				{
+					SHADOW_ENTRY = new SpawnListEntry(EntityInit.SHADOW, 1, 1, 3);
+				}
+				
+				list.add(TRAP_ENTRY);
+				list.add(SHADOW_ENTRY);
+			}
+		}
+		
+		return list;
+	}
+	*/
 	
 	@Override
 	public int getBaseHeightMap() {

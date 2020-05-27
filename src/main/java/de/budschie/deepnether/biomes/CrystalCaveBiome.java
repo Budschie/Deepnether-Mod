@@ -52,6 +52,7 @@ public class CrystalCaveBiome extends DeepnetherBiomeBase
 		super(builder);
 		// .withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 		// .withPlacement(Placements.CRYSTALS_PLACEMENT.configure(IPlacementConfig.NO_PLACEMENT_CONFIG))
+		/*
 		System.out.println("Adding features...");
 		this.addFeature(Decoration.VEGETAL_DECORATION, Features.CRYSTALS_FEATURE);
 		int size = 0;
@@ -60,6 +61,7 @@ public class CrystalCaveBiome extends DeepnetherBiomeBase
 			size += feature.size();
 		}
 		System.out.println("Added " + size + " features.");
+		*/
 	}
 	
 	@Override
@@ -77,7 +79,7 @@ public class CrystalCaveBiome extends DeepnetherBiomeBase
 	         random.setFeatureSeed(seed, i, stage.ordinal());
 
 	         try {
-	        	 System.out.println("Applying feature " + configuredfeature.getClass().getName() + "!");
+	        	// System.out.println("Applying feature " + configuredfeature.getClass().getName() + "!");
 	            configuredfeature.place(worldIn, chunkGenerator, random, pos);
 	         } catch (Exception exception) {
 	            CrashReport crashreport = CrashReport.makeCrashReport(exception, "Feature placement");
