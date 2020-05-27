@@ -33,7 +33,6 @@ public class CrystalsWorldGen extends Feature<IFeatureConfig>
 	@Override
 	public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos position, IFeatureConfig config)
 	{
-		System.out.println("PLACING!!!!!!!!!!!");
 		OpenSimplexNoise osn = new OpenSimplexNoise(rand.nextLong());
 		
 		//BlockState crystalBlock = blocks.get(rand.nextInt(blocks.size()));
@@ -59,7 +58,6 @@ public class CrystalsWorldGen extends Feature<IFeatureConfig>
 		
 		if(startingPos == null)
 		{
-			System.out.println("M FAILED");
 			return false;
 		}
 		

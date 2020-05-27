@@ -8,6 +8,7 @@ import com.mojang.datafixers.Dynamic;
 
 import de.budschie.deepnether.structures.PaletteStructure;
 import de.budschie.deepnether.structures.StructureBufferObject;
+import de.budschie.deepnether.worldgen.structureSaving.SavingEventHandler;
 import de.budschie.deepnether.worldgen.structureSaving.StructureDataHandler;
 import de.budschie.deepnether.worldgen.structureSaving.StructureDataProviderRegistry;
 import de.budschie.deepnether.worldgen.structureSaving.TestArguments;
@@ -44,11 +45,7 @@ public class TestFeature extends Feature<IFeatureConfig>
 			}
 		}
 		
-		System.out.println("Test before");
-
 		PaletteStructure.place(object, pos, worldIn);
-		
-		System.out.println("Test after");
 		
 		TestArguments args = new TestArguments();
 		
