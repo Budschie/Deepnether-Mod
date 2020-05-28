@@ -12,6 +12,8 @@ import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.util.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.GlassBlock;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -25,6 +27,7 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.OreFeature;
 import net.minecraft.world.gen.feature.structure.OceanMonumentStructure;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.Tags.Blocks;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -185,4 +188,6 @@ public class BlockInit
 	public static final NetherBlastFurnaceBlock DEEP_NETHER_BLAST_FURNACE = new NetherBlastFurnaceBlock(ModProperties.MOD_STONE_PROPERTY, "deep_nether_blast_furnace", ModItemGroups.MOD_BLOCKS);
 	public static final NetherGrassBase NETHER_DUST_GRASS = new NetherGrassBase("nether_dust_grass", ModProperties.MOD_GRASS, ModItemGroups.MOD_BLOCKS, NETHER_DUST_GRASS_BLOCK.getDefaultState());
 	public static final AncientLog ANCIENT_LOG = new AncientLog("ancient_log", ModItemGroups.MOD_BLOCKS);
+	public static final ModLeavesBlock ANCIENT_LEAVES = new ModLeavesBlock(ModProperties.MOD_LEAVES, "ancient_leaves", ModItemGroups.MOD_BLOCKS);
+	public static final ModLeavesBlock ANCIENT_WITHERED_LEAVES = new ModLeavesBlock(ModProperties.MOD_LEAVES, "ancient_leaves_withered", ModItemGroups.MOD_BLOCKS);
 }
