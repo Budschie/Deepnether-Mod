@@ -21,6 +21,7 @@ import de.budschie.deepnether.tileentities.RecipesDeepnetherBlastFurnace;
 import de.budschie.deepnether.worldgen.BigTreeFeature;
 import de.budschie.deepnether.worldgen.Features;
 import de.budschie.deepnether.worldgen.structureSaving.StructureDataProviderRegistry;
+import net.minecraft.block.IceBlock;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
