@@ -50,6 +50,16 @@ public class DeepnetherBiomeBase extends Biome
 		return BlockInit.COMPRESSED_NETHERRACK.getDefaultState();
 	}
 	
+	public boolean hasNearLavaSoil()
+	{
+		return true;
+	}
+	
+	public BlockState getLavaSoil()
+	{
+		return BlockInit.SOUL_DUST.getDefaultState();
+	}
+	
 	public boolean hasParticles()
 	{
 		return false;

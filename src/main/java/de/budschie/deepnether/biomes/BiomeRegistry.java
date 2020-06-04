@@ -18,10 +18,12 @@ public class BiomeRegistry
 	public static final String DEEPNETHER_BIOME_ID = "deepnether_biome";
 	public static final String FLOATING_ISLANDS_BIOME_ID = "floating_islands_biome";
 	public static final String CRYSTAL_CAVE_BIOME_ID = "crystal_cave_biome";
+	public static final String LAVA_BIOME_ID = "lava_biome";
 	
 	public static DeepnetherBiome DEEPNETHER_BIOME = null;
 	public static FloatingIslandsBiome FLOATING_ISLANDS_BIOME = null;
 	public static CrystalCaveBiome CRYSTAL_CAVE_BIOME = null;
+	public static LavaBiome LAVA_BIOME = null;
 	
 	@SubscribeEvent
 	public static void registerBiomes(RegistryEvent.Register<Biome> event)
@@ -42,5 +44,10 @@ public class BiomeRegistry
 		CRYSTAL_CAVE_BIOME.setRegistryName(new ResourceLocation(References.MODID, CRYSTAL_CAVE_BIOME_ID));
 		registry.register(CRYSTAL_CAVE_BIOME);
 		BiomeDictionary.addTypes(CRYSTAL_CAVE_BIOME, Type.NETHER, Type.SPOOKY, Type.HOT, Type.WET);
+		
+		LAVA_BIOME = new LavaBiome(new LavaBiome.LavaBiomeBuilder());
+		LAVA_BIOME.setRegistryName(new ResourceLocation(References.MODID, LAVA_BIOME_ID));
+		registry.register(LAVA_BIOME);
+		BiomeDictionary.addTypes(LAVA_BIOME, Type.NETHER, Type.HOT, Type.DRY, Type.WASTELAND);
 	}
 }
