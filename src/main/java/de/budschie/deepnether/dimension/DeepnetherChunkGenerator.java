@@ -2,17 +2,26 @@ package de.budschie.deepnether.dimension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Lists;
 
+import de.budschie.deepnether.biomes.DeepnetherBiome;
+import de.budschie.deepnether.biomes.DeepnetherBiomeBase;
 import de.budschie.deepnether.biomes.FloatingIslandsBiome;
 import de.budschie.deepnether.block.BlockInit;
+import de.budschie.deepnether.worldgen.structureSaving.IHasSpawnList;
+import de.budschie.deepnether.worldgen.structureSaving.StructureData;
+import de.budschie.deepnether.worldgen.structureSaving.StructureDataHandler;
 import net.kdotjpg.opensimplexnoise.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.audio.SoundEngine;
+import net.minecraft.client.audio.SoundSystem;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
@@ -24,9 +33,11 @@ import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;
+import net.minecraft.world.dimension.NetherDimension;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.Heightmap.Type;
+import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.GenerationStage.Carving;
 import net.minecraft.world.gen.feature.IFeatureConfig;
@@ -93,17 +104,18 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 	@Override
 	public void generateBiomes(IChunk chunkIn)
 	{
-		((ChunkPrimer)chunkIn).func_225548_a_(new BiomeContainer(getBiomeProvider().getBiomes(chunkIn.getPos().x * 16, chunkIn.getPos().z * 16, 16, 16)));
+		((ChunkPrimer)chunkIn).func_225548_a_(new BiomeContainer(((DeepnetherBiomeProvider)biomeProvider).getBiomesAsArray(chunkIn.getPos().getXStart(), chunkIn.getPos().getZStart(), 16, 16)));
 	}
 
 	@Override
 	public void makeBase(IWorld worldIn, IChunk chunkIn)
 	{
 		ChunkPrimer primer = (ChunkPrimer) chunkIn;
-		buildSurface(primer, chunkIn.getPos().x, chunkIn.getPos().z, this.getBiomeProvider().getTopBlocks(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16), this.getBiomeProvider().getLavaBlocks(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16));
+		DeepnetherBiomeBase[][] biomes = this.getBiomeProvider().getBiomesDeepnether(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16);
+		buildSurface(primer, chunkIn.getPos().x, chunkIn.getPos().z, this.getBiomeProvider().getTopBlocks(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16), this.getBiomeProvider().getLavaBlocks(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16), biomes);
 		buildCaves(primer, chunkIn.getPos().x, chunkIn.getPos().z);
 		buildStalactites(primer, chunkIn.getPos().x, chunkIn.getPos().z);
-		buildIslands(primer, chunkIn.getPos().x, chunkIn.getPos().z, this.getBiomeProvider().getBiomes(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16));
+		buildIslands(primer, chunkIn.getPos().x, chunkIn.getPos().z, this.getBiomeProvider().getBiomesAsArray(chunkIn.getPos().x*16, chunkIn.getPos().z*16, 16, 16));
 	}
 
 	@Override
@@ -118,7 +130,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 		return 10;
 	}
 	
-	public void buildSurface(ChunkPrimer primer, int xIn, int zIn, BlockState[][] topBlocks, BlockState[][] lavaBlocks)
+	public void buildSurface(ChunkPrimer primer, int xIn, int zIn, BlockState[][] topBlocks, BlockState[][] lavaBlocks, DeepnetherBiomeBase[][] biomes)
 	{
 		int maxTerr[][] = ((DeepnetherBiomeProvider)this.getBiomeProvider()).getInterpolatedHeightMap((xIn * 16), (zIn * 16), 16, 16, 20);
 		float fSizeClouds = FEATURE_SIZE * 2;
@@ -138,7 +150,6 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 			fSizeClouds -= fSizeClouds / 2.0D;
 		for(int x = 0; x < 16; x++)
 		{
-			
 				//double yOperation = (double)y / (double)yMax;
 
 				for(int z = 0; z < 16; z++)
@@ -162,17 +173,25 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 				
 				for(int y = 0; y < maxTerr[x][z]; y++)
 				{
+					if(y <= getSeaLevel())
+					{
+						primer.setBlockState(new BlockPos(x, y, z), lavaBlocks[x][z], false);
+					}
+					
 					if(y <= pVal && y > (getSeaLevel() + 4))
 					{
 						primer.setBlockState(new BlockPos(x, y, z), topBlocks[x][z], false);
 					}
-					else if(y <= getSeaLevel())
+					else if(y <= pVal && y <= (getSeaLevel() + 4) && y > getSeaLevel())
 					{
-						primer.setBlockState(new BlockPos(x, y, z), lavaBlocks[x][z], false);
+						if(biomes[x][z].hasNearLavaSoil())
+							primer.setBlockState(new BlockPos(x, y, z), biomes[x][z].getLavaSoil(), false);
+						else
+							primer.setBlockState(new BlockPos(x, y, z), topBlocks[x][z], false);
 					}
-					else if(y <= pVal && y <= (getSeaLevel() + 4))
+					else if(y <= pVal)
 					{
-						primer.setBlockState(new BlockPos(x, y, z), BlockInit.SOUL_DUST.getDefaultState(), false);
+						primer.setBlockState(new BlockPos(x, y, z), topBlocks[x][z], false);
 					}
 				}
 			}
@@ -381,7 +400,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 			mixAmount = (mixAmount / 2.0f);
 		}
 		//
-		Biome[] biomeTemp = this.getBiomeProvider().getBiomes(xIn*16-islandRadius, zIn*16-islandRadius, 16+(islandRadius*2), 16+(islandRadius*2));
+		Biome[] biomeTemp = this.getBiomeProvider().getBiomesAsArray(xIn*16-islandRadius, zIn*16-islandRadius, 16+(islandRadius*2), 16+(islandRadius*2));
 		int pos = 0;
 		
 		for(int x = 0; x < stretchInterpolate.length; x++)
@@ -472,36 +491,40 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 		
 	}
 	
+	public static final Predicate<StructureData> PREDICATE_SPAWNABLE = new Predicate<StructureData>()
+	{
+		@Override
+		public boolean test(StructureData t)
+		{
+			return t instanceof IHasSpawnList;
+		}
+	};
+	
 	@Override
 	public List<SpawnListEntry> getPossibleCreatures(EntityClassification creatureType, BlockPos pos)
 	{
-		List<SpawnListEntry> entries = this.getBiomeProvider().getBiome(pos.getX(), pos.getZ()).getSpawns(creatureType);
+		List<SpawnListEntry> entries = ((DeepnetherBiomeBase)this.getBiomeProvider().getBiome(pos.getX(), pos.getZ())).getSpawnablesPositioned(pos, creatureType);
 		
-		/*
-		StructureNamespace.SpawnListArgument arg = Namespaces.getSpawnListForBlockPos(this.world.getWorld(), pos);
-		if(arg == null)
-		{
+		IHasSpawnList match = (IHasSpawnList) StructureDataHandler.getStructureAtPosition(pos, world, PREDICATE_SPAWNABLE);
+		
+		if(match == null)
 			return entries;
-		}
 		else
 		{
-			if(arg.shouldOverride)
-				return arg.entries;
+			System.out.println("HAS ENTRIES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			if(match.replaceOldList())
+				return match.getSpawnables();
 			else
 			{
-				ArrayList<SpawnListEntry> list = new ArrayList<SpawnListEntry>();
-				list.addAll(entries);
-				list.addAll(arg.entries);
-				return list;
+				entries.addAll(match.getSpawnables());
+				return entries;
 			}
 		}
-		*/
-		
-		return entries;
 	}
 
 	@Override
-	public void func_225551_a_(WorldGenRegion p_225551_1_, IChunk p_225551_2_)
+	public void generateSurface(WorldGenRegion p_225551_1_, IChunk p_225551_2_)
 	{
+		
 	}
 }
