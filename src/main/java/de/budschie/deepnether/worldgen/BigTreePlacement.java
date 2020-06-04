@@ -20,7 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class BigTreePlacement extends Placement<IPlacementConfig>
 {
 	public static final int maxHeight = 110;
-	public static final int minHeight = 30;
+	public static final int minHeight = 50;
 	
 	public BigTreePlacement(Function<Dynamic<?>, ? extends IPlacementConfig> configFactoryIn)
 	{
@@ -30,12 +30,12 @@ public class BigTreePlacement extends Placement<IPlacementConfig>
 	@Override
 	public Stream<BlockPos> getPositions(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generatorIn, Random random, IPlacementConfig configIn, BlockPos pos)
 	{
-		if(random.nextInt(100) != 0)
+		if(random.nextInt(25) != 0)
 			return Stream.empty();
 		
 		int x = random.nextInt(4) + pos.getX();
 		int z = random.nextInt(4) + pos.getZ();
-		int y = -1;
+		int y = 1;
 		
 		loop:
 		for(int yInner = minHeight; yInner < maxHeight; yInner++)

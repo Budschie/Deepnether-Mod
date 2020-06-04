@@ -35,6 +35,8 @@ public class BigTreeFeature extends Feature<IFeatureConfig>
 		int maxSize = rand.nextInt(10)+10;
 		int maxRadius = rand.nextInt(6)+6;
 		
+		spawnLeaves(maxSize - 1 - rand.nextInt(5), pos, (rand.nextFloat() + 1)/2, rand, worldIn, maxSize/2, rand.nextInt(4) + 14);
+		
 		for(int i = 0; i < maxSize; i++)
 		{
 			float radius = getCurveForSize(maxSize, maxRadius, i, rand);
@@ -55,6 +57,26 @@ public class BigTreeFeature extends Feature<IFeatureConfig>
 		}
 		
 		return true;
+	}
+	
+	public void spawnLeaves(int at, BlockPos placePos, float decrease, Random random, IWorld world, int layers, float radiusStart)
+	{
+		float radius = radiusStart;
+		for(int i = 0; i < layers; i++)
+		{
+			Ellipse2D ellipse = new Ellipse2D.Float(-radius/2, -radius/2, radius, radius);
+			for(int x = (int) -radius; x < (int)radius; x++)
+			{
+				for(int z = (int) -radius; z < (int)radius; z++)
+				{
+					if(ellipse.contains(new Point(x, z)))
+					{
+						world.setBlockState(new BlockPos(placePos.getX() + x, placePos.getY() + i + at, placePos.getZ() + z), random.nextInt(5) == 0 ? BlockInit.ANCIENT_WITHERED_LEAVES.getDefaultState() : BlockInit.ANCIENT_LEAVES.getDefaultState(), 2);
+					}
+				}
+			}
+			radius-=decrease;
+		}
 	}
 	
 	/** Gets a radius for the maxSize/ currentPosition. currentPosition = 0 is the starting point**/
