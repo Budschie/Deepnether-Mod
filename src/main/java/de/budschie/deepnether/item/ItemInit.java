@@ -4,14 +4,17 @@ import static de.budschie.deepnether.item.ModItemTiers.CNR_TIER;
 import static de.budschie.deepnether.item.ModItemTiers.DYL_TIER;
 
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.block.CompressedNetherrackBlockItem;
 import de.budschie.deepnether.entity.EntityInit;
+import de.budschie.deepnether.item.rendering.DynamicCommonToolRendering;
 import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.util.ModItemGroups;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -61,4 +64,19 @@ public class ItemInit
 	public static final BaseItem AMYLITHE_ORB = new BaseItem("amylithe_orb", new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS));
 	
 	public static final BaseItem DYLITHITE_INGOT = new BaseItem("dylithite_ingot", new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS));
+	
+	public static final CommonTool COMMON_TOOL = new CommonTool(new Item.Properties().setISTER(() -> new Callable<ItemStackTileEntityRenderer>()
+	{
+		DynamicCommonToolRendering r = null;
+		
+		@Override
+		public ItemStackTileEntityRenderer call() throws Exception
+		{
+			if(r == null)
+				r = new DynamicCommonToolRendering();
+			
+			return r;
+		}
+		
+	}));
 }
