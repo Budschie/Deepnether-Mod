@@ -1,0 +1,5 @@
+{
+	"type":"deepnether:dyn_tool_serializer",
+	"crafting_recipe": [" X ", " I ", " I "],
+	"tool_type": "shovel"
+}

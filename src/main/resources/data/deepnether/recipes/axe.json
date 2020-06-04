@@ -1,0 +1,5 @@
+{
+	"type":"deepnether:dyn_tool_serializer",
+	"crafting_recipe": ["XX ", "XI ", " I "],
+	"tool_type": "axe"
+}
