@@ -23,11 +23,13 @@ public class EntityInit
 	public static final String HELL_DEVIL_ID = "hell_devil";
 	public static final String SHADOW_TRAP_ID = "shadow_trap";
 	public static final String SHADOW_ID = "shadow";
+	public static final String HELL_GOAT_ID = "hell_goat";
 	
 	public static EntityType<HellCreeperEntity> HELL_CREEPER = null;
 	public static EntityType<HellDevilEntity> HELL_DEVIL = null;
 	public static EntityType<ShadowTrapEntity> SHADOW_TRAP = null;
 	public static EntityType<ShadowEntity> SHADOW = null;
+	public static EntityType<HellGoatEntity> HELL_GOAT = null;
 	
 	public static void createEntityTypes()
 	{
@@ -94,6 +96,21 @@ public class EntityInit
 				.build(SHADOW_ID);
 		
 		SHADOW.setRegistryName(new ResourceLocation(References.MODID, SHADOW_ID));
+		
+		HELL_GOAT = EntityType.Builder.create(new IFactory<HellGoatEntity>()
+		{
+			@Override
+			public HellGoatEntity create(EntityType<HellGoatEntity> p_create_1_, World p_create_2_)
+			{
+				return new HellGoatEntity(p_create_1_, p_create_2_);
+			}
+		}, EntityClassification.CREATURE)
+				.setTrackingRange(26)
+				.immuneToFire()
+				.size(0.75f, 2.0f)
+				.build(HELL_GOAT_ID);
+		
+		HELL_GOAT.setRegistryName(new ResourceLocation(References.MODID, HELL_GOAT_ID));
 	}
 	
 	@SubscribeEvent
@@ -105,5 +122,6 @@ public class EntityInit
 		registry.register(HELL_DEVIL);
 		registry.register(SHADOW);
 		registry.register(SHADOW_TRAP);
+		registry.register(HELL_GOAT);
 	}
 }

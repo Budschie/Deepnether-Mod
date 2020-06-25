@@ -52,11 +52,10 @@ public class ShadowRenderer extends LivingRenderer<ShadowEntity, EntityModel<Sha
 			{
 				this.entityModel = new AbstractZombieModel<ShadowEntity>(0.0F, 0.0F, 64, 64)
 				{
-
 					@Override
-					public boolean func_212850_a_(ShadowEntity p_212850_1_)
+					public boolean isAggressive(ShadowEntity entityIn)
 					{
-						return true;
+						return false;
 					}
 				};
 			}

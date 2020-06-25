@@ -14,6 +14,15 @@ public class EntityRenderInit
 {
 	public static void registerEntityRenders()
 	{
+		RenderingRegistry.registerEntityRenderingHandler(EntityInit.SHADOW_TRAP, new IRenderFactory<ShadowTrapEntity>()
+		{
+			@Override
+			public EntityRenderer<? super ShadowTrapEntity> createRenderFor(EntityRendererManager manager)
+			{
+				return new EmptyRenderer(manager);
+			}
+		});
+		
 		RenderingRegistry.registerEntityRenderingHandler(EntityInit.HELL_CREEPER, new IRenderFactory<HellCreeperEntity>()
 		{
 			@Override
@@ -32,15 +41,6 @@ public class EntityRenderInit
 			}
 		});
 		
-		RenderingRegistry.registerEntityRenderingHandler(EntityInit.SHADOW_TRAP, new IRenderFactory<ShadowTrapEntity>()
-		{
-			@Override
-			public EntityRenderer<? super ShadowTrapEntity> createRenderFor(EntityRendererManager manager)
-			{
-				return new EmptyRenderer(manager);
-			}
-		});
-		
 		RenderingRegistry.registerEntityRenderingHandler(EntityInit.SHADOW, new IRenderFactory<ShadowEntity>()
 		{
 			@Override
@@ -49,5 +49,7 @@ public class EntityRenderInit
 				return new ShadowRenderer(manager);
 			}
 		});
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityInit.HELL_GOAT, (manager) -> new HellGoatRenderer(manager));
 	}
 }
