@@ -7,9 +7,11 @@ import org.apache.logging.log4j.Logger;
 
 import de.budschie.deepnether.biomes.BiomeFeatureAdder;
 import de.budschie.deepnether.block.BlockInit;
+import de.budschie.deepnether.block.fluids.FluidInit;
 import de.budschie.deepnether.capabilities.ToolDefinitionCapability;
 import de.budschie.deepnether.commands.CommandPlaceStructure;
 import de.budschie.deepnether.commands.CommandPlaceTree;
+import de.budschie.deepnether.commands.CommandPlayIntro;
 import de.budschie.deepnether.commands.CommandSaveSelection;
 import de.budschie.deepnether.commands.CommandToggleSel;
 import de.budschie.deepnether.container.DeepNetherBlastFurnaceContainer;
@@ -20,6 +22,7 @@ import de.budschie.deepnether.item.ItemInit;
 import de.budschie.deepnether.item.ToolUsableItemRegistry;
 import de.budschie.deepnether.item.recipes.ToolRecipeSerializerRegistry;
 import de.budschie.deepnether.networking.FogSeedMessageRecieve;
+import de.budschie.deepnether.networking.PlayIntroMessage;
 import de.budschie.deepnether.networking.PullFogMessage;
 import de.budschie.deepnether.networking.StructureIDPacket;
 import de.budschie.deepnether.tileentities.RecipesDeepnetherBlastFurnace;
@@ -73,6 +76,7 @@ public class DeepnetherMain
         Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         Features.PLACEMENTS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ToolRecipeSerializerRegistry.DEF_REG_RECIPE.register(FMLJavaModLoadingContext.get().getModEventBus());
+        FluidInit.DEF_REG_FLUID.register(FMLJavaModLoadingContext.get().getModEventBus());
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -88,6 +92,7 @@ public class DeepnetherMain
     	INSTANCE.<FogSeedMessageRecieve>registerMessage(disc++, FogSeedMessageRecieve.class, FogSeedMessageRecieve::encodeAtServer, FogSeedMessageRecieve::decodeAtClient, FogSeedMessageRecieve::handleAtClient);
     	INSTANCE.<PullFogMessage>registerMessage(disc++, PullFogMessage.class, PullFogMessage::pull, PullFogMessage::pulled, PullFogMessage::handleAtServer);
     	INSTANCE.<StructureIDPacket>registerMessage(disc++, StructureIDPacket.class, StructureIDPacket::encodeAtServer, StructureIDPacket::decodeAtClient, StructureIDPacket::handleAtClient);
+    	INSTANCE.<PlayIntroMessage>registerMessage(disc++, PlayIntroMessage.class, PlayIntroMessage::encodeAtServer, PlayIntroMessage::decodeAtClient, PlayIntroMessage::handleAtClient);
     	//LOGGER.info("HELLO FROM PREINIT");
         //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     	RecipesDeepnetherBlastFurnace.registerModRecipes();
@@ -149,5 +154,6 @@ public class DeepnetherMain
     	CommandSaveSelection.registerCommandTpDim(event.getCommandDispatcher());
     	CommandPlaceStructure.registerCommandTpDim(event.getCommandDispatcher());
     	CommandPlaceTree.register(event.getCommandDispatcher());
+    	CommandPlayIntro.register(event.getCommandDispatcher());
     }
 }
