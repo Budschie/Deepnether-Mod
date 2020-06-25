@@ -2,32 +2,29 @@ package de.budschie.deepnether.block;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Supplier;
 
 import org.apache.logging.log4j.LogManager;
 
+import de.budschie.deepnether.block.fluids.FluidInit;
 import de.budschie.deepnether.entity.damagesource.DamageSourceLiveSucking;
 import de.budschie.deepnether.item.ModToolTypes;
-import de.budschie.deepnether.item.ToolGroup;
 import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.util.ModItemGroups;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.GlassBlock;
-import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.Block.Properties;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
-import net.minecraft.world.gen.feature.OreFeature;
-import net.minecraft.world.gen.feature.structure.OceanMonumentStructure;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.Tags.Blocks;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -50,6 +47,8 @@ public class BlockInit
 			
 			LogManager.getLogger().info("Registered block " + block.getRegistryName().toString() + ".");
 		}
+		
+		reg.register(HOT_JELLY_FLUID_BLOCK.setRegistryName(new ResourceLocation(References.MODID, "hot_jelly_fluid_block")));
 	}
 	
 	/*
@@ -62,7 +61,7 @@ public class BlockInit
 		}
 	}
 	*/
-	
+		
 	public static final BaseBlock COMPRESSED_NETHERRACK = new BaseBlock(ModProperties.MOD_STONE_PROPERTY, "compressed_netherrack", null, false);
 	public static final BaseBlock AMYLITHE_ORE = new BaseBlock(ModProperties.MOD_ORE_BASE, "amylithe_ore", ModItemGroups.MOD_BLOCKS);
 	public static final BaseBlock DYLITHITE_ORE = new BaseBlock(ModProperties.MOD_ORE_BASE.harvestTool(ModToolTypes.MOD_PICKAXE).harvestLevel(0), "dylithite_ore", ModItemGroups.MOD_BLOCKS);
@@ -190,4 +189,15 @@ public class BlockInit
 	public static final AncientLog ANCIENT_LOG = new AncientLog("ancient_log", ModItemGroups.MOD_BLOCKS);
 	public static final ModLeavesBlock ANCIENT_LEAVES = new ModLeavesBlock(ModProperties.MOD_LEAVES, "ancient_leaves", ModItemGroups.MOD_BLOCKS);
 	public static final ModLeavesBlock ANCIENT_WITHERED_LEAVES = new ModLeavesBlock(ModProperties.MOD_LEAVES, "ancient_leaves_withered", ModItemGroups.MOD_BLOCKS);
+	
+	public static final FlowingFluidBlock HOT_JELLY_FLUID_BLOCK = new FlowingFluidBlock(new Supplier<FlowingFluid>()
+	{
+
+		@Override
+		public FlowingFluid get()
+		{
+			return (FlowingFluid)FluidInit.HOT_JELLY_FLUID.get();
+		}
+		
+	}, ModProperties.MOD_LAVA);
 }

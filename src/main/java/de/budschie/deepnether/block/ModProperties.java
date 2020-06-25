@@ -1,5 +1,7 @@
 package de.budschie.deepnether.block;
 
+import net.minecraft.block.IceBlock;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.material.Material;
@@ -25,4 +27,10 @@ public class ModProperties
 	
 	/** Planks **/
 	public static final Properties MOD_LOG_BLOCK = Properties.create(Material.ROCK).harvestLevel(0).hardnessAndResistance(.65f, 5f);
+	
+	/** Leaf **/
+	public static final Properties MOD_LEAVES = Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(0.65f, 30.0f).variableOpacity().notSolid();
+	
+	/** Fluids **/
+	public static final Properties MOD_LAVA = Properties.create(Material.LAVA).doesNotBlockMovement().notSolid().noDrops().variableOpacity();
 }
