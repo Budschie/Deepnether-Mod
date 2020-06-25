@@ -24,7 +24,7 @@ public class DimensionDeepnether extends Dimension
 {
 	private boolean hasPulled = false;
 	private long seed = 0;
-	DeepnetherBiomeProvider biomeProvider;
+	DeepnetherBiomeProviderOld biomeProvider;
 	
 	// Works JUST with FORGE EVENT BUS and STATIC 
 	@SubscribeEvent
@@ -43,7 +43,7 @@ public class DimensionDeepnether extends Dimension
 		if(this.seed != seed || biomeProvider == null)
 		{
 			this.seed = seed;
-			biomeProvider = new DeepnetherBiomeProvider(seed, 1000.0f, BiomeRegistry.DEEPNETHER_BIOME, BiomeRegistry.FLOATING_ISLANDS_BIOME, BiomeRegistry.CRYSTAL_CAVE_BIOME);
+			biomeProvider = new DeepnetherBiomeProviderOld(seed, 1250.0f, BiomeRegistry.LAVA_BIOME, BiomeRegistry.DEEPNETHER_BIOME, BiomeRegistry.FLOATING_ISLANDS_BIOME, BiomeRegistry.CRYSTAL_CAVE_BIOME);
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class DimensionDeepnether extends Dimension
 	@Override
 	public ChunkGenerator<?> createChunkGenerator()
 	{
-		biomeProvider = new DeepnetherBiomeProvider(world.getSeed(), 1000.0f, BiomeRegistry.DEEPNETHER_BIOME, BiomeRegistry.FLOATING_ISLANDS_BIOME, BiomeRegistry.CRYSTAL_CAVE_BIOME);
+		biomeProvider = new DeepnetherBiomeProviderOld(world.getSeed(), 1250.0f, BiomeRegistry.LAVA_BIOME, BiomeRegistry.DEEPNETHER_BIOME, BiomeRegistry.FLOATING_ISLANDS_BIOME, BiomeRegistry.CRYSTAL_CAVE_BIOME);
 		return new DeepnetherChunkGenerator(world, biomeProvider);
 	}
 

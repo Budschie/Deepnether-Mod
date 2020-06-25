@@ -72,9 +72,9 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 	
 	
 	@Override
-	public DeepnetherBiomeProvider getBiomeProvider()
+	public DeepnetherBiomeProviderOld getBiomeProvider()
 	{
-		return (DeepnetherBiomeProvider) super.getBiomeProvider();
+		return (DeepnetherBiomeProviderOld) super.getBiomeProvider();
 	}
 	
 	@Override
@@ -104,7 +104,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 	@Override
 	public void generateBiomes(IChunk chunkIn)
 	{
-		((ChunkPrimer)chunkIn).func_225548_a_(new BiomeContainer(((DeepnetherBiomeProvider)biomeProvider).getBiomesAsArray(chunkIn.getPos().getXStart(), chunkIn.getPos().getZStart(), 16, 16)));
+		((ChunkPrimer)chunkIn).func_225548_a_(new BiomeContainer(((DeepnetherBiomeProviderOld)biomeProvider).getBiomesAsArray(chunkIn.getPos().getXStart(), chunkIn.getPos().getZStart(), 16, 16)));
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 	
 	public void buildSurface(ChunkPrimer primer, int xIn, int zIn, BlockState[][] topBlocks, BlockState[][] lavaBlocks, DeepnetherBiomeBase[][] biomes)
 	{
-		int maxTerr[][] = ((DeepnetherBiomeProvider)this.getBiomeProvider()).getInterpolatedHeightMap((xIn * 16), (zIn * 16), 16, 16, 20);
+		int maxTerr[][] = ((DeepnetherBiomeProviderOld)this.getBiomeProvider()).getInterpolatedHeightMap((xIn * 16), (zIn * 16), 16, 16, 20);
 		float fSizeClouds = FEATURE_SIZE * 2;
 		float mixAmount = 1.0f;
 		float pValClouds[][] = new float[16][16];
@@ -425,7 +425,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator<GenerationSettings>
 		}
 		
 		
-		float[][] interpolatedMap = DeepnetherBiomeProvider.interpolate(stretchInterpolate, islandRadius);
+		float[][] interpolatedMap = DeepnetherBiomeProviderOld.interpolate(stretchInterpolate, islandRadius);
 		
 		
 		pos = 0;
