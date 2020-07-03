@@ -34,7 +34,6 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z)
 	{
-		NetherBiomeProvider
 		return null;
 	}
 
@@ -49,5 +48,4 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	{
 		return null;
 	}
-	
 }
