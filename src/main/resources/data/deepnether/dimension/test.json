@@ -1,0 +1,13 @@
+{
+	"type":"minecraft:overworld",
+	"generator":
+	{
+		"type":"deepnether:deepnether",
+		"seed":1234,
+		"biome_source":
+		{
+			"type":"deepnether:yeet",
+			"seed":1234
+		}
+	}
+}

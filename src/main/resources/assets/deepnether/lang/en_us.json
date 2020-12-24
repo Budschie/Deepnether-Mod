@@ -1,0 +1,46 @@
+{
+  "block.deepnether.compressed_netherrack": "Compressed Netherrack",
+  "block.deepnether.hot_stone": "Hot Stone",
+  "block.deepnether.soul_brick": "Soul Brick",
+  "block.deepnether.strong_soul_brick": "Strong Soul Brick",
+  "block.deepnether.broken_soul_brick": "Broken Soul Brick",
+  "block.deepnether.hot_soul_brick": "Hot Soul Brick",
+  "block.deepnether.soul_dust": "Soul Dust",
+  "block.deepnether.fireproof_glass": "Fireproof Glass",
+  "block.deepnether.shining_fireproof_glass": "Shining Fireproof Glass",
+  "block.deepnether.nether_crystal_red": "Red Nether Crystal",
+  "block.deepnether.nether_crystal_blue": "Blue Nether Crystal",
+  "block.deepnether.nether_crystal_green": "Green Nether Crystal",
+  "block.deepnether.nether_crystal_purple": "Purple Nether Crystal",
+  "block.deepnether.nether_crystal_yellow": "Yellow Nether Crystal",
+  "item.deepnether.sword_cnr": "Compressed Netherrack Sword",
+  "item.deepnether.sword_dyl": "Dylithite Sword",
+  "item.deepnether.pickaxe_cnr": "Compressed Netherrack Pickaxe",
+  "item.deepnether.axe_cnr": "Compressed Netherrack Axe",
+  "item.deepnether.shovel_cnr": "Compressed Netherrack Shovel",
+  "block.deepnether.shovel_dyl": "Dylithite Shovel",
+  "block.deepnether.axe_dyl": "Dylithite Axe",
+  "block.deepnether.pickaxe_dyl": "Dylithite Pickaxe",
+  "block.deepnether.chest_cnr": "Compressed Netherrack Chestplate",
+  "block.deepnether.helmet_cnr": "Compressed Netherrack Helmet",
+  "block.deepnether.boots_cnr": "Compressed Netherrack Boots",
+  "block.deepnether.leggings_cnr": "Compressed Netherrack Leggings",
+  "block.deepnether.leggings_dyl": "Dylithite Leggings",
+  "block.deepnether.helmet_dyl": "Dylithite Helmet",
+  "block.deepnether.chest_dyl": "Dylithite Chestplate",
+  "block.deepnether.boots_dyl": "Dylithite Boots"
+,"block.deepnether.amylithe_orb": "Amylithe Orb"
+,"block.deepnether.amylithe_orb": "Amylithe Orb"
+,"block.deepnether.amylite_orb": "Amylithe Orb"
+,"item.deepnether.dylithite_ingot": "Dylithite Ingot"
+,"block.deepnether.amylithe_shard": "Amylithe Shard"
+,"block.deepnether.amylithe_orb": "Amylithe Orb"
+,"block.deepnether.amylithe_shard": "Amylithe Shard"
+,"block.deepnether.nether_dust_grass_block": "Nether Dust Grass Block"
+,"block.deepnether.nether_dust_grass": "Nether Dust Grass"
+,"block.deepnether.ancient_leaves": "Ancient Leaves"
+,"tooltype.pickaxe": "Pickaxe"
+,"tooltype.sword": "Sword"
+,"tooltype.shovel": "Shovel"
+,"tooltype.axe": "Axe"
+}

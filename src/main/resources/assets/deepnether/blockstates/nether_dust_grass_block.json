@@ -1,0 +1,6 @@
+{
+    "variants":
+    {
+        "":[{"model":"deepnether:block/nether_dust_grass_block"},{"model":"deepnether:block/nether_dust_grass_block", "y":90},{"model":"deepnether:block/nether_dust_grass_block", "y":180},{"model":"deepnether:block/nether_dust_grass_block", "y":270}]
+    }
+}

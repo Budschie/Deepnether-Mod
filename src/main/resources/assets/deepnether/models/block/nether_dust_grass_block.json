@@ -1,0 +1,37 @@
+{
+    "parent":"minecraft:block/block",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "deepnether:block/soul_dust",
+		"1": "deepnether:block/netherdust_grass_side2",
+		"2": "deepnether:block/netherdust_grass_top",
+		"3": "deepnether:block/netherdust_grass_side",
+		"4": "deepnether:block/netherdust_grass_side3",
+		"5": "deepnether:block/netherdust_grass_side4",
+		"particle": "deepnether:block/soul_dust"
+	},
+	"elements": [
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface":"north"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface":"east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface":"south"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface":"west"},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#2", "cullface":"up"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#0", "cullface":"down"}
+			}
+		},
+		{
+			"from": [0, 0, 0],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 0, 16, 16], "texture": "#1", "cullface":"north"},
+				"east": {"uv": [0, 0, 16, 16], "texture": "#5", "cullface":"east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#3", "cullface":"south"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#4", "cullface":"west"}
+			}
+		}
+	]
+}

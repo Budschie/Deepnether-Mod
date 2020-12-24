@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "full=false,half=bottom": { "model": "deepnether:half_slab_soulbrick" },
+        "full=false,half=top": { "model": "deepnether:upper_slab_soulbrick" },
+		"full=true,half=bottom": { "model": "deepnether:soul_brick"}
+    }
+}
