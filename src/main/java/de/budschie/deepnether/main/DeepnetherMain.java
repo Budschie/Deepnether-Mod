@@ -5,12 +5,15 @@ import static de.budschie.deepnether.networking.DeepnetherPacketHandler.INSTANCE
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.budschie.deepnether.biomes.DeepnetherBiomeRegistry;
+import de.budschie.deepnether.biomes.biome_data_handler.BiomeDataHandler;
+import de.budschie.deepnether.biomes.biome_data_handler.DeepnetherBiomeData;
+import de.budschie.deepnether.biomes.biome_data_handler.GreenForestBiomeData;
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.block.fluids.FluidInit;
 import de.budschie.deepnether.capabilities.ToolDefinitionCapability;
 import de.budschie.deepnether.container.DeepNetherBlastFurnaceContainer;
 import de.budschie.deepnether.dimension.DeepnetherBiomeProvider;
+import de.budschie.deepnether.dimension.DeepnetherChunkGenerator;
 import de.budschie.deepnether.entity.renders.EntityRenderInit;
 import de.budschie.deepnether.gui.NetherBlastFurnaceGUI;
 import de.budschie.deepnether.item.ToolUsableItemRegistry;
@@ -24,9 +27,8 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -60,9 +62,7 @@ public class DeepnetherMain
         
       //  Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ToolRecipeSerializerRegistry.DEF_REG_RECIPE.register(FMLJavaModLoadingContext.get().getModEventBus());
-        //FluidInit.DEF_REG_FLUID.register(FMLJavaModLoadingContext.get().getModEventBus());
-        DeepnetherBiomeRegistry.BIOME_REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
-
+        FluidInit.DEF_REG_FLUID.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
      }
@@ -83,10 +83,13 @@ public class DeepnetherMain
         //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     	RecipesDeepnetherBlastFurnace.registerModRecipes();
     	
-    	Registry.register(Registry.CHUNK_GENERATOR_CODEC, "deepnether:deepnether", ChunkGenerator.field_235948_a_);
+    	Registry.register(Registry.CHUNK_GENERATOR_CODEC, "deepnether:deepnether", DeepnetherChunkGenerator.CODEC);
     	Registry.register(Registry.BIOME_PROVIDER_CODEC, "deepnether:yeet", DeepnetherBiomeProvider.CODEC);
     	
     	ToolUsableItemRegistry.init();
+    	
+    	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "green_forest_biome"), new GreenForestBiomeData());
+    	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "deepnether"), new DeepnetherBiomeData());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) 
