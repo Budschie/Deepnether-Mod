@@ -1,0 +1,25 @@
+{
+    "precipitation": "none",
+    "category": "nether",
+    "depth": 40,
+    "scale": 1,
+    "temperature": 50,
+    "temperature_modifier": "none",
+    "downfall": 1,
+    "effects": 
+    {
+        "fog_color": 0,
+        "foliage_color": 0,
+        "water_fog_color": 0,
+        "grass_color_modifier": "none"
+    },
+    "features":
+    {
+
+    },
+    "starts":
+    {
+
+    },
+    "carvers": []
+}
