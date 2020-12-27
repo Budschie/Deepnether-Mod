@@ -15,6 +15,11 @@ public class BiomeDataHandler
 	
 	public static IDeepnetherBiomeData getBiomeData(ResourceLocation resourceLocation)
 	{
-		return map.get(resourceLocation);
+		IDeepnetherBiomeData data = map.get(resourceLocation);
+		
+		if(data == null)
+			System.err.println("There is no data for " + resourceLocation);
+		
+		return data;
 	}
 }
