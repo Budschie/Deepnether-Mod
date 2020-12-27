@@ -5,6 +5,7 @@ import static de.budschie.deepnether.networking.DeepnetherPacketHandler.INSTANCE
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.budschie.deepnether.biomes.BiomeRegistry;
 import de.budschie.deepnether.biomes.biome_data_handler.BiomeDataHandler;
 import de.budschie.deepnether.biomes.biome_data_handler.DeepnetherBiomeData;
 import de.budschie.deepnether.biomes.biome_data_handler.GreenForestBiomeData;
@@ -27,8 +28,12 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -63,6 +68,7 @@ public class DeepnetherMain
       //  Features.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ToolRecipeSerializerRegistry.DEF_REG_RECIPE.register(FMLJavaModLoadingContext.get().getModEventBus());
         FluidInit.DEF_REG_FLUID.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BiomeRegistry.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
      }
@@ -73,7 +79,7 @@ public class DeepnetherMain
     {
     	System.out.println("Setup...");
     	ToolDefinitionCapability.register();
-
+    	
         // some preinit code
     	INSTANCE.<FogSeedMessageRecieve>registerMessage(disc++, FogSeedMessageRecieve.class, FogSeedMessageRecieve::encodeAtServer, FogSeedMessageRecieve::decodeAtClient, FogSeedMessageRecieve::handleAtClient);
     	INSTANCE.<PullFogMessage>registerMessage(disc++, PullFogMessage.class, PullFogMessage::pull, PullFogMessage::pulled, PullFogMessage::handleAtServer);
@@ -83,8 +89,9 @@ public class DeepnetherMain
         //LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     	RecipesDeepnetherBlastFurnace.registerModRecipes();
     	
-    	Registry.register(Registry.CHUNK_GENERATOR_CODEC, "deepnether:deepnether", DeepnetherChunkGenerator.CODEC);
-    	Registry.register(Registry.BIOME_PROVIDER_CODEC, "deepnether:yeet", DeepnetherBiomeProvider.CODEC);
+    	Registry.register(Registry.CHUNK_GENERATOR_CODEC, "deepnether:deepnether_generator", DeepnetherChunkGenerator.CODEC);
+    	Registry.register(Registry.BIOME_PROVIDER_CODEC, "deepnether:deepnether_biome", DeepnetherBiomeProvider.CODEC);
+    	RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(References.MODID, "green_forest_biome"));
     	
     	ToolUsableItemRegistry.init();
     	
