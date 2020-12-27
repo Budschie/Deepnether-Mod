@@ -1,13 +1,17 @@
 package de.budschie.deepnether.dimension;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import de.budschie.deepnether.biomes.biome_data_handler.BiomeDataHandler;
 import de.budschie.deepnether.biomes.biome_data_handler.IDeepnetherBiomeData;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.BiomeGeneratorBase;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -16,15 +20,24 @@ import net.minecraft.world.gen.OctavesNoiseGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class DeepnetherChunkGenerator extends ChunkGenerator
 {
+	public static final Codec<DeepnetherChunkGenerator> CODEC = RecordCodecBuilder.create((builder) -> {
+	      return builder.group(BiomeProvider.CODEC.fieldOf("biome_source").forGetter((obj) -> {
+	         return obj.biomeProvider;
+	      }), Codec.LONG.fieldOf("seed").stable().forGetter((obj) -> {
+	         return obj.seed;
+	      })).apply(builder, builder.stable(DeepnetherChunkGenerator::new));
+	   });
+	
 	long seed;
 	OctavesNoiseGenerator noiseGenerator;
 	
-	public DeepnetherChunkGenerator(BiomeProvider firstBiomeProvider, BiomeProvider secondBiomeProvider, DimensionStructuresSettings settings, long seed)
+	public DeepnetherChunkGenerator(BiomeProvider firstBiomeProvider, long seed)
 	{
-		super(firstBiomeProvider, secondBiomeProvider, settings, seed);
+		super(firstBiomeProvider, firstBiomeProvider, new DimensionStructuresSettings(true), seed);
 		
 		this.seed = seed;
 	}
@@ -32,7 +45,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 	@Override
 	protected Codec<? extends ChunkGenerator> func_230347_a_()
 	{
-		return null;
+		return CODEC;
 	}
 
 	@Override
@@ -58,10 +71,8 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 				DeepnetherBiomeBase deepnetherBiomeBase = this.biomeProvider.getNoiseBiome(posXStart + x, 0, posZStart + z);
 				BiomeGeneratorBase biomeGenerator = deepnetherBiomeBase.getBiomeGenerator();
 				*/
-				
-				IDeepnetherBiomeData data = BiomeDataHandler.getBiomeData(worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z)).getRegistryName());
-				BiomeGeneratorBase biomeGenerator = data.getBiomeGenerator();
-				
+				Biome biome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
+				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(biome.getRegistryName()).getBiomeGenerator();
 				heightmap[x][z] = biomeGenerator.getGroundHeight(seed, posXStart + x, posZStart + z);
 			}
 		}
@@ -70,11 +81,11 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 		{
 			for(int z = 0; z < 16; z++)
 			{
-				IDeepnetherBiomeData data = BiomeDataHandler.getBiomeData(worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z)).getRegistryName());
-				BiomeGeneratorBase biomeGenerator = data.getBiomeGenerator();
+				Biome biome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
+				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(biome.getRegistryName()).getBiomeGenerator();
 				
 				biomeGenerator.preprocess(posXStart + x, posZStart + z, heightmap[x][z], seed, (DeepnetherBiomeProvider)biomeProvider);
-				
+			
 				for(int y = 0; y < biomeGenerator.getGenerationHeight(); y++)
 				{
 					chunk.setBlockState(new BlockPos(posXStart + x, 0, posZStart + z), biomeGenerator.pickBlock(posXStart + x, y, posZStart + z, heightmap[x][z], seed, (DeepnetherBiomeProvider)biomeProvider), false);
