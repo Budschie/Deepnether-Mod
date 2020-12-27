@@ -1,13 +1,11 @@
 {
-	"type":"minecraft:overworld",
-	"generator":
-	{
-		"type":"deepnether:deepnether",
-		"seed":1234,
-		"biome_source":
-		{
-			"type":"deepnether:yeet",
-			"seed":1234
-		}
-	}
+	"generator": {
+	  "type": "deepnether:deepnether_generator",
+	  "seed": 286956243,
+	  "biome_source": {
+		"type": "deepnether:deepnether_biome",
+		"seed": 286956243
+	  }
+	},
+	"type": "minecraft:overworld"
 }
