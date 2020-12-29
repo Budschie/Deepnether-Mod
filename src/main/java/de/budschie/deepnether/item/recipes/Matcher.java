@@ -104,7 +104,7 @@ public class Matcher
 		
 		for(String string : str)
 			if(!string.contains("X"))
-				throw new IllegalStateException("This cant be");
+				throw new IllegalStateException("Illegal JSON file. Program will exit.");
 		
 		return str;
 	}

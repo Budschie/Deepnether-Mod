@@ -40,15 +40,12 @@ public class ToolRecipeSerializer extends ForgeRegistryEntry<IRecipeSerializer<?
 		str[1] = buffer.readString(3);
 		str[2] = buffer.readString(3);
 		
-		System.out.println("WOOOOOW!");
-		
 		return new ToolRecipe(Matcher.fromString(str), ToolType.get(buffer.readString()), recipeId);
 	}
 
 	@Override
 	public void write(PacketBuffer buffer, ToolRecipe recipe)
 	{
-		System.out.println("WOOOOOW!");
 		String[] array = recipe.getMatcher().toStringForNetworking();
 		
 		for(String str : array)
