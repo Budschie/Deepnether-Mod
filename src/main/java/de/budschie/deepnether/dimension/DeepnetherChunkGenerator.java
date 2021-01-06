@@ -72,7 +72,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 				BiomeGeneratorBase biomeGenerator = deepnetherBiomeBase.getBiomeGenerator();
 				*/
 				Biome biome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
-				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(biome.getRegistryName()).getBiomeGenerator();
+				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(ForgeRegistries.BIOMES.getKey(biome)).getBiomeGenerator();
 				heightmap[x][z] = biomeGenerator.getGroundHeight(seed, posXStart + x, posZStart + z);
 			}
 		}
@@ -82,7 +82,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 			for(int z = 0; z < 16; z++)
 			{
 				Biome biome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
-				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(biome.getRegistryName()).getBiomeGenerator();
+				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(ForgeRegistries.BIOMES.getKey(biome)).getBiomeGenerator();
 				
 				biomeGenerator.preprocess(posXStart + x, posZStart + z, heightmap[x][z], seed, (DeepnetherBiomeProvider)biomeProvider);
 			

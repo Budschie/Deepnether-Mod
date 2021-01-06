@@ -84,7 +84,8 @@ public class Matcher
 	
 	public String[] toStringForNetworking()
 	{
-		String[] str = new String[3];
+		String[] str = new String[] {"", "", ""};
+		
 		for(int y = 0; y < 3; y++)
 		{
 			for(int x = 0; x < 3; x++)
@@ -102,9 +103,11 @@ public class Matcher
 			}
 		}
 		
+		/*
 		for(String string : str)
 			if(!string.contains("X"))
 				throw new IllegalStateException("Illegal JSON file. Program will exit.");
+				*/
 		
 		return str;
 	}

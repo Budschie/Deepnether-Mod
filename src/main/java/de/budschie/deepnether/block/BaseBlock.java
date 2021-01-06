@@ -3,11 +3,13 @@ package de.budschie.deepnether.block;
 import de.budschie.deepnether.item.ItemInit;
 import de.budschie.deepnether.main.References;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
+import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.ResourceLocation;
 
 /** An abstract base block for creating decoration blocks **/

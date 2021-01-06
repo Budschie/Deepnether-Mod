@@ -1,0 +1,12 @@
+{
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:forest": "2020-12-24 15:10:57 +0100",
+      "minecraft:dark_forest": "2020-12-24 15:11:45 +0100",
+      "minecraft:wooded_hills": "2020-12-24 15:08:30 +0100",
+      "minecraft:plains": "2020-12-24 15:11:51 +0100"
+    },
+    "done": false
+  },
+  "DataVersion": 2580
+}

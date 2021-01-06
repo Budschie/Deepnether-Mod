@@ -21,15 +21,14 @@ public class NetherBlastFurnaceGUI extends ContainerScreen<DeepNetherBlastFurnac
 		super(screenContainer, inv, titleIn);
 	}
 
+	@SuppressWarnings("resource")
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y)
 	{
-		/*
         for(Slot slot : this.getContainer().inventorySlots)
         {
-        	Minecraft.getInstance().fontRenderer.drawString(Integer.valueOf(slot.getSlotIndex()).toString(), slot.xPos + i, slot.yPos + j, 1399464);
+        	Minecraft.getInstance().fontRenderer.drawString(matrixStack, Integer.valueOf(slot.getSlotIndex()).toString(), slot.xPos + x, slot.yPos + y, 1399464);
         }
-        */
 	}
 	
 	public static final IScreenFactory<DeepNetherBlastFurnaceContainer, NetherBlastFurnaceGUI> FACTORY = new IScreenFactory<DeepNetherBlastFurnaceContainer, NetherBlastFurnaceGUI>()

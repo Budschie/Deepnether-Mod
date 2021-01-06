@@ -1,13 +1,13 @@
 package de.budschie.deepnether.block;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.apache.logging.log4j.LogManager;
 
-import de.budschie.deepnether.biomes.DeepnetherBiomeRegistry;
 import de.budschie.deepnether.block.fluids.FluidInit;
 import de.budschie.deepnether.entity.damagesource.DamageSourceLiveSucking;
 import de.budschie.deepnether.item.ModToolTypes;
@@ -40,7 +40,7 @@ public class BlockInit
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)
-	{
+	{		
 		IForgeRegistry<Block> reg = event.getRegistry();
 		
 		for(Block block : MOD_BLOCKS)
@@ -213,11 +213,11 @@ public class BlockInit
 		@Override
 		public boolean canSpread(BlockState stateBlock, BlockState stateAbove, BlockPos stateBlockPos, ServerWorld worldIn)
 		{
-			return (stateAbove == Blocks.AIR.getDefaultState() || stateAbove.isTransparent()) && worldIn.getBiome(stateBlockPos) == DeepnetherBiomeRegistry.GREEN_FOREST_BIOME.get();
+			return (stateAbove == Blocks.AIR.getDefaultState() || stateAbove.isTransparent()) && worldIn.getBiome(stateBlockPos).getRegistryName().equals(new ResourceLocation("deepnether:green_forest_biome"));
 		}
 	};
 	
-	public static final NetherGrassBlockBase GREEN_FOREST_FERTILIUM_GRASS_BLOCK = new NetherGrassBlockBase(ModProperties.MOD_GRASS_BLOCK.sound(SoundType.SAND), "green_forest_compressed_netherrack_grass_block", ModItemGroups.MOD_BLOCKS)
+	public static final NetherGrassBlockBase GREEN_FOREST_FERTILIUM_GRASS_BLOCK = new NetherGrassBlockBase(ModProperties.MOD_GRASS_BLOCK.sound(SoundType.SAND), "green_forest_fertilium_grass_block", ModItemGroups.MOD_BLOCKS)
 	{
 
 		@Override

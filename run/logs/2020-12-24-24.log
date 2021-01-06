@@ -1,0 +1,31 @@
+[24Dez.2020 23:15:20.612] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--gameDir, ., --launchTarget, fmluserdevclient, --fml.mcpVersion, 20200911.084530, --fml.mcVersion, 1.16.3, --fml.forgeGroup, net.minecraftforge, --fml.forgeVersion, 34.1.18, --version, MOD_DEV, --assetIndex, 1.16, --assetsDir, C:\Users\Budschie\.gradle\caches\forge_gradle\assets, --username, Dev, --accessToken, ????????, --userProperties, {}]
+[24Dez.2020 23:15:20.617] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 7.0.1+78+master.e9771d8 starting: java version 13.0.1 by Oracle Corporation
+[24Dez.2020 23:15:20.962] [main/INFO] [net.minecraftforge.fml.loading.FixSSL/CORE]: Added Lets Encrypt root certificates as additional trust
+[24Dez.2020 23:15:21.019] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.2 Source=file:/C:/Users/Budschie/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.2/1cf212283d26f706fd3074318870bebd14d2a9ed/mixin-0.8.2.jar Service=ModLauncher Env=CLIENT
+[24Dez.2020 23:15:21.858] [main/INFO] [STDERR/]: [jdk.nashorn.api.scripting.NashornScriptEngine:<init>:143]: Warning: Nashorn engine is planned to be removed from a future JDK release
+[24Dez.2020 23:15:22.225] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'fmluserdevclient' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\Budschie\.gradle\caches\forge_gradle\assets, --assetIndex, 1.16, --username, Dev, --accessToken, ????????, --userProperties, {}]
+[24Dez.2020 23:15:26.711] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', name='PROD'
+[24Dez.2020 23:15:26.715] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[24Dez.2020 23:15:26.793] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.2.2 build 10
+[24Dez.2020 23:15:27.208] [modloading-worker-18/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 34.1.18, for MC 1.16.3 with MCP 20200911.084530
+[24Dez.2020 23:15:27.208] [modloading-worker-18/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v34.1.18 Initialized
+[24Dez.2020 23:15:27.406] [Render thread/INFO] [STDOUT/]: [de.budschie.deepnether.block.BlockInit:registerBlocks:45]: REGISTRYYY
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:compressed_netherrack.
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:amylithe_ore.
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:dylithite_ore.
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:soul_dust.
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:soul_brick.
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:broken_soul_brick.
+[24Dez.2020 23:15:27.407] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:strong_soul_brick.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:hot_soul_brick.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:hot_stone.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:fireproof_glass.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:shining_fireproof_glass.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:nether_crystal_red.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:nether_crystal_blue.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:nether_crystal_green.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:nether_crystal_purple.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:nether_crystal_yellow.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:nether_dust_grass_block.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:fertilium_block.
+[24Dez.2020 23:15:27.408] [Render thread/INFO] [de.budschie.deepnether.block.BlockInit/]: Registered block deepnether:green_forest_compressed_netherrack_grass_block.

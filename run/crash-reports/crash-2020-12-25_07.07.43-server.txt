@@ -1,0 +1,85 @@
+---- Minecraft Crash Report ----
+// Don't be sad, have a hug! <3
+
+Time: 25.12.20, 07:07
+Description: Exception in server tick loop
+
+java.util.concurrent.CompletionException: net.minecraft.crash.ReportedException: Exception generating new chunk
+	at java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:314) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:319) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1155) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478) ~[?:?] {}
+	at net.minecraft.world.chunk.ChunkTaskPriorityQueueSorter.lambda$func_219069_a$1(ChunkTaskPriorityQueueSorter.java:44) ~[?:?] {re:classloading}
+	at net.minecraft.util.concurrent.DelegatedTaskExecutor.driveOne(DelegatedTaskExecutor.java:88) ~[?:?] {re:classloading}
+	at net.minecraft.util.concurrent.DelegatedTaskExecutor.driveWhile(DelegatedTaskExecutor.java:132) ~[?:?] {re:classloading}
+	at net.minecraft.util.concurrent.DelegatedTaskExecutor.run(DelegatedTaskExecutor.java:100) ~[?:?] {re:classloading}
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1425) ~[?:?] {}
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1016) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1665) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1598) ~[?:?] {}
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177) ~[?:?] {}
+Caused by: net.minecraft.crash.ReportedException: Exception generating new chunk
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$18(ChunkManager.java:552) ~[?:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.0.26.jar:?] {re:classloading,re:classloading}
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$20(ChunkManager.java:539) ~[?:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1146) ~[?:?] {}
+	... 11 more
+Caused by: java.lang.NullPointerException
+	at net.minecraft.world.gen.ChunkGenerator.func_235958_g_(ChunkGenerator.java:74) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_235952_a_(ChunkGenerator.java:307) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.StrongholdStructure.func_230363_a_(StrongholdStructure.java:25) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.StrongholdStructure.func_230363_a_(StrongholdStructure.java:15) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.Structure.func_242785_a(Structure.java:222) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.StructureFeature.func_242771_a(StructureFeature.java:34) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_242705_a(ChunkGenerator.java:244) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_242707_a(ChunkGenerator.java:231) ~[?:?] {re:classloading}
+	at net.minecraft.world.chunk.ChunkStatus.lambda$static$2(ChunkStatus.java:41) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.chunk.ChunkStatus.doGenerationWork(ChunkStatus.java:198) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$18(ChunkManager.java:541) ~[?:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.0.26.jar:?] {re:classloading,re:classloading}
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$20(ChunkManager.java:539) ~[?:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1146) ~[?:?] {}
+	... 11 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.16.3
+	Minecraft Version ID: 1.16.3
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 13.0.1, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 926211304 bytes (883 MB) / 2006974464 bytes (1914 MB) up to 8571060224 bytes (8174 MB)
+	CPUs: 24
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	ModLauncher: 7.0.1+78+master.e9771d8
+	ModLauncher launch target: fmluserdevclient
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/mixin-0.8.2.jar mixin PLUGINSERVICE 
+		/eventbus-3.0.3-service.jar eventbus PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar object_holder_definalize PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar runtime_enum_extender PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar capability_inject_definalize PLUGINSERVICE 
+		/accesstransformers-2.2.0-shadowed.jar accesstransformer PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar runtimedistcleaner PLUGINSERVICE 
+		/mixin-0.8.2.jar mixin TRANSFORMATIONSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar fml TRANSFORMATIONSERVICE 
+	FML: 34.1
+	Forge: net.minecraftforge:34.1.18
+	FML Language Providers: 
+		javafml@34.1
+		minecraft@1
+	Mod List: 
+		client-extra.jar Minecraft {minecraft@1.16.3 DONE}
+		forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-recomp.jar Forge {forge@34.1.18 DONE}
+		main Deep Nether {deepnether@NONE DONE}
+	Crash Report UUID: ead62803-9f20-411c-86b7-31982ab353c2
+	Player Count: 1 / 8; [ServerPlayerEntity['Dev'/185, l='ServerLevel[New World]', x=-101.50, y=70.00, z=-56.79]]
+	Data Packs: vanilla, mod:forge, mod:deepnether (incompatible)
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'

@@ -1,0 +1,21 @@
+{
+  "minecraft:nether/find_fortress": {
+    "criteria": {
+      "fortress": "2020-12-26 14:10:29 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2020-12-26 12:22:52 +0100"
+    },
+    "done": false
+  },
+  "minecraft:nether/explore_nether": {
+    "criteria": {
+      "minecraft:warped_forest": "2020-12-26 14:07:31 +0100"
+    },
+    "done": false
+  },
+  "DataVersion": 2580
+}

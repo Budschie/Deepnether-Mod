@@ -1,0 +1,13 @@
+{
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 286956243,
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "seed": 286956243,
+      "biome": "minecraft:warped_forest"
+    },
+    "settings": "custom:shard_noise"
+  },
+  "type": "custom:shard_type"
+}

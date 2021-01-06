@@ -1,0 +1,123 @@
+---- Minecraft Crash Report ----
+// I bet Cylons wouldn't have this problem.
+
+Time: 25.12.20, 02:02
+Description: Exception generating new chunk
+
+java.lang.NullPointerException: Exception generating new chunk
+	at net.minecraft.world.gen.ChunkGenerator.func_235958_g_(ChunkGenerator.java:74) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_235952_a_(ChunkGenerator.java:307) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.StrongholdStructure.func_230363_a_(StrongholdStructure.java:25) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.StrongholdStructure.func_230363_a_(StrongholdStructure.java:15) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.Structure.func_242785_a(Structure.java:222) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.StructureFeature.func_242771_a(StructureFeature.java:34) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_242705_a(ChunkGenerator.java:244) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_242707_a(ChunkGenerator.java:231) ~[?:?] {re:classloading}
+	at net.minecraft.world.chunk.ChunkStatus.lambda$static$2(ChunkStatus.java:41) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.chunk.ChunkStatus.doGenerationWork(ChunkStatus.java:198) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$18(ChunkManager.java:541) ~[?:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.0.26.jar:?] {re:classloading,re:classloading}
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$20(ChunkManager.java:539) ~[?:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1146) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478) ~[?:?] {}
+	at net.minecraft.world.chunk.ChunkTaskPriorityQueueSorter.lambda$func_219069_a$1(ChunkTaskPriorityQueueSorter.java:44) ~[?:?] {re:classloading}
+	at net.minecraft.util.concurrent.DelegatedTaskExecutor.driveOne(DelegatedTaskExecutor.java:88) ~[?:?] {re:classloading}
+	at net.minecraft.util.concurrent.DelegatedTaskExecutor.driveWhile(DelegatedTaskExecutor.java:132) ~[?:?] {re:classloading}
+	at net.minecraft.util.concurrent.DelegatedTaskExecutor.run(DelegatedTaskExecutor.java:100) ~[?:?] {re:classloading}
+	at java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1425) ~[?:?] {}
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1016) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1665) ~[?:?] {}
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1598) ~[?:?] {}
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177) ~[?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at net.minecraft.world.gen.ChunkGenerator.func_235958_g_(ChunkGenerator.java:74) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_235952_a_(ChunkGenerator.java:307) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.StrongholdStructure.func_230363_a_(StrongholdStructure.java:25) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.StrongholdStructure.func_230363_a_(StrongholdStructure.java:15) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.structure.Structure.func_242785_a(Structure.java:222) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.feature.StructureFeature.func_242771_a(StructureFeature.java:34) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_242705_a(ChunkGenerator.java:244) ~[?:?] {re:classloading}
+	at net.minecraft.world.gen.ChunkGenerator.func_242707_a(ChunkGenerator.java:231) ~[?:?] {re:classloading}
+	at net.minecraft.world.chunk.ChunkStatus.lambda$static$2(ChunkStatus.java:41) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.chunk.ChunkStatus.doGenerationWork(ChunkStatus.java:198) ~[?:?] {re:classloading,pl:accesstransformer:B}
+-- Chunk to be generated --
+Details:
+	Location: -7,-4
+	Position hash: -12884901895
+	Generator: de.budschie.deepnether.dimension.DeepnetherChunkGenerator@cc347b5
+Stacktrace:
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$18(ChunkManager.java:541) ~[?:?] {re:classloading}
+	at com.mojang.datafixers.util.Either$Left.map(Either.java:38) ~[datafixerupper-4.0.26.jar:?] {re:classloading,re:classloading,re:classloading}
+	at net.minecraft.world.server.ChunkManager.lambda$chunkGenerate$20(ChunkManager.java:539) ~[?:?] {re:classloading}
+	at java.util.concurrent.CompletableFuture$UniCompose.tryFire(CompletableFuture.java:1146) ~[?:?] {}
+	at java.util.concurrent.CompletableFuture$Completion.run(CompletableFuture.java:478) ~[?:?] {}
+
+
+-- Player being ticked --
+Details:
+	Entity Type: minecraft:player (net.minecraft.entity.player.ServerPlayerEntity)
+	Entity ID: 185
+	Entity Name: Dev
+	Entity's Exact location: -101.50, 71.00, -58.50
+	Entity's Block location: World: (-102,71,-59), Chunk: (at 10,4,5 in -7,-4; contains blocks -112,0,-64 to -97,255,-49), Region: (-1,-1; contains chunks -32,-32 to -1,-1, blocks -512,0,-512 to -1,255,-1)
+	Entity's Momentum: 0.00, -0.08, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.entity.player.ServerPlayerEntity.playerTick(ServerPlayerEntity.java:479) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.network.play.ServerPlayNetHandler.tick(ServerPlayNetHandler.java:200) ~[?:?] {re:classloading}
+	at net.minecraft.network.NetworkManager.tick(NetworkManager.java:249) ~[?:?] {re:classloading}
+	at net.minecraft.network.NetworkSystem.tick(NetworkSystem.java:151) ~[?:?] {re:classloading}
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:895) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:817) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:86) ~[?:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.func_240802_v_(MinecraftServer.java:660) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$startServer$0(MinecraftServer.java:230) ~[?:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:830) [?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.16.3
+	Minecraft Version ID: 1.16.3
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 13.0.1, Oracle Corporation
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Oracle Corporation
+	Memory: 483327440 bytes (460 MB) / 1308622848 bytes (1248 MB) up to 8571060224 bytes (8174 MB)
+	CPUs: 24
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	ModLauncher: 7.0.1+78+master.e9771d8
+	ModLauncher launch target: fmluserdevclient
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		/mixin-0.8.2.jar mixin PLUGINSERVICE 
+		/eventbus-3.0.3-service.jar eventbus PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar object_holder_definalize PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar runtime_enum_extender PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar capability_inject_definalize PLUGINSERVICE 
+		/accesstransformers-2.2.0-shadowed.jar accesstransformer PLUGINSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar runtimedistcleaner PLUGINSERVICE 
+		/mixin-0.8.2.jar mixin TRANSFORMATIONSERVICE 
+		/forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-launcher.jar fml TRANSFORMATIONSERVICE 
+	FML: 34.1
+	Forge: net.minecraftforge:34.1.18
+	FML Language Providers: 
+		javafml@34.1
+		minecraft@1
+	Mod List: 
+		client-extra.jar Minecraft {minecraft@1.16.3 DONE}
+		forge-1.16.3-34.1.18_mapped_snapshot_20201028-1.16.3-recomp.jar Forge {forge@34.1.18 DONE}
+		main Deep Nether {deepnether@NONE DONE}
+	Crash Report UUID: 8988c676-9367-422f-a16c-13763cb4941b
+	Player Count: 1 / 8; [ServerPlayerEntity['Dev'/185, l='ServerLevel[New World]', x=-101.50, y=71.00, z=-58.50]]
+	Data Packs: vanilla, mod:forge, mod:deepnether (incompatible)
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'

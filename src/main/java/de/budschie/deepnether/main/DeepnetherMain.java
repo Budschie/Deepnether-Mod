@@ -27,6 +27,7 @@ import de.budschie.deepnether.tileentities.RecipesDeepnetherBlastFurnace;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -90,8 +91,8 @@ public class DeepnetherMain
     	RecipesDeepnetherBlastFurnace.registerModRecipes();
     	
     	Registry.register(Registry.CHUNK_GENERATOR_CODEC, "deepnether:deepnether_generator", DeepnetherChunkGenerator.CODEC);
-    	Registry.register(Registry.BIOME_PROVIDER_CODEC, "deepnether:deepnether_biome", DeepnetherBiomeProvider.CODEC);
-    	RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(References.MODID, "green_forest_biome"));
+    	Registry.register(Registry.BIOME_PROVIDER_CODEC, "deepnether:deepnether_biome_provider", DeepnetherBiomeProvider.CODEC);
+    	// RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(References.MODID, "green_forest_biome"));
     	
     	ToolUsableItemRegistry.init();
     	

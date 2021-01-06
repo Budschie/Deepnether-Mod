@@ -28,7 +28,6 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	
 	private long seed;
 	private VoronoiNoise noise;
-	private Registry<Biome> lookupRegistry;
 	
 	public DeepnetherBiomeProvider(long seed)
 	{

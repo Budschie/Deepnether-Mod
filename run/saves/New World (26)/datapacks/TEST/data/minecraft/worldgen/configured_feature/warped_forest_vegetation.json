@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:decorated",
+  "config": {
+    "feature": {
+      "config": {
+        "state_provider": {
+          "entries": [
+            {
+              "weight": 87,
+              "data": {
+                "Name": "minecraft:warped_roots"
+              }
+            },
+            {
+              "weight": 13,
+              "data": {
+                "Name": "minecraft:warped_fungus"
+              }
+            }
+          ],
+          "type": "minecraft:weighted_state_provider"
+        }
+      },
+      "type": "minecraft:nether_forest_vegetation",
+      "name": "minecraft:warped_forest_vegetation"
+    },
+    "decorator": {
+      "config": {
+        "count": 5
+      },
+      "type": "minecraft:count_multilayer"
+    }
+  }
+}
