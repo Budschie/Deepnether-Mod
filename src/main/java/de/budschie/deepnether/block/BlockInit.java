@@ -1,7 +1,6 @@
 package de.budschie.deepnether.block;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -18,6 +17,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.particles.ParticleTypes;
@@ -72,7 +72,7 @@ public class BlockInit
 	public static final BaseBlock SOUL_BRICK = new BaseBlock(ModProperties.MOD_STRONG_STONE_PROPERTY, "soul_brick", ModItemGroups.MOD_BLOCKS);
 	public static final BaseBlock BROKEN_SOUL_BRICK = new BaseBlock(ModProperties.MOD_STONE_PROPERTY, "broken_soul_brick", ModItemGroups.MOD_BLOCKS)
 	{
-		public void onEntityWalk(net.minecraft.world.World worldIn, net.minecraft.util.math.BlockPos pos, net.minecraft.entity.Entity entityIn) 
+		public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) 
 		{
 			if(!worldIn.isRemote)
 			{
@@ -83,7 +83,7 @@ public class BlockInit
 			}
 		};
 		
-		public void onFallenUpon(World worldIn, BlockPos pos, net.minecraft.entity.Entity entityIn, float fallDistance) 
+		public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) 
 		{
 			if(!worldIn.isRemote)
 			{
@@ -111,7 +111,7 @@ public class BlockInit
 				worldIn.addParticle(ParticleTypes.SMOKE, pos.getX() + rand.nextFloat(), pos.getY()+1, pos.getZ() + rand.nextFloat(), 0, rand.nextDouble()/4, 0);
 		};
 		
-		public void onEntityWalk(World worldIn, BlockPos pos, net.minecraft.entity.Entity entityIn) 
+		public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) 
 		{
 			if(worldIn.isRemote)
 				return;
@@ -141,7 +141,7 @@ public class BlockInit
 	
 	public static final BaseBlock HOT_SOUL_BRICK = new BaseBlock(ModProperties.MOD_STRONG_STONE_PROPERTY, "hot_soul_brick", ModItemGroups.MOD_BLOCKS)
 	{
-		public void onEntityWalk(net.minecraft.world.World worldIn, net.minecraft.util.math.BlockPos pos, net.minecraft.entity.Entity entityIn) 
+		public void onEntityWalk(net.minecraft.world.World worldIn, net.minecraft.util.math.BlockPos pos, Entity entityIn) 
 		{
 			entityIn.setFire(2);
 		};
