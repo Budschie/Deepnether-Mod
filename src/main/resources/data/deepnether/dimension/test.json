@@ -3,7 +3,7 @@
 	  "type": "deepnether:deepnether_generator",
 	  "seed": 286956243,
 	  "biome_source": {
-		"type": "deepnether:deepnether_biome",
+		"type": "deepnether:deepnether_biome_provider",
 		"seed": 286956243
 	  }
 	},
