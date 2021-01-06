@@ -41,6 +41,7 @@ public class BlockInit
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event)
 	{		
+		// Test
 		IForgeRegistry<Block> reg = event.getRegistry();
 		
 		for(Block block : MOD_BLOCKS)
