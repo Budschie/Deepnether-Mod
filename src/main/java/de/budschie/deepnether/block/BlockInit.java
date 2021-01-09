@@ -214,7 +214,8 @@ public class BlockInit
 		@Override
 		public boolean canSpread(BlockState stateBlock, BlockState stateAbove, BlockPos stateBlockPos, ServerWorld worldIn)
 		{
-			return (stateAbove == Blocks.AIR.getDefaultState() || stateAbove.isTransparent()) && worldIn.getBiome(stateBlockPos).getRegistryName().equals(new ResourceLocation("deepnether:green_forest_biome"));
+			//return (stateAbove == Blocks.AIR.getDefaultState() || stateAbove.isTransparent()) && worldIn.getBiome(stateBlockPos).getRegistryName().equals(new ResourceLocation("deepnether:green_forest_biome"));
+			return true;
 		}
 	};
 	

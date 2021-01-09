@@ -1,41 +1,48 @@
 package de.budschie.deepnether.dimension;
 
-import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import de.budschie.deepnether.biomes.BiomeRegistry;
 import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.noise.VoronoiNoise;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class DeepnetherBiomeProvider extends BiomeProvider
 {	
 	//				RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).fieldOf("biomes").forGetter((obj) -> obj.lookupRegistry))
-
 	public static final Codec<DeepnetherBiomeProvider> CODEC = RecordCodecBuilder.create((builder) ->
 	{
-		return builder.group(Codec.LONG.fieldOf("seed").stable().forGetter((obj) -> obj.seed))
+		return builder.group(Codec.LONG.fieldOf("seed").stable().forGetter((obj) -> obj.seed), 
+				RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter((biome) -> biome.biomeRegistry)
+)
 				.apply(builder, builder.stable(DeepnetherBiomeProvider::new));
 	});
 	
 	private long seed;
 	private VoronoiNoise noise;
+	private Registry<Biome> biomeRegistry;
 	
-	public DeepnetherBiomeProvider(long seed)
+	public DeepnetherBiomeProvider(long seed, Registry<Biome> biomeRegistry)
 	{
-		super(Arrays.asList(ForgeRegistries.BIOMES.getValue(new ResourceLocation(References.MODID, "green_forest_biome"))));
+		super(biomeRegistry.getEntries().stream()
+        .filter(entry -> entry.getKey().getLocation().getNamespace().equals(References.MODID))
+        .filter((entry) -> 
+        {
+        	String name = entry.getKey().getLocation().getPath();
+        	return name.equals("green_forest_biome");
+        })
+        .map((entry) -> entry.getValue())
+        .collect(Collectors.toList()));
+		
 		noise = new VoronoiNoise(seed);
+		this.biomeRegistry = biomeRegistry;
 	}
 
 	@Override
@@ -63,7 +70,7 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	@Override
 	public BiomeProvider getBiomeProvider(long seed)
 	{
-		return new DeepnetherBiomeProvider(seed);
+		return new DeepnetherBiomeProvider(seed, biomeRegistry);
 	}
 	
 	public double getBiomeScale()

@@ -25,7 +25,8 @@ public class GreenForestBiomeGenerator extends BiomeGeneratorBase
 	{
 		this.size = size;
 		this.octaves = octaves;
-		
+		this.terrainHeightMin = terrainHeightMin;
+		this.terrainHeightMax = terrainHeightMax;
 		this.lavaBlock = lavaBlock;
 	}
 	

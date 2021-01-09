@@ -12,7 +12,7 @@ public class GreenForestBiomeData implements IDeepnetherBiomeData
 	
 	public GreenForestBiomeData()
 	{
-		generator = new GreenForestBiomeGenerator(10, 2, 0, 40, BlockInit.HOT_STONE.getDefaultState());
+		generator = new GreenForestBiomeGenerator(.0125, 2, 20, 60, BlockInit.HOT_STONE.getDefaultState());
 	}
 
 	@Override

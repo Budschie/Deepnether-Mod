@@ -3,6 +3,7 @@ package de.budschie.deepnether.biomes.biome_data_handler.worldgen;
 import de.budschie.deepnether.dimension.DeepnetherBiomeProvider;
 import net.minecraft.block.BlockState;
 
+/** TODO: Make thread-safe (with using a provider) **/
 public abstract class BiomeGeneratorBase
 {
 	/** What block should be placed? **/
