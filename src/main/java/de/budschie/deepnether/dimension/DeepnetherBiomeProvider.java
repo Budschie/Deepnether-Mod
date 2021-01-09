@@ -8,13 +8,16 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import de.budschie.deepnether.biomes.BiomeRegistry;
+import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.noise.VoronoiNoise;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class DeepnetherBiomeProvider extends BiomeProvider
 {	
@@ -31,7 +34,7 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	
 	public DeepnetherBiomeProvider(long seed)
 	{
-		super(Arrays.asList(BiomeRegistry.GREEN_FOREST_BIOME.get()));
+		super(Arrays.asList(ForgeRegistries.BIOMES.getValue(new ResourceLocation(References.MODID, "green_forest_biome"))));
 		noise = new VoronoiNoise(seed);
 	}
 
