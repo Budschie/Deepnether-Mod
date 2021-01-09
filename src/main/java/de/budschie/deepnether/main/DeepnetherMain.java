@@ -98,6 +98,7 @@ public class DeepnetherMain
     private void doClientStuff(final FMLClientSetupEvent event) 
     {
     	RenderTypeLookup.setRenderLayer(BlockInit.NETHER_DUST_GRASS_BLOCK, RenderType.getCutoutMipped());
+    	RenderTypeLookup.setRenderLayer(BlockInit.GREEN_FOREST_FERTILIUM_GRASS_BLOCK, RenderType.getCutoutMipped());
     	RenderTypeLookup.setRenderLayer(BlockInit.NETHER_DUST_GRASS, RenderType.getCutoutMipped());
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_BLUE, RenderType.getTranslucent());
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_BLUE, RenderType.getTranslucent());
