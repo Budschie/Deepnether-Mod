@@ -25,6 +25,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegistryEvent;
@@ -214,8 +215,7 @@ public class BlockInit
 		@Override
 		public boolean canSpread(BlockState stateBlock, BlockState stateAbove, BlockPos stateBlockPos, ServerWorld worldIn)
 		{
-			//return (stateAbove == Blocks.AIR.getDefaultState() || stateAbove.isTransparent()) && worldIn.getBiome(stateBlockPos).getRegistryName().equals(new ResourceLocation("deepnether:green_forest_biome"));
-			return true;
+			return (stateAbove == Blocks.AIR.getDefaultState() || (stateAbove != null && stateAbove.isTransparent())) && worldIn.getServer().func_244267_aX().getRegistry(Registry.BIOME_KEY).getKey(worldIn.getBiome(stateBlockPos)).equals(new ResourceLocation("deepnether:green_forest_biome"));
 		}
 	};
 	
