@@ -1,14 +1,19 @@
 package de.budschie.deepnether.biomes.biome_data_handler.worldgen;
 
 import java.util.Optional;
-import java.util.Random;
 
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.dimension.DeepnetherBiomeProvider;
+import de.budschie.deepnether.main.DeepnetherMain;
+import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.noise.VoronoiNoise;
+import de.budschie.deepnether.util.BiomeUtil;
+import de.budschie.deepnether.util.Util;
 import net.kdotjpg.opensimplexnoise.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.biome.Biome;
 
 public class GreenForestBiomeGenerator extends BiomeGeneratorBase
 {
@@ -39,31 +44,38 @@ public class GreenForestBiomeGenerator extends BiomeGeneratorBase
 	public void preprocess(int x, int z, double heightmap, long seed, DeepnetherBiomeProvider biomeProvider)
 	{
 		VoronoiNoise voronoiNoise = new VoronoiNoise(seed);
-		double biomeVal = Math.min(0.0001, voronoiNoise.voronoiNoise(x, z, biomeProvider.getBiomeScale(), false));
+		double edgeDistance = voronoiNoise.voronoiNoise(x, z, biomeProvider.getBiomeScale(), false);
 		
-		int biomeID = biomeProvider.getBiomeId(x, 0, z);
-		Random rand = new Random(biomeID);
-		if(rand.nextInt(2) == 1)
-			hillValue = (rand.nextInt(100)/50d) * biomeVal;
+		Biome nearbyBiome = biomeProvider.getNoiseBiomeByNoise(voronoiNoise.voronoiNoise(x, seed, biomeProvider.getBiomeScale(), 1, true));
+		
+		System.out.println(nearbyBiome);
+		
+		System.out.println(BiomeUtil.getBiomeRS(nearbyBiome, DeepnetherMain.server));
+		
+		if(BiomeUtil.getBiomeRS(nearbyBiome, DeepnetherMain.server).equals(new ResourceLocation(References.MODID, "deepnether_biome")))
+		{
+			if(edgeDistance > .3)
+			{
+				underground = BlockInit.FERTILIUM.getDefaultState();
+				grass = BlockInit.GREEN_FOREST_FERTILIUM_GRASS_BLOCK.getDefaultState();
+			}
+			else if(edgeDistance > .2)
+			{
+				underground = BlockInit.COMPRESSED_NETHERRACK.getDefaultState();
+				grass = BlockInit.GREEN_FOREST_CNR_GRASS_BLOCK.getDefaultState();
+			}
+			else
+			{
+				underground = BlockInit.COMPRESSED_NETHERRACK.getDefaultState();
+				grass = BlockInit.COMPRESSED_NETHERRACK.getDefaultState();
+			}
+		}
 		else
-			hillValue = 0;
-		
-		double blendingRadiusCNRToFertile = rand.nextInt(10)/500.0d;
-		
-		double blendingProgress = Math.min(1.2d, blendingRadiusCNRToFertile/biomeVal);
-		
-		Random rand2 = new Random(x+z+seed);
-		
-		if((rand2.nextInt(500)/500d) < blendingProgress)
 		{
 			underground = BlockInit.FERTILIUM.getDefaultState();
 			grass = BlockInit.GREEN_FOREST_FERTILIUM_GRASS_BLOCK.getDefaultState();
 		}
-		else
-		{
-			underground = BlockInit.COMPRESSED_NETHERRACK.getDefaultState();
-			grass = BlockInit.GREEN_FOREST_CNR_GRASS_BLOCK.getDefaultState();
-		}
+
 	}
 	
 	@Override
@@ -101,14 +113,19 @@ public class GreenForestBiomeGenerator extends BiomeGeneratorBase
 		
 		double currentValue = 0;
 		
-		for(int octaves = 0; octaves < this.octaves; octaves++)
+		for(int octaves = 0; octaves < 8; octaves++)
 		{
 			currentValue += osn.eval(x * currentSize, z * currentSize) * transparency;
 			
-			transparency /= 2;
-			currentSize /= 2;
+			transparency *= 0.5;
+			currentSize *= 2;
 		}
-
+		
+		if(currentValue < -1)
+			currentValue = -1;
+		else if(currentValue > 1)
+			currentValue = 1;
+		
 		return currentValue;
 	}
 	

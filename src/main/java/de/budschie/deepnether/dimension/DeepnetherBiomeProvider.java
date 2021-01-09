@@ -36,7 +36,7 @@ public class DeepnetherBiomeProvider extends BiomeProvider
         .filter((entry) -> 
         {
         	String name = entry.getKey().getLocation().getPath();
-        	return name.equals("green_forest_biome");
+        	return name.equals("green_forest_biome") || name.equals("deepnether_biome");
         })
         .map((entry) -> entry.getValue())
         .collect(Collectors.toList()));
@@ -49,15 +49,18 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	public Biome getNoiseBiome(int x, int y, int z)
 	{
 		double value = noise.voronoiNoise((double)x, (double)z, getBiomeScale(), true);
-		//int index = (int) Math.ceil(value * (biomes.size() - 1));
-		
-		Random rand = new Random((long)value*1234);
+		return getNoiseBiomeByNoise(value);
+	}
+	
+	public Biome getNoiseBiomeByNoise(double noise)
+	{
+		Random rand = new Random((long)(noise * Integer.MAX_VALUE));
 		return biomes.get(rand.nextInt(biomes.size()));
 	}
 	
 	public int getBiomeId(int x, int y, int z)
 	{
-		double value = noise.voronoiNoise((double)x * getBiomeScale(), 0, (double)z * getBiomeScale(), true);
+		double value = noise.voronoiNoise(x, z, getBiomeScale(), true);
 		return (int) (value * Integer.MAX_VALUE);
 	}
 
@@ -75,7 +78,7 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	
 	public double getBiomeScale()
 	{
-		return 0.125;
+		return .0125;
 	}
 	
 	@Override

@@ -22,7 +22,8 @@ public class ClassicBiomeGenerator extends BiomeGeneratorBase
 	{
 		this.size = size;
 		this.octaves = octaves;
-		
+		this.terrainHeightMin = terrainHeightMin;
+		this.terrainHeightMax = terrainHeightMax;
 		this.lavaBlock = lavaBlock;
 		this.groundBlock = groundBlock;
 	}
@@ -58,14 +59,19 @@ public class ClassicBiomeGenerator extends BiomeGeneratorBase
 		
 		double currentValue = 0;
 		
-		for(int octaves = 0; octaves < this.octaves; octaves++)
+		for(int octaves = 0; octaves < 8; octaves++)
 		{
 			currentValue += osn.eval(x * currentSize, z * currentSize) * transparency;
 			
-			transparency /= 2;
-			currentSize /= 2;
+			transparency *= 0.5;
+			currentSize *= 2;
 		}
-
+		
+		if(currentValue < -1)
+			currentValue = -1;
+		else if(currentValue > 1)
+			currentValue = 1;
+		
 		return currentValue;
 	}
 	

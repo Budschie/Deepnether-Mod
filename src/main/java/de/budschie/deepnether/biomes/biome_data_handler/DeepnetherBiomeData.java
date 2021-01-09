@@ -11,7 +11,7 @@ public class DeepnetherBiomeData implements IDeepnetherBiomeData
 	
 	public DeepnetherBiomeData()
 	{
-		generator = new ClassicBiomeGenerator(10, 4, 5, 70, Blocks.LAVA.getDefaultState(), BlockInit.COMPRESSED_NETHERRACK.getDefaultState());
+		generator = new ClassicBiomeGenerator(.0125, 2, 20, 60, Blocks.LAVA.getDefaultState(), BlockInit.COMPRESSED_NETHERRACK.getDefaultState());
 	}
 
 	@Override

@@ -92,7 +92,7 @@ public class DeepnetherMain
     	ToolUsableItemRegistry.init();
     	
     	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "green_forest_biome"), new GreenForestBiomeData());
-    	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "deepnether"), new DeepnetherBiomeData());
+    	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "deepnether_biome"), new DeepnetherBiomeData());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) 
