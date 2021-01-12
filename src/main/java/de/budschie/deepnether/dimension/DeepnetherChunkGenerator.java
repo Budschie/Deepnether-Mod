@@ -1,15 +1,16 @@
 package de.budschie.deepnether.dimension;
 
+import java.util.HashMap;
+
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import de.budschie.deepnether.biomes.biome_data_handler.BiomeDataHandler;
-import de.budschie.deepnether.biomes.biome_data_handler.worldgen.BiomeGeneratorBase;
+import de.budschie.deepnether.biomes.biome_data_handler.IDeepnetherBiomeData;
 import de.budschie.deepnether.main.DeepnetherMain;
-import net.minecraft.block.BlockState;
+import de.budschie.deepnether.util.BiomeUtil;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -21,6 +22,7 @@ import net.minecraft.world.gen.OctavesNoiseGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraftforge.common.MinecraftForge;
 
 public class DeepnetherChunkGenerator extends ChunkGenerator
 {
@@ -34,12 +36,25 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 	
 	long seed;
 	OctavesNoiseGenerator noiseGenerator;
+	private HashMap<String, InterpolationChannel<?>> interpolationMap = new HashMap<>();
 	
 	public DeepnetherChunkGenerator(BiomeProvider firstBiomeProvider, long seed)
 	{
 		super(firstBiomeProvider, firstBiomeProvider, new DimensionStructuresSettings(true), seed);
-		
 		this.seed = seed;
+		MinecraftForge.EVENT_BUS.post(new InterpolationChannelRegistryEvent(this));
+		MinecraftForge.EVENT_BUS.post(new InterpolationChannelBiomeRegistryEvent(this));
+	}
+	
+	public void addInterpolationEntry(InterpolationChannel<?> interpolationChannel)
+	{
+		interpolationMap.put(interpolationChannel.getName(), interpolationChannel);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> InterpolationChannel<T> getInterpolationChannel(String name)
+	{
+		return (InterpolationChannel<T>) interpolationMap.get(name);
 	}
 
 	@Override
@@ -61,39 +76,28 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 		int posXStart = chunk.getPos().x * 16;
 		int posZStart = chunk.getPos().z * 16;
 		
-		double[][] heightmap = new double[16][16];
+		// Fill heightmap
+		HashMap<ResourceLocation, IDeepnetherBiomeData> cache = new HashMap<>();
 		
-		DynamicRegistries dynRegs = DeepnetherMain.server.func_244267_aX();
-		Registry<Biome> biomeRegistry = dynRegs.getRegistry(Registry.BIOME_KEY);
+		Biome[][] currentBiomes = new Biome[16][16];
 		
 		for(int x = 0; x < 16; x++)
 		{
 			for(int z = 0; z < 16; z++)
 			{
-				/*
-				DeepnetherBiomeBase deepnetherBiomeBase = this.biomeProvider.getNoiseBiome(posXStart + x, 0, posZStart + z);
-				BiomeGeneratorBase biomeGenerator = deepnetherBiomeBase.getBiomeGenerator();
-				*/
-				Biome biome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
-				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(biomeRegistry.getKey(biome)).getBiomeGenerator();
-				heightmap[x][z] = (biomeGenerator.getGroundHeight(seed, posXStart + x, posZStart + z) + 1) * 0.5;
+				Biome currentBiome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
+				currentBiomes[x][z] = currentBiome;
+				cache.computeIfAbsent(BiomeUtil.getBiomeRS(currentBiome, DeepnetherMain.server), (biome) -> BiomeDataHandler.getBiomeData(biome));
 			}
 		}
 		
+		InterpolationChannelBuffer buffer = new InterpolationChannelBuffer(this, currentBiomes, posXStart, posZStart);
+		
 		for(int x = 0; x < 16; x++)
 		{
 			for(int z = 0; z < 16; z++)
 			{
-				Biome biome = worldGenRegion.getBiome(new BlockPos(posXStart + x, 0, posZStart + z));
-				BiomeGeneratorBase biomeGenerator = BiomeDataHandler.getBiomeData(biomeRegistry.getKey(biome)).getBiomeGenerator();
-				
-				biomeGenerator.preprocess(posXStart + x, posZStart + z, heightmap[x][z], seed, (DeepnetherBiomeProvider)biomeProvider);
-			
-				for(int y = 0; y < biomeGenerator.getGenerationHeight(); y++)
-				{
-					BlockState pickedBlock = biomeGenerator.pickBlock(posXStart + x, y, posZStart + z, heightmap[x][z], seed, (DeepnetherBiomeProvider)biomeProvider);
-					chunk.setBlockState(new BlockPos(posXStart + x, y, posZStart + z), pickedBlock, false);
-				}
+				cache.get(BiomeUtil.getBiomeRS(currentBiomes[x][z], DeepnetherMain.server)).getBiomeGenerator().generate(posXStart, posZStart, x, z, chunk, this, buffer);
 			}
 		}
 	}
@@ -111,9 +115,9 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 	}
 	
 	@Override
-	public BiomeProvider getBiomeProvider()
+	public DeepnetherBiomeProvider getBiomeProvider()
 	{
-		return biomeProvider;
+		return (DeepnetherBiomeProvider) biomeProvider;
 	}
 
 	@Override
