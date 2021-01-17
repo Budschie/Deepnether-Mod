@@ -40,13 +40,16 @@ public class SimpleBiomeGenerator implements IBiomeGenerator
 	{
 		int currentTerrainHeight = interpolationChannelBuffer.<Integer>getValue("terrainHeight")[localX][localZ];
 		double currentHeightValue = interpolationChannelBuffer.<Double>getValue("heightmap")[localX][localZ];
+				
+		int definedTerrainHeight = (int) (1 * currentTerrainHeight);
 		
-		int definedTerrainHeight = (int) (currentHeightValue * currentTerrainHeight);
+		// System.out.println("DATA: terrainHeight:" + currentTerrainHeight + "; currentHeightValue: " + currentHeightValue + "; definedTerrainHeight: " + definedTerrainHeight);
 		
-		for(int y = 0; y <= currentTerrainHeight; y++)
+		for(int y = 0; y <= definedTerrainHeight; y++)
 		{
 			BlockState chosenBlockState = Blocks.AIR.getDefaultState();
 			
+			/*
 			if(y == definedTerrainHeight)
 			{
 				chosenBlockState = grassBlock;
@@ -66,6 +69,10 @@ public class SimpleBiomeGenerator implements IBiomeGenerator
 			{
 				chosenBlockState = lavaBlock;
 			}
+			*/
+			
+			if(y < definedTerrainHeight)
+				chosenBlockState = groundBlock;
 			
 			chunk.setBlockState(new BlockPos(localX + chunkStartX, y, localZ + chunkStartZ), chosenBlockState, false);
 		}

@@ -1,5 +1,7 @@
 package de.budschie.deepnether.biomes.biome_data_handler.worldgen;
 
+import java.util.stream.Stream;
+
 import de.budschie.deepnether.dimension.IInterpolationApplier;
 import de.budschie.deepnether.dimension.InterpolationChannel;
 import de.budschie.deepnether.dimension.InterpolationChannelRegistryEvent;
@@ -14,7 +16,15 @@ public class ChannelRegistryEvents
 	@SubscribeEvent
 	public static void onRegisterDefaultChannels(InterpolationChannelRegistryEvent event)
 	{
-		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<Double>("heightmap", 0.0, (upperLeft, upperRight, bottomLeft, bottomRight) -> MathUtil.bilinearInterpolation(0, 0, 0, 0, .5, .5), 10));
-		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<Integer>("terrainHeight", 0, (upperLeft, upperRight, bottomLeft, bottomRight) -> (int)MathUtil.bilinearInterpolation(upperLeft, upperRight, bottomLeft, bottomRight, .5f, .5f), 5));
+		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<Double>("heightmap", 0.0, (sampledArea, x, z) -> sampledArea[x][z], 0));
+		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<Integer>("terrainHeight", 0, (sampledArea, x, z) -> 
+		{
+			return (int) MathUtil.bilinearInterpolation(sample2x2(sampledArea, 0, 15), sample2x2(sampledArea, 15, 15), sample2x2(sampledArea, 0, 0), sample2x2(sampledArea, 15, 0), x / 16f, z / 16f);
+		}, 1));
+	}
+	
+	private static int sample2x2(Integer[][] heights, int xCoordBottomLeft, int yCoordBottomLeft)
+	{
+		return (heights[xCoordBottomLeft][yCoordBottomLeft] + heights[xCoordBottomLeft + 1][yCoordBottomLeft] + heights[xCoordBottomLeft][yCoordBottomLeft + 1] + heights[xCoordBottomLeft + 1][yCoordBottomLeft + 1]) / 4;
 	}
 }

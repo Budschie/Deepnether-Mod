@@ -42,6 +42,7 @@ public class DeepnetherBiomeProvider extends BiomeProvider
         .collect(Collectors.toList()));
 		
 		noise = new VoronoiNoise(seed);
+		this.seed = seed;
 		this.biomeRegistry = biomeRegistry;
 	}
 

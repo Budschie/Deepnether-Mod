@@ -25,7 +25,7 @@ public class GreenForestBiomeData implements IDeepnetherBiomeData
 	@SubscribeEvent
 	public static void onRegisterBiomeChannels(InterpolationChannelBiomeRegistryEvent event)
 	{
-		event.getChunkGenerator().<Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardHeightmapSupplier(.25, 2));
-		event.getChunkGenerator().<Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardTerrainHeightProvider(80));
+		event.getChunkGenerator().<Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardHeightmapSupplier(.03, 1));
+		event.getChunkGenerator().<Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardTerrainHeightProvider(20));
 	}
 }

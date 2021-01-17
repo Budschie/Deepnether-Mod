@@ -25,7 +25,7 @@ public class DeepnetherBiomeData implements IDeepnetherBiomeData
 	@SubscribeEvent
 	public static void onRegisterBiomeChannels(InterpolationChannelBiomeRegistryEvent event)
 	{
-		event.getChunkGenerator().<Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardHeightmapSupplier(.25, 3));
-		event.getChunkGenerator().<Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardTerrainHeightProvider(120));
+		event.getChunkGenerator().<Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardHeightmapSupplier(.07, 3));
+		event.getChunkGenerator().<Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardTerrainHeightProvider(50));
 	}
 }

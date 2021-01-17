@@ -15,17 +15,35 @@ public class Test
 {
 	public static void main(String... args)
 	{
+		// System.out.println(MathUtil.linearInterpolation());
+		
+		/*
+		 * 
+		 */
+		
+		/*
 		File imageFile = new File("C:\\Users\\Budschie\\AppData\\img.png");
 		BufferedImage bImg = new BufferedImage(512, 512, BufferedImage.TYPE_INT_ARGB);
 		
 		VoronoiNoise noise = new VoronoiNoise(0);
+		
+		int spacing = 0;
+		double[][] expandedBuffer = new double[512 + spacing * 2][512 + spacing * 2];
+		
+		for(int x = -spacing; x < 512 + spacing; x++)
+		{
+			for(int z = -spacing; z < 512 + spacing; z++)
+			{
+				expandedBuffer[x + spacing][z + spacing] = getGroundHeight(5, x, z);
+			}
+		}
 		
 		for(int x = 0; x < 512; x++)
 		{
 			for(int y = 0; y < 512; y++)
 			{
 				//int value = (int) (noise.voronoiNoise(x, y, .0125, false) * 255);
-				int value = (int) (MathUtil.bilinearInterpolation(1, 0, 0, .5, (x / (512.0)), (y / (512.0))) * 255);
+				int value = (int) (MathUtil.bilinearInterpolation(expandedBuffer[x][y + spacing*2], expandedBuffer[x + spacing*2][y + spacing*2], expandedBuffer[x][y], expandedBuffer[x + spacing*2][y], .5f, .5f) * 256);
 				int a = (int)(255); //alpha
 				int r = (int)(value); //red
 				int g = (int)(value); //green
@@ -43,21 +61,22 @@ public class Test
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		
 		// .0125
 	}
 	
-	/*
+	
 	public static double getGroundHeight(long seed, int x, int z)
 	{
 		OpenSimplexNoise osn = new OpenSimplexNoise(seed);
 		
-		double currentSize = .12;
+		double currentSize = .07;
 		double transparency = 1;
 		
 		double currentValue = 0;
 		
-		for(int octaves = 0; octaves < 8; octaves++)
+		for(int octaves = 0; octaves < 1; octaves++)
 		{
 			currentValue += osn.eval(x * currentSize, z * currentSize) * transparency;
 			
@@ -70,14 +89,16 @@ public class Test
 		else if(currentValue > 1)
 			currentValue = 1;
 		
-		return currentValue;
+		return (currentValue + 1) * 0.5;
 	}
-	*/
 	
+	
+	/*
 	public static double getGroundHeight(long seed, int x, int z, int spacing)
 	{
 		return MathUtil.bilinearInterpolation(getRandomValue(seed, x + spacing, z + spacing), getRandomValue(seed, x, z + spacing), getRandomValue(seed, x + spacing, z), getRandomValue(seed, x, z), .5, .5);
 	}
+	*/
 	
 	public static double getRandomValue(long seed, int x, int z)
 	{
