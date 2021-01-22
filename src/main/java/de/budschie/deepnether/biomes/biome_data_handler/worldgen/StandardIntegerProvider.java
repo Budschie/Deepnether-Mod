@@ -7,19 +7,19 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 
-public class StandardTerrainHeightProvider implements IMappingValueSupplier<Integer>
+public class StandardIntegerProvider implements IMappingValueSupplier<Integer>
 {
-	int terrainHeight;
+	int integerValue;
 	
-	public StandardTerrainHeightProvider(int terrainHeight)
+	public StandardIntegerProvider(int integerValue)
 	{
-		this.terrainHeight = terrainHeight;
+		this.integerValue = integerValue;
 	}
 	
 	@Override
 	public Integer get(BiomeProvider biomeProvider, Function<BlockPos, Biome> biomeSupplier, int x, int z, long seed)
 	{
 		// System.err.println("BIOME WITH NAME " + BiomeUtil.getBiomeRS(biomeProvider.getNoiseBiome(x, 0, z), DeepnetherMain.server) + " got a height of " + terrainHeight);
-		return terrainHeight;
+		return integerValue;
 	}
 }

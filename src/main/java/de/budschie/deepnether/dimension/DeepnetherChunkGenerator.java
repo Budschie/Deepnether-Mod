@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.DefaultBiomeMagnifier;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -37,7 +36,7 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 	
 	long seed;
 	OctavesNoiseGenerator noiseGenerator;
-	private HashMap<String, InterpolationChannel<?>> interpolationMap = new HashMap<>();
+	private HashMap<String, InterpolationChannel<?, ?>> interpolationMap = new HashMap<>();
 	
 	public DeepnetherChunkGenerator(BiomeProvider firstBiomeProvider, long seed)
 	{
@@ -47,15 +46,15 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 		MinecraftForge.EVENT_BUS.post(new InterpolationChannelBiomeRegistryEvent(this));
 	}
 	
-	public void addInterpolationEntry(InterpolationChannel<?> interpolationChannel)
+	public void addInterpolationEntry(InterpolationChannel<?, ?> interpolationChannel)
 	{
 		interpolationMap.put(interpolationChannel.getName(), interpolationChannel);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> InterpolationChannel<T> getInterpolationChannel(String name)
+	public <I, O> InterpolationChannel<I, O> getInterpolationChannel(String name)
 	{
-		return (InterpolationChannel<T>) interpolationMap.get(name);
+		return (InterpolationChannel<I, O>) interpolationMap.get(name);
 	}
 
 	@Override

@@ -16,20 +16,20 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @EventBusSubscriber(bus = Bus.FORGE)
-public class DeepnetherBiomeData implements IDeepnetherBiomeData
+public class SoulDesertBiomeData implements IDeepnetherBiomeData
 {
 	@Override
 	public IBiomeGenerator getBiomeGenerator()
 	{
-		return new SimpleBiomeGenerator(4, BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), Blocks.LAVA.getDefaultState(), BlockInit.SOUL_DUST.getDefaultState());
+		return new SimpleBiomeGenerator(8, BlockInit.GREEN_FOREST_FERTILIUM_GRASS_BLOCK.getDefaultState(), BlockInit.FERTILIUM.getDefaultState(), Blocks.LAVA.getDefaultState(), BlockInit.FERTILIUM.getDefaultState());
 	}
 	
 	@SubscribeEvent
 	public static void onRegisterBiomeChannels(InterpolationChannelBiomeRegistryEvent event)
 	{
-		event.getChunkGenerator().<Double, Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardHeightmapSupplier(.04, 2, .25, 2));
-		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardIntegerProvider(45));
-		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("minTerrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardIntegerProvider(25));
-		event.getChunkGenerator().<ResourceLocation, WeightedBiomeData>getInterpolationChannel("nearbyBiomes").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new ValueProvider<ResourceLocation>(new ResourceLocation(References.MODID, "deepnether_biome")));
+		event.getChunkGenerator().<Double, Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "soul_desert_biome"), new StandardHeightmapSupplier(.03, 2, 1.7));
+		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "soul_desert_biome"), new StandardIntegerProvider(40));
+		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("minTerrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "soul_desert_biome"), new StandardIntegerProvider(15));
+		event.getChunkGenerator().<ResourceLocation, WeightedBiomeData>getInterpolationChannel("nearbyBiomes").addMappingFunction(new ResourceLocation(References.MODID, "soul_desert_biome"), new ValueProvider<ResourceLocation>(new ResourceLocation(References.MODID, "soul_desert_biome")));
 	}
 }

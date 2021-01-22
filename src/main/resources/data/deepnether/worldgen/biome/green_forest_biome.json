@@ -8,15 +8,15 @@
       "offset": 2
     },
     "ambient_sound": "minecraft:ambient.basalt_deltas.loop",
-    "sky_color": 4065874,
-    "fog_color": 3279170,
+    "sky_color": 5666366,
+    "fog_color": 5666366,
     "water_color": 14869218,
     "water_fog_color": 11711154,
 	"particle": {
       "options": {
-        "type": "minecraft:enchant"
+        "type": "minecraft:flame"
       },
-      "probability": 0.015
+      "probability": 0.0025
     }
   },
   "surface_builder": "minecraft:warped_forest",

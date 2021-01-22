@@ -2,6 +2,7 @@ package de.budschie.deepnether.biomes.biome_data_handler.worldgen;
 
 import de.budschie.deepnether.dimension.DeepnetherChunkGenerator;
 import de.budschie.deepnether.dimension.InterpolationChannelBuffer;
+import de.budschie.deepnether.util.MathUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -26,6 +27,7 @@ public class SimpleBiomeGenerator implements IBiomeGenerator
 		this.groundBlock = groundBlock;
 		this.lavaBlock = lavaBlock;
 		this.nearLavaBlock = nearLavaBlock;
+		
 	}
 	
 	public SimpleBiomeGenerator(int nearLavaBlockRange, BlockState grassBlock, BlockState groundBlock,
@@ -39,40 +41,37 @@ public class SimpleBiomeGenerator implements IBiomeGenerator
 			DeepnetherChunkGenerator chunkGenerator, InterpolationChannelBuffer interpolationChannelBuffer)
 	{
 		int currentTerrainHeight = interpolationChannelBuffer.<Integer>getValue("terrainHeight")[localX][localZ];
+		int minTerrainHeight = interpolationChannelBuffer.<Integer>getValue("minTerrainHeight")[localX][localZ];
 		double currentHeightValue = interpolationChannelBuffer.<Double>getValue("heightmap")[localX][localZ];
+		
+		// Modify so that the minTerrainHeight applies
+		// Remapping from 0 to 1 to x to 1
+		currentHeightValue = MathUtil.linearInterpolation(minTerrainHeight / (double)currentTerrainHeight, 1, currentHeightValue);
 				
-		int definedTerrainHeight = (int) (1 * currentTerrainHeight);
+		int definedTerrainHeight = (int) (currentHeightValue * currentTerrainHeight);
 		
 		// System.out.println("DATA: terrainHeight:" + currentTerrainHeight + "; currentHeightValue: " + currentHeightValue + "; definedTerrainHeight: " + definedTerrainHeight);
 		
-		for(int y = 0; y <= definedTerrainHeight; y++)
+		for(int y = 0; y <= Math.max(definedTerrainHeight, seaLevel); y++)
 		{
 			BlockState chosenBlockState = Blocks.AIR.getDefaultState();
 			
-			/*
-			if(y == definedTerrainHeight)
-			{
-				chosenBlockState = grassBlock;
-			}
-			else if(y < definedTerrainHeight)
-			{
-				if(y > seaLevel && y < (seaLevel + nearLavaBlockRange))
-				{
-					chosenBlockState = nearLavaBlock;
-				}
-				else
-				{
-					chosenBlockState = groundBlock;
-				}
-			}
-			else if(y >= seaLevel)
+			if(y > definedTerrainHeight && y <= seaLevel)
 			{
 				chosenBlockState = lavaBlock;
 			}
-			*/
-			
-			if(y < definedTerrainHeight)
+			else if(((y - nearLavaBlockRange) < seaLevel && y >= seaLevel) || (y < seaLevel && y == definedTerrainHeight))
+			{
+				chosenBlockState = nearLavaBlock;
+			}
+			else if(y < definedTerrainHeight || (y == definedTerrainHeight && y < seaLevel))
+			{
 				chosenBlockState = groundBlock;
+			}
+			else if(y == definedTerrainHeight)
+			{
+				chosenBlockState = grassBlock;
+			}
 			
 			chunk.setBlockState(new BlockPos(localX + chunkStartX, y, localZ + chunkStartZ), chosenBlockState, false);
 		}

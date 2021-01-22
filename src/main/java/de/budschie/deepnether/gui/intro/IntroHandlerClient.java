@@ -93,17 +93,17 @@ public class IntroHandlerClient
 	}
 	
 	@SubscribeEvent
-	public static void onDrawGui(RenderGameOverlayEvent.Post event)
+	public static void onDrawGui(RenderGameOverlayEvent.Pre event)
 	{
 		if(introCurrentlyPlaying)
 		{
 			if(gui != null)
 			{
-				//event.setCanceled(true);
+				event.setCanceled(true);
 				
-				if(event.getType() == ElementType.HOTBAR)
+				if(event.getType() == ElementType.ALL)
 				{
-					//gui.drawWithUpdate(event.getMatrixStack());
+					gui.drawWithUpdate(event.getMatrixStack());
 				}
 			}
 		}

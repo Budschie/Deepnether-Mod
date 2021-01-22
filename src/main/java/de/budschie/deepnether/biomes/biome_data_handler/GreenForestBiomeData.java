@@ -3,7 +3,9 @@ package de.budschie.deepnether.biomes.biome_data_handler;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.IBiomeGenerator;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.SimpleBiomeGenerator;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardHeightmapSupplier;
-import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardTerrainHeightProvider;
+import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardIntegerProvider;
+import de.budschie.deepnether.biomes.biome_data_handler.worldgen.ValueProvider;
+import de.budschie.deepnether.biomes.biome_data_handler.worldgen.WeightedBiomeData;
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.dimension.InterpolationChannelBiomeRegistryEvent;
 import de.budschie.deepnether.main.References;
@@ -25,7 +27,9 @@ public class GreenForestBiomeData implements IDeepnetherBiomeData
 	@SubscribeEvent
 	public static void onRegisterBiomeChannels(InterpolationChannelBiomeRegistryEvent event)
 	{
-		event.getChunkGenerator().<Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardHeightmapSupplier(.03, 1));
-		event.getChunkGenerator().<Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardTerrainHeightProvider(20));
+		event.getChunkGenerator().<Double, Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardHeightmapSupplier(.03, 2, 1.7));
+		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardIntegerProvider(40));
+		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("minTerrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new StandardIntegerProvider(15));
+		event.getChunkGenerator().<ResourceLocation, WeightedBiomeData>getInterpolationChannel("nearbyBiomes").addMappingFunction(new ResourceLocation(References.MODID, "green_forest_biome"), new ValueProvider<ResourceLocation>(new ResourceLocation(References.MODID, "green_forest_biome")));
 	}
 }

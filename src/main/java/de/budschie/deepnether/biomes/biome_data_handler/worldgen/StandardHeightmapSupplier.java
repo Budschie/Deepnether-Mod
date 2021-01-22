@@ -14,12 +14,21 @@ public class StandardHeightmapSupplier implements IMappingValueSupplier<Double>
 	OpenSimplexNoise osn;
 	Optional<Long> currentSeed = Optional.empty();
 	double size;
+	double attenuation;
 	int octaves;
+	double initialTransparency;
 	
-	public StandardHeightmapSupplier(double size, int octaves)
+	public StandardHeightmapSupplier(double size, int octaves, double initialTransparency, double attenuation)
 	{
 		this.size = size;
 		this.octaves = octaves;
+		this.initialTransparency = initialTransparency;
+		this.attenuation = attenuation;
+	}
+	
+	public StandardHeightmapSupplier(double size, int octaves, double attenuation)
+	{
+		this(size, octaves, .5, attenuation);
 	}
 	
 	private void setOSN(long seed)
@@ -43,9 +52,12 @@ public class StandardHeightmapSupplier implements IMappingValueSupplier<Double>
 
 		for (int octaves = 0; octaves < this.octaves; octaves++)
 		{
+			if(octaves == 1)
+				transparency = initialTransparency;
+			
 			currentValue += osn.eval(x * currentSize, z * currentSize) * transparency;
 
-			transparency *= 0.5;
+			transparency -= transparency / attenuation;
 			currentSize *= 2;
 		}
 
@@ -53,6 +65,9 @@ public class StandardHeightmapSupplier implements IMappingValueSupplier<Double>
 			currentValue = -1;
 		else if (currentValue > 1)
 			currentValue = 1;
+		
+		if(currentValue > 1)
+			System.out.println("ALARM");
 
 		return (currentValue + 1) * 0.5;
 	}

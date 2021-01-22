@@ -34,4 +34,9 @@ public class InterpolationChannelBuffer
 	{
 		return (E[][]) cache.computeIfAbsent(name, (absentName) -> deepnetherChunkGenerator.getInterpolationChannel(absentName).getArea(seed, (blockPos) -> worldGenRegion.getBiomeManager().getBiome(blockPos), deepnetherChunkGenerator.getBiomeProvider(), startX, startZ, currentBiome));
 	}
+	
+	public long getSeed()
+	{
+		return seed;
+	}
 }

@@ -5,27 +5,28 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 import de.budschie.deepnether.main.DeepnetherMain;
-import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.util.BiomeUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 
-public class InterpolationChannel<E>
+public class InterpolationChannel<I, O>
 {
 	String name;
-	E defaultValue;
-	Class<E> clazz;
-	HashMap<ResourceLocation, IMappingValueSupplier<E>> mappingFunctionTable;
-	IInterpolationApplier<E> interpolationApplier;
+	I defaultValue;
+	Class<I> iClazz;
+	Class<O> oClazz;
+	HashMap<ResourceLocation, IMappingValueSupplier<I>> mappingFunctionTable;
+	IInterpolationApplier<I, O> interpolationApplier;
 	int spacing;
 	
-	public InterpolationChannel(String name, E defaultValue, IInterpolationApplier<E> interpolationApplier, int spacing)
+	public InterpolationChannel(String name, Class<O> oClazz, I defaultValue, IInterpolationApplier<I, O> interpolationApplier, int spacing)
 	{
 		this.name = name;
 		this.defaultValue = defaultValue;
-		this.clazz = (Class<E>) defaultValue.getClass();
+		this.iClazz = (Class<I>) defaultValue.getClass();
+		this.oClazz = oClazz;
 		this.mappingFunctionTable = new HashMap<>();
 		this.interpolationApplier = interpolationApplier;
 		this.spacing = spacing;
@@ -36,15 +37,15 @@ public class InterpolationChannel<E>
 		return name;
 	}
 	
-	public void addMappingFunction(ResourceLocation biomeName, IMappingValueSupplier<E> mappingFunction)
+	public void addMappingFunction(ResourceLocation biomeName, IMappingValueSupplier<I> mappingFunction)
 	{
 		mappingFunctionTable.put(biomeName, mappingFunction);
 	}
 
-	public E[][] getArea(long seed, Function<BlockPos, Biome> biomeSupplier, BiomeProvider biomeProvider, int startX, int startZ, Biome[][] cachedBiomes)
+	public O[][] getArea(long seed, Function<BlockPos, Biome> biomeSupplier, BiomeProvider biomeProvider, int startX, int startZ, Biome[][] cachedBiomes)
 	{
 		@SuppressWarnings("unchecked")
-		E[][] sampleArea = (E[][]) Array.newInstance(clazz, cachedBiomes.length + 2 * spacing, cachedBiomes[0].length + 2 * spacing);
+		I[][] sampleArea = (I[][]) Array.newInstance(iClazz, cachedBiomes.length + 2 * spacing, cachedBiomes[0].length + 2 * spacing);
 		
 		for(int x = -spacing; x < cachedBiomes.length + spacing; x++)
 		{
@@ -57,14 +58,16 @@ public class InterpolationChannel<E>
 				Biome biome = inReach ? cachedBiomes[x][z] : biomeSupplier.apply(new BlockPos(xCoord, 0, zCoord));
 				ResourceLocation rs = BiomeUtil.getBiomeRS(biome, DeepnetherMain.server);
 				
-				IMappingValueSupplier<E> eSupplier = mappingFunctionTable.get(rs);
+				IMappingValueSupplier<I> eSupplier = mappingFunctionTable.get(rs);
 				
 				sampleArea[x + spacing][z + spacing] = eSupplier == null ? defaultValue : eSupplier.get(biomeProvider, biomeSupplier, xCoord, zCoord, seed);
 			}
 		}
 		
 		@SuppressWarnings("unchecked")
-		E[][] outputArea = (E[][]) Array.newInstance(clazz, cachedBiomes.length, cachedBiomes[0].length);
+		O[][] outputArea = (O[][]) Array.newInstance(oClazz, cachedBiomes.length, cachedBiomes[0].length);
+		
+		/*
 		for(int x = 0; x < cachedBiomes.length; x++)
 		{
 			for(int z = 0; z < cachedBiomes[0].length; z++)
@@ -76,6 +79,9 @@ public class InterpolationChannel<E>
 				//System.out.println(outputArea[x][z]);
 			}
 		}
+		*/
+		
+		interpolationApplier.apply(sampleArea, outputArea);
 		
 		return outputArea;
 	}
