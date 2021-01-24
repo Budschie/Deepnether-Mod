@@ -9,6 +9,7 @@ import de.budschie.deepnether.biomes.BiomeRegistry;
 import de.budschie.deepnether.biomes.biome_data_handler.BiomeDataHandler;
 import de.budschie.deepnether.biomes.biome_data_handler.DeepnetherBiomeData;
 import de.budschie.deepnether.biomes.biome_data_handler.GreenForestBiomeData;
+import de.budschie.deepnether.biomes.biome_data_handler.SoulDesertBiomeData;
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.block.fluids.FluidInit;
 import de.budschie.deepnether.capabilities.ToolDefinitionCapability;
@@ -93,6 +94,7 @@ public class DeepnetherMain
     	
     	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "green_forest_biome"), new GreenForestBiomeData());
     	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "deepnether_biome"), new DeepnetherBiomeData());
+    	BiomeDataHandler.addBiomeData(new ResourceLocation(References.MODID, "soul_desert_biome"), new SoulDesertBiomeData());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) 

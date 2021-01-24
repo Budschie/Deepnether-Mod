@@ -51,7 +51,7 @@ public class ChannelRegistryEvents
 			
 			return added / (20*20);
 		}), 10));
-		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<ResourceLocation, WeightedBiomeData>("nearbyBiomes", WeightedBiomeData.class, null, IInterpolationApplier.getSimpleApplier((inputArea, x, z) -> 
+		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<ResourceLocation, WeightedBiomeData>("nearbyBiomes", WeightedBiomeData.class, new ResourceLocation("yeetus"), IInterpolationApplier.getSimpleApplier((inputArea, x, z) -> 
 		{
 			HashMap<ResourceLocation, Integer> occurences = new HashMap<>();
 			

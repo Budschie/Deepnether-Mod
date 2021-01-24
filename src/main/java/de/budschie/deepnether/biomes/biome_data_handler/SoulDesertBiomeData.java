@@ -2,6 +2,7 @@ package de.budschie.deepnether.biomes.biome_data_handler;
 
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.IBiomeGenerator;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.SimpleBiomeGenerator;
+import de.budschie.deepnether.biomes.biome_data_handler.worldgen.SoulDesertBiomeGenerator;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardHeightmapSupplier;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardIntegerProvider;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.ValueProvider;
@@ -21,7 +22,7 @@ public class SoulDesertBiomeData implements IDeepnetherBiomeData
 	@Override
 	public IBiomeGenerator getBiomeGenerator()
 	{
-		return new SimpleBiomeGenerator(8, BlockInit.GREEN_FOREST_FERTILIUM_GRASS_BLOCK.getDefaultState(), BlockInit.FERTILIUM.getDefaultState(), Blocks.LAVA.getDefaultState(), BlockInit.FERTILIUM.getDefaultState());
+		return new SoulDesertBiomeGenerator();
 	}
 	
 	@SubscribeEvent

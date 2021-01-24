@@ -36,7 +36,7 @@ public class DeepnetherBiomeProvider extends BiomeProvider
         .filter((entry) -> 
         {
         	String name = entry.getKey().getLocation().getPath();
-        	return name.equals("green_forest_biome") || name.equals("deepnether_biome");
+        	return name.equals("green_forest_biome") || name.equals("deepnether_biome") || name.equals("soul_desert_biome");
         })
         .map((entry) -> entry.getValue())
         .collect(Collectors.toList()));
@@ -63,6 +63,11 @@ public class DeepnetherBiomeProvider extends BiomeProvider
 	{
 		double value = noise.voronoiNoise(x, z, getBiomeScale(), true);
 		return (int) (value * Integer.MAX_VALUE);
+	}
+	
+	public double getVoronoi(int x, int y, int z)
+	{
+		return noise.voronoiNoise((double)x, (double)z, getBiomeScale(), false);
 	}
 
 	@Override
