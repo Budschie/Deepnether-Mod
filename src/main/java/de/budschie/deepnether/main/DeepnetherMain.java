@@ -18,6 +18,7 @@ import de.budschie.deepnether.dimension.DeepnetherBiomeProvider;
 import de.budschie.deepnether.dimension.DeepnetherChunkGenerator;
 import de.budschie.deepnether.entity.renders.EntityRenderInit;
 import de.budschie.deepnether.gui.NetherBlastFurnaceGUI;
+import de.budschie.deepnether.item.ItemInit;
 import de.budschie.deepnether.item.ToolUsableItemRegistry;
 import de.budschie.deepnether.item.recipes.ToolRecipeSerializerRegistry;
 import de.budschie.deepnether.networking.FogSeedMessageRecieve;
@@ -66,6 +67,8 @@ public class DeepnetherMain
         ToolRecipeSerializerRegistry.DEF_REG_RECIPE.register(FMLJavaModLoadingContext.get().getModEventBus());
         FluidInit.DEF_REG_FLUID.register(FMLJavaModLoadingContext.get().getModEventBus());
         BiomeRegistry.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BlockInit.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
+        ItemInit.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
      }

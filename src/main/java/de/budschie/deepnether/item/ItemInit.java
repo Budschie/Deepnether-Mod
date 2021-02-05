@@ -23,14 +23,19 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber(modid = References.MODID, bus = Bus.MOD)
 public class ItemInit 
 {
 	public static ArrayList<Item> MOD_ITEMS = new ArrayList<>();
+	
+	public static final DeferredRegister<Item> REGISTRY = DeferredRegister.create(ForgeRegistries.ITEMS, References.MODID);
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event)
@@ -55,8 +60,8 @@ public class ItemInit
 		return (SpawnEggItem) new SpawnEggItem(type, primaryColor, secondaryColor, new Item.Properties().group(ItemGroup.MISC)).setRegistryName(new ResourceLocation(type.getRegistryName().toString()+"_spawn_egg"));
 	}
 	
-	public static final ToolGroup COMPRESSED_NETHERRACK_TOOL_GROUP = new ToolGroup("cnr", CNR_TIER.addDescriptionElement(ToolMaterialDescriptionElement.HOT).addDescriptionElement(ToolMaterialDescriptionElement.ROUGH), (int) CNR_TIER.getAttackDamage(), .25f, new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS));
-	public static final ToolGroup DYLITHITE_TOOL_GROUP = new ToolGroup("dyl", DYL_TIER, (int) DYL_TIER.getAttackDamage(), 5.0f, new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS));
+	public static final ToolGroup COMPRESSED_NETHERRACK_TOOL_GROUP = new ToolGroup(REGISTRY, "cnr", CNR_TIER.addDescriptionElement(ToolMaterialDescriptionElement.HOT).addDescriptionElement(ToolMaterialDescriptionElement.ROUGH), (int) CNR_TIER.getAttackDamage(), .25f, new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS));
+	public static final ToolGroup DYLITHITE_TOOL_GROUP = new ToolGroup(REGISTRY, "dyl", DYL_TIER, (int) DYL_TIER.getAttackDamage(), 5.0f, new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS));
 	
 	public static final ArmorSet COMPRESSED_NETHERRACK_ARMOR = new ArmorSet("cnr", ModArmorMaterials.CNR_ARMOR_MATERIAL, new Item.Properties().group(ModItemGroups.MOD_ARMOR));	
 	public static final ArmorSet DYLITHITE_ARMOR = new ArmorSet("dyl", ModArmorMaterials.DYL_ARMOR_MATERIAL, new Item.Properties().group(ModItemGroups.MOD_ARMOR));	
