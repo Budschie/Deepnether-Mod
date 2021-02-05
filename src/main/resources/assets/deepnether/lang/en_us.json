@@ -28,22 +28,21 @@
   "block.deepnether.leggings_dyl": "Dylithite Leggings",
   "block.deepnether.helmet_dyl": "Dylithite Helmet",
   "block.deepnether.chest_dyl": "Dylithite Chestplate",
-  "block.deepnether.boots_dyl": "Dylithite Boots"
-,"block.deepnether.amylithe_orb": "Amylithe Orb"
-,"block.deepnether.amylithe_orb": "Amylithe Orb"
-,"block.deepnether.amylite_orb": "Amylithe Orb"
-,"item.deepnether.dylithite_ingot": "Dylithite Ingot"
-,"block.deepnether.amylithe_shard": "Amylithe Shard"
-,"block.deepnether.amylithe_orb": "Amylithe Orb"
-,"block.deepnether.amylithe_shard": "Amylithe Shard"
-,"block.deepnether.nether_dust_grass_block": "Nether Dust Grass Block"
-,"block.deepnether.nether_dust_grass": "Nether Dust Grass"
-,"block.deepnether.ancient_leaves": "Ancient Leaves"
-,"tooltype.pickaxe": "Pickaxe"
-,"tooltype.sword": "Sword"
-,"tooltype.shovel": "Shovel"
-,"tooltype.axe": "Axe"
-,"block.deepnether.green_forest_fertilium_grass_block": "Fertilium Grass Block"
-,"block.deepnether.fertilium_block": "Fertilium Block"
-,"block.deepnether.green_forest_compressed_netherrack_grass_block": "Compressed Netherrack Grass Block"
+  "block.deepnether.boots_dyl": "Dylithite Boots",
+  "block.deepnether.amylite_orb": "Amylithe Orb",
+  "item.deepnether.dylithite_ingot": "Dylithite Ingot",
+  "block.deepnether.amylithe_orb": "Amylithe Orb",
+  "block.deepnether.amylithe_shard": "Amylithe Shard",
+  "block.deepnether.nether_dust_grass_block": "Nether Dust Grass Block",
+  "block.deepnether.nether_dust_grass": "Nether Dust Grass",
+  "block.deepnether.ancient_leaves": "Ancient Leaves",
+  "tooltype.pickaxe": "Pickaxe",
+  "tooltype.sword": "Sword",
+  "tooltype.shovel": "Shovel",
+  "tooltype.axe": "Axe",
+  "block.deepnether.green_forest_fertilium_grass_block": "Fertilium Grass Block",
+  "block.deepnether.fertilium_block": "Fertilium Block",
+  "block.deepnether.green_forest_compressed_netherrack_grass_block": "Compressed Netherrack Grass Block",
+  "block.deepnether.withered_tree_log": "Withered Tree Log",
+  "block.deepnether.soul_infused_tree_log": "Soul Infused Withered Tree Log"
 }

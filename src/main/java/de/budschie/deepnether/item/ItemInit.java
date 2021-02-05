@@ -17,6 +17,7 @@ import de.budschie.deepnether.util.ModItemGroups;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
@@ -63,14 +64,16 @@ public class ItemInit
 	public static final ToolGroup COMPRESSED_NETHERRACK_TOOL_GROUP = new ToolGroup(REGISTRY, "cnr", CNR_TIER.addDescriptionElement(ToolMaterialDescriptionElement.HOT).addDescriptionElement(ToolMaterialDescriptionElement.ROUGH), (int) CNR_TIER.getAttackDamage(), .25f, new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS));
 	public static final ToolGroup DYLITHITE_TOOL_GROUP = new ToolGroup(REGISTRY, "dyl", DYL_TIER, (int) DYL_TIER.getAttackDamage(), 5.0f, new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS), new Item.Properties().group(ModItemGroups.MOD_TOOLS));
 	
-	public static final ArmorSet COMPRESSED_NETHERRACK_ARMOR = new ArmorSet("cnr", ModArmorMaterials.CNR_ARMOR_MATERIAL, new Item.Properties().group(ModItemGroups.MOD_ARMOR));	
-	public static final ArmorSet DYLITHITE_ARMOR = new ArmorSet("dyl", ModArmorMaterials.DYL_ARMOR_MATERIAL, new Item.Properties().group(ModItemGroups.MOD_ARMOR));	
+	public static final ArmorSet COMPRESSED_NETHERRACK_ARMOR = new ArmorSet(REGISTRY, "cnr", ModArmorMaterials.CNR_ARMOR_MATERIAL, new Item.Properties().group(ModItemGroups.MOD_ARMOR));	
+	public static final ArmorSet DYLITHITE_ARMOR = new ArmorSet(REGISTRY, "dyl", ModArmorMaterials.DYL_ARMOR_MATERIAL, new Item.Properties().group(ModItemGroups.MOD_ARMOR));	
 	
-	public static final BaseItem AMYLITHE_SHARD = new BaseItem("amylithe_shard", new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS));
-	public static final BaseItem AMYLITHE_ORB = new BaseItem("amylithe_orb", new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS));
+	public static final RegistryObject<Item> AMYLITHE_SHARD = REGISTRY.register("amylithe_shard", () -> new Item(new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS)));
+	public static final RegistryObject<Item> AMYLITHE_ORB = REGISTRY.register("amylithe_orb", () -> new Item(new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS)));
+	public static final RegistryObject<Item> DYLITHITE_INGOT = REGISTRY.register("dylithite_ingot", () -> new Item(new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS)));
 	
-	public static final BaseItem DYLITHITE_INGOT = new BaseItem("dylithite_ingot", new Item.Properties().group(ModItemGroups.MOD_INGREDIENTS));
-	
+	public static final RegistryObject<BlockItem> WITHERED_TREE_LOG = REGISTRY.register("withered_tree_log", () -> new BlockItem(BlockInit.WITHERED_TREE_LOG.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
+	public static final RegistryObject<BlockItem> SOUL_WITHERED_TREE_LOG = REGISTRY.register("soul_infused_withered_tree_log", () -> new BlockItem(BlockInit.SOUL_INFUSED_WITHERED_TREE_LOG.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
+
 	/*
 	 * .setISTER(() -> new Callable<ItemStackTileEntityRenderer>()
 	{
@@ -87,5 +90,5 @@ public class ItemInit
 		
 	})
 	 */
-	public static final CommonTool COMMON_TOOL = new CommonTool(new Item.Properties());
+	public static final RegistryObject<CommonTool> COMMON_TOOL = REGISTRY.register("common_tool", () -> new CommonTool(new Item.Properties()));
 }

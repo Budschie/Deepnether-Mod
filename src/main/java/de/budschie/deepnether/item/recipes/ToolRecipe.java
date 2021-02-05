@@ -86,7 +86,7 @@ public class ToolRecipe implements ICraftingRecipe
 			@Override
 			public Item asItem()
 			{
-				return ItemInit.COMMON_TOOL;
+				return ItemInit.COMMON_TOOL.get();
 			}
 		});
 		

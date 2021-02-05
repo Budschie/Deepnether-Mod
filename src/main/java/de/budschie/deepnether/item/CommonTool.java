@@ -35,10 +35,6 @@ public class CommonTool extends Item
 	public CommonTool(Properties properties)
 	{
 		super(properties);
-		
-		this.setRegistryName(new ResourceLocation(References.MODID, "common_tool"));
-		
-		ItemInit.MOD_ITEMS.add(this);
 	}
 	
 	@Override

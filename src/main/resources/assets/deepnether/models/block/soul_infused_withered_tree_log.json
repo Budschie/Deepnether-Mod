@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"0": "deepnether:block/soul_infused_withered_tree_log_top_animated",
-		"1": "deepnether:block/withered_tree_log_side",
+		"1": "deepnether:block/soul_infused_withered_tree_log_side",
 		"particle": "deepnether:block/soul_infused_withered_tree_log_top_animated"
 	},
 	"elements": [

@@ -39,7 +39,7 @@ public class ToolUsableItemRegistry
 	
 	public static void init()
 	{
-		attach(ItemInit.DYLITHITE_INGOT, new IToolUsableItem()
+		attach(ItemInit.DYLITHITE_INGOT.get(), new IToolUsableItem()
 		{
 			String bound = "";
 			@Override

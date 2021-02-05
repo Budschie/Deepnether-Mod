@@ -12,10 +12,13 @@ import de.budschie.deepnether.entity.damagesource.DamageSourceLiveSucking;
 import de.budschie.deepnether.item.ModToolTypes;
 import de.budschie.deepnether.main.References;
 import de.budschie.deepnether.util.ModItemGroups;
+import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -30,6 +33,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -59,6 +63,9 @@ public class BlockInit
 		reg.register(HOT_JELLY_FLUID_BLOCK.setRegistryName(new ResourceLocation(References.MODID, "hot_jelly_fluid_block")));
 	}
 	
+	public static final RegistryObject<Block> WITHERED_TREE_LOG = REGISTRY.register("withered_tree_log", () -> new RotatedPillarBlock(Properties.create(Material.ROCK).sound(SoundType.HYPHAE).hardnessAndResistance(2, 0.25f)));
+	public static final RegistryObject<Block> SOUL_INFUSED_WITHERED_TREE_LOG = REGISTRY.register("soul_infused_withered_tree_log", () -> new RotatedPillarBlock(Properties.create(Material.ORGANIC).sound(SoundType.HYPHAE).hardnessAndResistance(5, 15f)));
+
 	/*
 	@SubscribeEvent
 	public static void onModelRegistry(ModelRegistryEvent event)

@@ -47,32 +47,36 @@ public class SoulDesertBiomeGenerator implements IBiomeGenerator
 		VoronoiNoise noise = new VoronoiNoise(biomeId + 5);
 		
 		boolean hasIsland = (new Random((long) (noise.voronoiNoise(chunkStartX + localX, chunkStartZ + localZ, ISLAND_SIZE, true) * 57892)).nextInt(ISLAND_CHANCE) == 0);
-		double sampledHeightmap = (hasIsland ? noise.voronoiNoise(chunkStartX + localX, chunkStartZ + localZ, ISLAND_SCALING, false) : 0);
 		
-		sampledHeightmap *= biomeData.getWeights().get(new ResourceLocation(References.MODID, "soul_desert_biome"));
-		
-		int totalValue = (int) ((sampledHeightmap * (MAX_ISLAND_HEIGHT - MIN_ISLAND_HEIGHT))) - 1;
-		
-		for(int y = 0; y <= totalValue; y++)
+		if(hasIsland)
 		{
-			int currentY = y + MIN_ISLAND_HEIGHT;
+			double sampledHeightmap = noise.voronoiNoise(chunkStartX + localX, chunkStartZ + localZ, ISLAND_SCALING, false);
 			
-			if(y == totalValue)
+			sampledHeightmap *= biomeData.getWeights().get(new ResourceLocation(References.MODID, "soul_desert_biome"));
+			
+			int totalValue = (int) ((Math.floor(sampledHeightmap * (MAX_ISLAND_HEIGHT - MIN_ISLAND_HEIGHT))));
+			
+			for(int y = 0; y <= totalValue; y++)
 			{
-				chunk.setBlockState(new BlockPos(localX, currentY, localZ), BlockInit.NETHER_DUST_GRASS_BLOCK.getDefaultState(), false);
+				int currentY = y + MIN_ISLAND_HEIGHT;
 				
-				boolean placeGrass = new Random(Integer.hashCode(currentY * localX * localZ << 2)).nextInt(6) == 0;
-				
-				if(placeGrass)
-					chunk.setBlockState(new BlockPos(localX, currentY + 1, localZ), BlockInit.NETHER_DUST_GRASS.getDefaultState(), false);
-			}
-			else if((y + 3) >= totalValue)
-			{
-				chunk.setBlockState(new BlockPos(localX, currentY, localZ), BlockInit.SOUL_DUST.getDefaultState(), false);
-			}
-			else
-			{
-				chunk.setBlockState(new BlockPos(localX, currentY, localZ), BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), false);
+				if(y == totalValue)
+				{
+					chunk.setBlockState(new BlockPos(localX, currentY, localZ), BlockInit.NETHER_DUST_GRASS_BLOCK.getDefaultState(), false);
+					
+					boolean placeGrass = new Random(Integer.hashCode(currentY * localX * localZ << 2)).nextInt(6) == 0;
+					
+					if(placeGrass)
+						chunk.setBlockState(new BlockPos(localX, currentY + 1, localZ), BlockInit.NETHER_DUST_GRASS.getDefaultState(), false);
+				}
+				else if((y + 3) >= totalValue)
+				{
+					chunk.setBlockState(new BlockPos(localX, currentY, localZ), BlockInit.SOUL_DUST.getDefaultState(), false);
+				}
+				else
+				{
+					chunk.setBlockState(new BlockPos(localX, currentY, localZ), BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), false);
+				}
 			}
 		}
 	}
