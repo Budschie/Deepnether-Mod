@@ -19,8 +19,10 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap.Type;
+import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.OctavesNoiseGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraftforge.common.MinecraftForge;
@@ -102,18 +104,6 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 			}
 		}
 	}
-
-	@Override
-	public void func_230352_b_(IWorld world, StructureManager structureManager, IChunk chunk)
-	{
-		
-	}
-
-	@Override
-	public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_)
-	{
-		return null;
-	}
 	
 	@Override
 	public DeepnetherBiomeProvider getBiomeProvider()
@@ -125,5 +115,17 @@ public class DeepnetherChunkGenerator extends ChunkGenerator
 	public int getHeight(int x, int z, Type heightmapType)
 	{
 		return 0;
+	}
+
+	@Override
+	public void func_230352_b_(IWorld p_230352_1_, StructureManager p_230352_2_, IChunk p_230352_3_)
+	{
+		
+	}
+
+	@Override
+	public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_)
+	{
+		return null;
 	}
 }
