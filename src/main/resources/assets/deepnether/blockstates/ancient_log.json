@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":    { "model": "deepnether:block/ancient_log" },
+        "axis=z":     { "model": "deepnether:block/ancient_log", "x": 90 },
+        "axis=x":     { "model": "deepnether:block/ancient_log", "x": 90, "y": 90 }
+    }
+}

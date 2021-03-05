@@ -1,0 +1,9 @@
+{
+    "variants": 
+    {
+        "facing=north": { "model":"deepnether:nether_furnace" },
+        "facing=south": { "model":"deepnether:nether_furnace", "y": 180 },
+        "facing=west":  { "model":"deepnether:nether_furnace", "y": 270 },
+        "facing=east":  { "model":"deepnether:nether_furnace", "y": 90 }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "deepnether:block/ancient_log_top",
+        "side": "deepnether:block/ancient_log_side"
+    }
+}

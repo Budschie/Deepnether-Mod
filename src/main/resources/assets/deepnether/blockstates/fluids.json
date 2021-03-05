@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "forge:fluid"
+  },
+  "variants": {
+  
+    "hot_soulful_jelly": [
+      {
+        "custom": 
+        {
+          "fluid": "hot_soulful_jelly"
+        }
+      }
+    ],
+    "cold_soulful_jelly": [
+      {
+        "custom": 
+        {
+          "fluid": "cold_soulful_jelly"
+        }
+      }
+    ]
+  }
+}

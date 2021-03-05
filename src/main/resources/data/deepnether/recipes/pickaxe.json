@@ -1,0 +1,5 @@
+{
+	"type":"deepnether:dyn_tool_serializer",
+	"crafting_recipe": ["XXX", " I ", " I "],
+	"tool_type": "pickaxe"
+}

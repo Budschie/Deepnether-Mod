@@ -1,0 +1,55 @@
+{
+  "scale": 0.25,
+  "effects": {
+    "mood_sound": {
+      "sound": "minecraft:ambient.basalt_deltas.mood",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2
+    },
+    "ambient_sound": "minecraft:ambient.basalt_deltas.loop",
+    "sky_color": 8401715,
+    "fog_color": 8401715,
+    "water_color": 14869218,
+    "water_fog_color": 11711154,
+	"particle": {
+      "options": {
+        "type": "minecraft:portal"
+      },
+      "probability": 0.005
+    }
+  },
+  "surface_builder": "minecraft:warped_forest",
+  "carvers": {
+    "air": [],
+    "liquid": []
+  },
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "starts": [],
+  "spawners": {
+    "monster": [],
+    "creature": [],
+    "ambient": [],
+    "water_creature": [],
+    "water_ambient": [],
+    "misc": []
+  },
+  "spawn_costs": {},
+  "player_spawn_friendly": false,
+  "precipitation": "none",
+  "temperature": 2,
+  "downfall": 0,
+  "category": "nether",
+  "depth": 0.3,
+  "creature_spawn_probability": 0
+}
