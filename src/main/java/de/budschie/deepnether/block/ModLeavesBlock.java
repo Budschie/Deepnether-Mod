@@ -13,7 +13,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 
-@SuppressWarnings("deprecation")
 public class ModLeavesBlock extends LeavesBlock
 {
 
@@ -39,5 +38,17 @@ public class ModLeavesBlock extends LeavesBlock
 	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side)
 	{
 		return false;
+	}
+	
+	@Override
+	public boolean isTransparent(BlockState state)
+	{
+		return true;
+	}
+	
+	@Override
+	public boolean isVariableOpacity()
+	{
+		return true;
 	}
 }

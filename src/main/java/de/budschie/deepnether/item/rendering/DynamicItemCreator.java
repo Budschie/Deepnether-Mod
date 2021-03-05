@@ -12,6 +12,7 @@ import net.minecraft.util.math.vector.Vector4f;
 
 public class DynamicItemCreator
 {
+	/** I love my old code. -Budschie, 2021 **/
 	public void build(DynamicTexture texture, IVertexBuilder builder, float size, int combinedLightIn, Matrix4f matrix, Matrix3f m3f, int overlay)
 	{
 		for(int y = 0; y < texture.getTextureData().getHeight(); y++)

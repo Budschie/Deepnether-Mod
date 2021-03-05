@@ -25,6 +25,7 @@ public class ToolDefinitionStorage implements IStorage<IToolDefinition>
 			compound.putString("head", instance.getHead().getBoundItem());
 		if(instance.isUsed())
 			compound.putString("stick", instance.getStick().getBoundItem());
+		
 		return compound;
 	}
 

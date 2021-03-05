@@ -18,8 +18,9 @@ public class NetherCrystalBlockBase extends ModGlassBaseBlock
 	
 	public NetherCrystalBlockBase(String color) 
 	{
-		super(ModProperties.MOD_CRYSTAL, "nether_crystal_"+color, ModItemGroups.MOD_BLOCKS);
+		super(ModProperties.MOD_CRYSTAL, "nether_crystal_" + color, ModItemGroups.MOD_BLOCKS);
 		NETHER_CRYSTALS.add(this);
+		this.color = color;
 	}
 	
 	public String getColor() 

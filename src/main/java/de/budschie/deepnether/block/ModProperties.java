@@ -1,9 +1,7 @@
 package de.budschie.deepnether.block;
 
-import net.minecraft.block.IceBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.common.ToolType;
 
@@ -29,7 +27,8 @@ public class ModProperties
 	public static final Properties MOD_LOG_BLOCK = Properties.create(Material.ROCK).harvestLevel(0).hardnessAndResistance(.65f, 5f);
 	
 	/** Leaf and small transparent props **/
-	public static final Properties MOD_LEAVES = Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(0.65f, 30.0f).variableOpacity().notSolid();
+	public static final Properties MOD_LEAVES = Properties.create(Material.LEAVES).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT).notSolid().setSuffocates((state, reader, position) -> state.isSolid()).setBlocksVision((state, reader, position) -> state.isSolid());
+	// public static final Properties MOD_LEAVES = Properties.create(Material.ICE).harvestLevel(0).hardnessAndResistance(0.65f, 30.0f).variableOpacity().notSolid();
 	public static final Properties MOD_MUSHROOM = Properties.create(Material.PLANTS).notSolid().hardnessAndResistance(0).sound(SoundType.PLANT);
 	
 	/** Fluids **/

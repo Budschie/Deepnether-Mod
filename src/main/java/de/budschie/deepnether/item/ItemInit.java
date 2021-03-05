@@ -90,5 +90,10 @@ public class ItemInit
 		
 	})
 	 */
-	public static final RegistryObject<CommonTool> COMMON_TOOL = REGISTRY.register("common_tool", () -> new CommonTool(new Item.Properties()));
+	public static final RegistryObject<CommonTool> COMMON_TOOL = REGISTRY.register("common_tool", () -> new CommonTool(new Item.Properties().setISTER(() ->
+	{
+		DynamicCommonToolRendering dynamicCommonToolRendering = new DynamicCommonToolRendering();
+		
+		return () -> dynamicCommonToolRendering;
+	})));
 }

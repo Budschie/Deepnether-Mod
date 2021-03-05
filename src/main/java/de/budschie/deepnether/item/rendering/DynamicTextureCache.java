@@ -1,12 +1,6 @@
 package de.budschie.deepnether.item.rendering;
 
-import java.awt.color.ColorSpace;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 import de.budschie.deepnether.item.toolModifiers.IToolUsableItem;
 import de.budschie.deepnether.item.toolModifiers.IToolUsableItem.Part;
@@ -14,18 +8,15 @@ import de.budschie.deepnether.main.DeepnetherMain;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.NativeImage;
 import net.minecraft.client.renderer.texture.NativeImage.PixelFormat;
-import net.minecraft.client.renderer.texture.SimpleTexture.TextureData;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraftforge.common.ToolType;
 
 public class DynamicTextureCache
 {
-	private HashMap<String, HashMap<String, DynamicTexture>> cache = new HashMap<>();
+	private HashMap<String, DynamicTexture> cache = new HashMap<>();
 	
 	public DynamicTexture add(IToolUsableItem stick, IToolUsableItem head, ToolType toolType)
 	{
-		if(!cache.containsKey(stick.getBoundItem()) || !cache.get(stick.getBoundItem()).containsKey(head.getBoundItem()))
+		if(!cache.containsKey(toolType.getName() + "_" + stick.getBoundItem() + "_" + head.getBoundItem()))
 		{
 			try
 			{
@@ -48,15 +39,8 @@ public class DynamicTextureCache
 				dyntex.setTextureData(tex);
 				dyntex.updateDynamicTexture();
 				
-				if(cache.containsKey(stick.getBoundItem()))
-				{
-					cache.get(stick.getBoundItem()).put(head.getBoundItem(), dyntex);
-				}
-				else
-				{
-					cache.put(stick.getBoundItem(), new HashMap<>());
-					cache.get(stick.getBoundItem()).put(head.getBoundItem(), dyntex);
-				}
+				cache.put(stick.getBoundItem() + "_" + head.getBoundItem(), dyntex);
+				
 				return dyntex;
 			} catch (Exception e)
 			{
@@ -69,6 +53,6 @@ public class DynamicTextureCache
 			}
 		}
 		else
-			return cache.get(stick.getBoundItem()).get(head.getBoundItem());
+			return cache.get(stick.getBoundItem() + "_" + head.getBoundItem());
 	}
 }

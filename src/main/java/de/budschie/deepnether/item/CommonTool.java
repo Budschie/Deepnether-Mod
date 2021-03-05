@@ -3,24 +3,28 @@ package de.budschie.deepnether.item;
 import java.util.List;
 import java.util.Set;
 
+import com.electronwill.nightconfig.core.io.CharsWrapper.Builder;
+import com.google.common.collect.ImmutableListMultimap;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 import de.budschie.deepnether.capabilities.IToolDefinition;
 import de.budschie.deepnether.capabilities.ToolDefinitionCapability;
 import de.budschie.deepnether.item.toolModifiers.Stats;
-import de.budschie.deepnether.item.toolModifiers.Stats.AttributeTulpel;
-import de.budschie.deepnether.main.References;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -41,7 +45,7 @@ public class CommonTool extends Item
 	public int getMaxDamage(ItemStack stack)
 	{
 		LazyOptional<IToolDefinition> optional = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP);
-		Stats stats = optional.orElse(null).constructStats(this, stack);
+		Stats stats = optional.resolve().get().constructStats(this, stack);
 		
 		return stats.getDurability();
 	}
@@ -55,15 +59,15 @@ public class CommonTool extends Item
 	@Override
 	public float getDestroySpeed(ItemStack stack, BlockState state)
 	{
-		return state.getHarvestTool().getName().equals(stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).orElse(null).getToolType().getName()) ? stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).orElse(null).constructStats(this, stack).getDestroySpeed() : 1f;
+		return state.getHarvestTool().getName().equals(stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).resolve().get().getToolType().getName()) ? stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).orElse(null).constructStats(this, stack).getDestroySpeed() : 1f;
 	}
 	
 	@Override
 	public int getHarvestLevel(ItemStack stack, ToolType tool, PlayerEntity player, BlockState blockState)
 	{
 		LazyOptional<IToolDefinition> optional = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP);
-		Stats stats = optional.orElse(null).constructStats(this, stack);
-		return optional.orElse(null).getToolType().getName().equals(tool.getName()) ? stats.getHarvestLevel() : -1;
+		Stats stats = optional.resolve().get().constructStats(this, stack);
+		return optional.resolve().get().getToolType().getName().equals(tool.getName()) ? stats.getHarvestLevel() : -1;
 	}
 	
 	@Override
@@ -94,19 +98,47 @@ public class CommonTool extends Item
 	@Override
 	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack)
 	{
-		Multimap<Attribute, AttributeModifier> map = super.getAttributeModifiers(slot, stack);
-		if(slot != EquipmentSlotType.MAINHAND)
-			return map;
-		
-		LazyOptional<IToolDefinition> optional = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP);
-		Stats stats = optional.orElse(null).constructStats(this, stack);
-		
-		for(AttributeTulpel tulpel : stats.getAttributesToApply())
+		if(slot == EquipmentSlotType.MAINHAND)
 		{
-			map.put(tulpel.name, tulpel.modifier);
+			com.google.common.collect.ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
+			IToolDefinition toolDefinition = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).resolve().get();
+			
+			Stats stats = toolDefinition.constructStats(this, stack);
+			
+			stats.getAttributesToApply().forEach((attribute) -> builder.put(attribute.name, attribute.modifier));
+			
+			builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier("attackDamage", stats.getAttackDamage(), Operation.ADDITION));
+			
+			return builder.build();
 		}
 		
-		map.put(Attributes.ATTACK_DAMAGE, new AttributeModifier("attackDamage", stats.getAttackDamage(), Operation.ADDITION));
-		return map;
+		return super.getAttributeModifiers(slot, stack);
 	}
+	
+//	@Override
+//	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack)
+//	{
+//		Multimap<Attribute, AttributeModifier> map = super.getAttributeModifiers(slot, stack);
+//		if(slot != EquipmentSlotType.MAINHAND)
+//			return map;
+//		
+//		LazyOptional<IToolDefinition> optional = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP);
+//		Stats stats = optional.resolve().get().constructStats(this, stack);
+//		
+//		// We're not allowed to do this!
+////		tupelLoop:
+////		for(AttributeTulpel tulpel : stats.getAttributesToApply())
+////		{
+////			if(tulpel.name == null || tulpel.op == null || tulpel.modifier == null)
+////			{
+////				System.out.println("We encountered a bug. Because I'm merciful, I won't crash minecraft, but please report this to the mod dev.");
+////				continue tupelLoop;
+////			}
+////			
+////			map.put(tulpel.name, tulpel.modifier);
+////		}
+////		
+////		map.put(Attributes.ATTACK_DAMAGE, new AttributeModifier("attackDamage", stats.getAttackDamage(), Operation.ADDITION));
+//		return map;
+//	}
 }

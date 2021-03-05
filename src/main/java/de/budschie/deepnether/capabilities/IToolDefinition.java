@@ -26,9 +26,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public interface IToolDefinition
 {
 	public IToolUsableItem getHead();
-	
 	public IToolUsableItem getStick();
-	
 	public ToolType getToolType();
 	
 	public default boolean isUsed()
