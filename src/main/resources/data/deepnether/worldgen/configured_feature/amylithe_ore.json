@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:ore",
+    "config":
+    {
+        "size": 9,
+        "discard_chane_on_air_exposure": 0,
+        "targets": 
+        [
+            {
+              "target": 
+              {
+                "predicate_type": "minecraft:tag_match",
+                "tag": "deepnether:ore_tags/amylithe_ore_replacable"
+              },
+              "state":
+              {
+                  "Name": "deepnether:amylithe_ore"
+              }
+            }
+        ]
+    }
+}

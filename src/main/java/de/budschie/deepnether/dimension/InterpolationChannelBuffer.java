@@ -15,28 +15,33 @@ public class InterpolationChannelBuffer
 	Biome[][] currentBiome;
 	int startX, startZ;
 	long seed;
-	WorldGenRegion worldGenRegion;
+	Function<BlockPos, Biome> biomeFunction;
 	
 	HashMap<String, Object> cache = new HashMap<>();
 	
-	public InterpolationChannelBuffer(DeepnetherChunkGenerator deepnetherChunkGenerator, Biome[][] currentBiome, int startX, int startZ, WorldGenRegion worldGenRegion)
+	public InterpolationChannelBuffer(DeepnetherChunkGenerator deepnetherChunkGenerator, Biome[][] currentBiome, int startX, int startZ, Function<BlockPos, Biome> biomeFunction)
 	{
 		this.deepnetherChunkGenerator = deepnetherChunkGenerator;
 		this.currentBiome = currentBiome;
 		this.startX = startX;
 		this.startZ = startZ;
 		this.seed = deepnetherChunkGenerator.seed;
-		this.worldGenRegion = worldGenRegion;
+		this.biomeFunction = biomeFunction;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <E> E[][] getValue(String name)
 	{
-		return (E[][]) cache.computeIfAbsent(name, (absentName) -> deepnetherChunkGenerator.getInterpolationChannel(absentName).getArea(seed, (blockPos) -> worldGenRegion.getBiomeManager().getBiome(blockPos), deepnetherChunkGenerator.getBiomeProvider(), startX, startZ, currentBiome));
+		return (E[][]) cache.computeIfAbsent(name, (absentName) -> deepnetherChunkGenerator.getInterpolationChannel(absentName).getArea(seed, (blockPos) -> biomeFunction.apply(blockPos), deepnetherChunkGenerator.getBiomeProvider(), startX, startZ, currentBiome));
 	}
 	
 	public long getSeed()
 	{
 		return seed;
+	}
+	
+	public Function<BlockPos, Biome> getBiomeFunction()
+	{
+		return biomeFunction;
 	}
 }

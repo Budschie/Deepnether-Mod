@@ -5,6 +5,7 @@ import java.util.HashMap;
 import de.budschie.deepnether.dimension.IInterpolationApplier;
 import de.budschie.deepnether.dimension.InterpolationChannel;
 import de.budschie.deepnether.dimension.InterpolationChannelRegistryEvent;
+import de.budschie.deepnether.util.Pair;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -12,13 +13,10 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @EventBusSubscriber(bus = Bus.FORGE)
 public class ChannelRegistryEvents
-{
+{	
 	@SubscribeEvent
 	public static void onRegisterDefaultChannels(InterpolationChannelRegistryEvent event)
-	{
-		// Dude this is gonna hurt my poor CPU a lot...
-		
-		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<Double, Double>("heightmap", Double.class, 0.0, IInterpolationApplier.getSimpleApplier((inputArea, x, z) -> inputArea[x][z]), 0));
+	{	
 		event.getChunkGenerator().addInterpolationEntry(new InterpolationChannel<Integer, Integer>("terrainHeight", Integer.class, 0, IInterpolationApplier.getSimpleApplier((inputArea, x, z) -> 
 		{
 			//return (int) MathUtil.bilinearInterpolation(sample2x2(sampledArea, 0, 15), sample2x2(sampledArea, 15, 15), sample2x2(sampledArea, 0, 0), sample2x2(sampledArea, 15, 0), x / 16f, z / 16f);

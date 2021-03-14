@@ -8,6 +8,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.BambooFeature;
 import net.minecraft.world.gen.feature.Feature;
 
 public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
@@ -19,7 +20,10 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 
 	@Override
 	public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, WitheredTreeFeatureConfig config)
-	{
+	{		
+		if(pos.getY() < 0)
+			return false;
+		
 		int size = rand.nextInt(4) + 12;
 		
 		BlockState logUp = config.getLogUp().getBlockState(rand, pos);
@@ -32,7 +36,7 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 			
 			if(rand.nextInt(3) == 0)
 			{
-				int branchLength = rand.nextInt(3) + 3;
+				int branchLength = rand.nextInt(Math.max(i - 3, 1)) + 3;
 				
 				BlockPos currentPos = new BlockPos(pos.getX(), pos.getY() + i, pos.getZ());
 				
@@ -44,18 +48,15 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 					currentPos = currentPos.add(currentBranchDirection.getToAdd());
 					
 					// We change the block state afterwards, causing the log block to look up before he actually goes up. This is all intentional.
-					if(rand.nextInt(3) == 0)
-					{
-						currentBranchDirection = BranchDirection.values()[rand.nextInt(BranchDirection.values().length)];
-						currentBlockState = getCurrentBlockState(currentBranchDirection.axis, logUp, rotatedX, rotatedZ);
-					}
+					currentBranchDirection = BranchDirection.values()[rand.nextInt(BranchDirection.values().length)];
+					currentBlockState = getCurrentBlockState(currentBranchDirection.axis, logUp, rotatedX, rotatedZ);
 					
 					reader.setBlockState(currentPos, currentBlockState, 0);
 				}
 			}
 		}
 		
-		return false;
+		return true;
 	}
 	
 	private BlockState getCurrentBlockState(Direction.Axis axis, BlockState logUp, BlockState rotatedX, BlockState rotatedZ)
@@ -88,6 +89,11 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 		public BlockPos getToAdd()
 		{
 			return toAdd;
+		}
+		
+		public Direction.Axis getAxis()
+		{
+			return axis;
 		}
 	}
 }

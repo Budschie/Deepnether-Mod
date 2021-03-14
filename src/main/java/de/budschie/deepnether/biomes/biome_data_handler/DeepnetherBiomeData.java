@@ -1,8 +1,8 @@
 package de.budschie.deepnether.biomes.biome_data_handler;
 
+import de.budschie.deepnether.biomes.biome_data_handler.worldgen.ConfigurableOpenSimplexNoise;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.IBiomeGenerator;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.SimpleBiomeGenerator;
-import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardHeightmapSupplier;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.StandardIntegerProvider;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.ValueProvider;
 import de.budschie.deepnether.biomes.biome_data_handler.worldgen.WeightedBiomeData;
@@ -20,23 +20,19 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(bus = Bus.FORGE)
 public class DeepnetherBiomeData implements IDeepnetherBiomeData
 {
-	private static final LazyProvider<SimpleBiomeGenerator> DEEPNETHER_BIOME = new LazyProvider<SimpleBiomeGenerator>(() -> 
-	{
-		SimpleBiomeGenerator biomeGenerator = new SimpleBiomeGenerator(4, BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), Blocks.LAVA.getDefaultState(), BlockInit.SOUL_DUST.getDefaultState());
-		MinecraftForge.EVENT_BUS.register(biomeGenerator);
-		return biomeGenerator;
-	});
+	private static SimpleBiomeGenerator deepnetherBiome;
 	
 	@Override
 	public IBiomeGenerator getBiomeGenerator()
 	{
-		return DEEPNETHER_BIOME.get();
+		return deepnetherBiome;
 	}
 	
 	@SubscribeEvent
 	public static void onRegisterBiomeChannels(InterpolationChannelBiomeRegistryEvent event)
 	{
-		event.getChunkGenerator().<Double, Double>getInterpolationChannel("heightmap").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardHeightmapSupplier(.04, 2, .25, 2));
+		deepnetherBiome = new SimpleBiomeGenerator(seed -> new ConfigurableOpenSimplexNoise(seed, .04, 2, .25, 2), 4, BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), BlockInit.COMPRESSED_NETHERRACK.getDefaultState(), Blocks.LAVA.getDefaultState(), BlockInit.SOUL_DUST.getDefaultState());
+		MinecraftForge.EVENT_BUS.register(deepnetherBiome);
 		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("terrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardIntegerProvider(45));
 		event.getChunkGenerator().<Integer, Integer>getInterpolationChannel("minTerrainHeight").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new StandardIntegerProvider(25));
 		event.getChunkGenerator().<ResourceLocation, WeightedBiomeData>getInterpolationChannel("nearbyBiomes").addMappingFunction(new ResourceLocation(References.MODID, "deepnether_biome"), new ValueProvider<ResourceLocation>(new ResourceLocation(References.MODID, "deepnether_biome")));

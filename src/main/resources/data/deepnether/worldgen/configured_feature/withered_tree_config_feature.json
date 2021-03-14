@@ -1,40 +1,42 @@
 {
-  "config": {
-    "feature": {
-      "config": {
-        "feature": {
-          "config": {
-            "feature": {
-              "config": {},
-              "type": "minecraft:blue_ice"
-            },
-            "decorator": {
-              "config": {
-                "bottom_offset": 0,
-                "top_offset": 32,
-                "maximum": 200
-              },
-              "type": "minecraft:range"
-            }
-          },
-          "type": "minecraft:decorated"
-        },
-        "decorator": {
-          "config": {},
-          "type": "minecraft:square"
+  "type": "deepnether:withered_tree_feature",
+  "config":
+  {
+    "logUp": 
+    {
+      "type": "minecraft:simple_state_provider",
+      "state": 
+      {
+        "Name": "minecraft:bone_block",
+        "Properties": 
+        {
+          "axis": "y"
         }
-      },
-      "type": "minecraft:decorated"
+      }
     },
-    "decorator": {
-      "config": {
-        "count": {
-          "base": 3,
-          "spread": 19
+    "rotatedX": 
+    {
+      "type": "minecraft:simple_state_provider",
+      "state": 
+      {
+        "Name": "minecraft:bone_block",
+        "Properties": 
+        {
+          "axis": "y"
         }
-      },
-      "type": "minecraft:count"
+      }
+    },
+    "rotatedZ": 
+    {
+      "type": "minecraft:simple_state_provider",
+      "state": 
+      {
+        "Name": "minecraft:bone_block",
+        "Properties": 
+        {
+          "axis": "y"
+        }
+      }
     }
-  },
-  "type": "minecraft:decorated"
+  }
 }

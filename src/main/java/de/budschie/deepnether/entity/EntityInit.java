@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType.IFactory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -29,9 +30,10 @@ public class EntityInit
 	public static EntityType<ShadowEntity> SHADOW = null;
 	public static EntityType<HellGoatEntity> HELL_GOAT = null;
 	
-	public static void onEntityAttributesCreated(net.minecraftforge.event.entity.Entity event)
+	@SubscribeEvent
+	public static void onEntityAttributesCreated(EntityAttributeCreationEvent event)
 	{
-		
+		event.put(HELL_CREEPER, HellCreeperEntity.setupAttributes());
 	}
 	
 	public static void createEntityTypes()

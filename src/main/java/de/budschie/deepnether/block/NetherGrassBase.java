@@ -8,6 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.GrassBlock;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -20,6 +21,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 public class NetherGrassBase extends BushBlock
 {

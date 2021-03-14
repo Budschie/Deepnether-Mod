@@ -25,15 +25,47 @@
     "liquid": []
   },
   "features": [
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    [],
-    []
+    ["minecraft:basalt_pillar"],
+    [
+      "minecraft:lake_water",
+      "minecraft:lake_lava"
+    ],
+    ["minecraft:basalt_pillar"],
+    [
+      "minecraft:monster_room"
+    ],
+    ["minecraft:basalt_pillar"],
+    ["minecraft:basalt_pillar"],
+    [
+      "deepnether:amylithe_ore",
+      "minecraft:ore_dirt",
+      "minecraft:ore_gravel",
+      "minecraft:ore_granite",
+      "minecraft:ore_diorite",
+      "minecraft:ore_andesite",
+      "minecraft:ore_coal",
+      "minecraft:ore_iron",
+      "minecraft:ore_gold",
+      "minecraft:ore_redstone",
+      "minecraft:ore_diamond",
+      "minecraft:ore_lapis",
+      "minecraft:disk_sand",
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel", "minecraft:basalt_pillar"
+    ],
+    ["minecraft:basalt_pillar"],
+    [
+      "minecraft:autumn_plants",
+      "minecraft:basalt_pillar",
+      "minecraft:brown_mushroom_normal",
+      "minecraft:red_mushroom_normal",
+      "minecraft:patch_pumpkin_autumn",
+      "minecraft:spring_water",
+      "minecraft:spring_lava"
+    ],
+    [
+      "minecraft:freeze_top_layer", "minecraft:basalt_pillar"
+    ]
   ],
   "starts": [],
   "spawners": {

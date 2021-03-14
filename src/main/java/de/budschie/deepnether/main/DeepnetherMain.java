@@ -17,7 +17,9 @@ import de.budschie.deepnether.container.DeepNetherBlastFurnaceContainer;
 import de.budschie.deepnether.dimension.DeepnetherBiomeProvider;
 import de.budschie.deepnether.dimension.DeepnetherChunkGenerator;
 import de.budschie.deepnether.entity.renders.EntityRenderInit;
+import de.budschie.deepnether.features.ConfiguredFeatureRegistry;
 import de.budschie.deepnether.features.FeatureRegistry;
+import de.budschie.deepnether.features.placements.PlacementRegistry;
 import de.budschie.deepnether.gui.NetherBlastFurnaceGUI;
 import de.budschie.deepnether.item.ItemInit;
 import de.budschie.deepnether.item.ToolUsableItemRegistry;
@@ -33,6 +35,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -71,8 +74,11 @@ public class DeepnetherMain
         BlockInit.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         ItemInit.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         FeatureRegistry.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
+        PlacementRegistry.REGISTRY.register(FMLJavaModLoadingContext.get().getModEventBus());
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        
+        // Features.BLUE_ICE
      }
     
     int disc = 0;
@@ -93,6 +99,9 @@ public class DeepnetherMain
     	
     	Registry.register(Registry.CHUNK_GENERATOR_CODEC, "deepnether:deepnether_generator", DeepnetherChunkGenerator.CODEC);
     	Registry.register(Registry.BIOME_PROVIDER_CODEC, "deepnether:deepnether_biome_provider", DeepnetherBiomeProvider.CODEC);
+    	
+    	ConfiguredFeatureRegistry.registerConfiguredFeatures();
+    	
     	// RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(References.MODID, "green_forest_biome"));
     	
     	ToolUsableItemRegistry.init();
