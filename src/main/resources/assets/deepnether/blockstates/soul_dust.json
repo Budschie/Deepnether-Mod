@@ -1,5 +1,11 @@
 {
     "variants": {
-        "": { "model": "deepnether:block/soul_dust" }
+        "": 
+        [
+            { "model": "deepnether:block/soul_dust" },
+            { "model": "deepnether:block/soul_dust", "y":90},
+            { "model": "deepnether:block/soul_dust", "y":270},
+            { "model": "deepnether:block/soul_dust", "y":180}
+        ]
     }
 }

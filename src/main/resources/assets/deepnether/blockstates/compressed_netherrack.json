@@ -1,5 +1,11 @@
 {
     "variants": {
-        "": { "model": "deepnether:block/compressed_netherrack" }
+        "": 
+        [
+            { "model": "deepnether:block/compressed_netherrack" },
+            { "model": "deepnether:block/compressed_netherrack", "y":90},
+            { "model": "deepnether:block/compressed_netherrack", "y":270},
+            { "model": "deepnether:block/compressed_netherrack", "y":180}
+        ]
     }
 }

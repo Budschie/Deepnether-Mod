@@ -1,5 +1,11 @@
 {
     "variants": {
-        "": { "model": "deepnether:block/fertilium_block" }
+        "": 
+        [
+            { "model": "deepnether:block/fertilium_block" },
+            { "model": "deepnether:block/fertilium_block", "y":90},
+            { "model": "deepnether:block/fertilium_block", "y":270},
+            { "model": "deepnether:block/fertilium_block", "y":180}
+        ]
     }
 }
