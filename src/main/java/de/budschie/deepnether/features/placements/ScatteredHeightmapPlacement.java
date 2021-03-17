@@ -26,24 +26,29 @@ public class ScatteredHeightmapPlacement extends Placement<ScatteredPlacementCon
 	{
 		ArrayList<BlockPos> positions = new ArrayList<>();
 		
-		ChunkGenerator basicChunkGen = helper.chunkGenerator;
-		
-		if(basicChunkGen instanceof DeepnetherChunkGenerator)
+		if(rand.nextFloat() <= config.getChunkChance())
 		{
-			DeepnetherChunkGenerator deepneterChunkGen = (DeepnetherChunkGenerator) basicChunkGen;
-			int[][] heights = deepneterChunkGen.getDeepnetherHeightmap(config.getChannel(), new ChunkPos(pos));
+			ChunkGenerator basicChunkGen = helper.chunkGenerator;
 			
-			for(int i = 0; i < config.getAmountPerChunk(); i++)
+			if(basicChunkGen instanceof DeepnetherChunkGenerator)
 			{
-				// I should remember that nextInt's provided argument is exclusive and stuff.
-				int xOff = rand.nextInt(16);
-				int zOff = rand.nextInt(16);
+				DeepnetherChunkGenerator deepneterChunkGen = (DeepnetherChunkGenerator) basicChunkGen;
+				int[][] heights = deepneterChunkGen.getDeepnetherHeightmap(config.getChannel(), new ChunkPos(pos));
 				
-				positions.add(new BlockPos(pos.getX() + xOff, heights[xOff][zOff] + 1, pos.getZ() + zOff));
+				int amountInChunk = Math.max(config.getAmountPerChunk() + rand.nextInt(1 + config.getAmountPerChunk() * 2) - config.getAmountPerChunk(), 0);
+				
+				for(int i = 0; i < amountInChunk; i++)
+				{
+					// I should remember that nextInt's provided argument is exclusive and stuff.
+					int xOff = rand.nextInt(16);
+					int zOff = rand.nextInt(16);
+					
+					positions.add(new BlockPos(pos.getX() + xOff, heights[xOff][zOff] + 1, pos.getZ() + zOff));
+				}
 			}
+			else
+				throw new IllegalArgumentException("ScatteredHeightmapPlacement#getPositions may not be invoked from a world which is not an instance of a DeepNetherChunkGenerator.");
 		}
-		else
-			throw new IllegalArgumentException("ScatteredHeightmapPlacement#getPositions may not be invoked from a world which is not an instance of a DeepNetherChunkGenerator.");
 		
 		return positions.stream();
 	}

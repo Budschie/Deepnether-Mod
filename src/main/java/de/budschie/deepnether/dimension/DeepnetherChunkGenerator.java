@@ -25,6 +25,7 @@ import net.minecraft.world.biome.DefaultBiomeMagnifier;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.gen.OctavesNoiseGenerator;
 import net.minecraft.world.gen.WorldGenRegion;

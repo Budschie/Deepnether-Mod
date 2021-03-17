@@ -24,6 +24,14 @@ public class ConfiguredFeatureRegistry
         				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)), 
         				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)), 
         				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z))))
-        		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.SOUL_DESERT_ISLANDS, 2))));
+        		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.SOUL_DESERT_ISLANDS, 2, 2, .75f))));
+        
+        Registry.register(registry, new ResourceLocation(References.MODID, "soul_infused_withered_tree_soul_desert_conf_feature"), FeatureRegistry.WITHERED_TREE_FEATURE.get()
+        		.withConfiguration(new WitheredTreeFeatureConfig(
+        				new SimpleBlockStateProvider(BlockInit.SOUL_INFUSED_WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)), 
+        				new SimpleBlockStateProvider(BlockInit.SOUL_INFUSED_WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)), 
+        				new SimpleBlockStateProvider(BlockInit.SOUL_INFUSED_WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z))))
+        		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.SOUL_DESERT_ISLANDS, 1, 1, .125f))));
+
     }
 }

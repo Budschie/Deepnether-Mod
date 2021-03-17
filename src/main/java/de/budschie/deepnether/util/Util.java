@@ -1,5 +1,8 @@
 package de.budschie.deepnether.util;
 
+import java.lang.reflect.Array;
+import java.util.Set;
+
 public class Util
 {
 	public static class RGBA

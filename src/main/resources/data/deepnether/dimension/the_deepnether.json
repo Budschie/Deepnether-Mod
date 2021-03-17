@@ -1,10 +1,10 @@
 {
 	"generator": {
 	  "type": "deepnether:deepnether_generator",
-	  "seed": 286956243,
+	  "seed": 0,
 	  "biome_source": {
 		"type": "deepnether:deepnether_biome_provider",
-		"seed": 286956243
+		"seed": 0
 	  }
 	},
 	"type": "minecraft:the_nether"

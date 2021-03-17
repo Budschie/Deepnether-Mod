@@ -1,6 +1,8 @@
 package de.budschie.deepnether.features;
 
 import java.util.Random;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -10,6 +12,7 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.BambooFeature;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.Features;
 
 public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 {
@@ -17,14 +20,15 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 	{
 		super(WitheredTreeFeatureConfig.CODEC);
 	}
-
+	
+	// Branches are much shorter than expected. Is this maybe a bug?
 	@Override
 	public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, WitheredTreeFeatureConfig config)
 	{		
 		if(pos.getY() < 0)
 			return false;
 		
-		int size = rand.nextInt(4) + 12;
+		int size = rand.nextInt(4) + 8;
 		
 		BlockState logUp = config.getLogUp().getBlockState(rand, pos);
 		BlockState rotatedX = config.getRotatedX().getBlockState(rand, pos);
@@ -32,33 +36,41 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 		
 		for(int i = 0; i < size; i++)
 		{
-			reader.setBlockState(new BlockPos(pos.getX(), pos.getY() + i, pos.getZ()), logUp, i);
+			reader.setBlockState(new BlockPos(pos.getX(), pos.getY() + i, pos.getZ()), logUp, 0);
 			
-			if(rand.nextInt(3) == 0)
+			if(rand.nextInt(1) == 0 && i > 4)
 			{
-				int branchLength = rand.nextInt(Math.max(i - 3, 1)) + 3;
+				int randDir = rand.nextInt(4);
+				final BranchDirection initialBranchDir = randDir < 2 ? BranchDirection.values()[randDir] : BranchDirection.values()[randDir + 2];
+				BranchDirection currentBranchDir = initialBranchDir;
+				BranchDirection[] branches = Stream.of(BranchDirection.values()).filter(dir -> dir != initialBranchDir.getOpposite()).toArray((length) -> 
+				{ 
+					return new BranchDirection[length];
+				});
 				
-				BlockPos currentPos = new BlockPos(pos.getX(), pos.getY() + i, pos.getZ());
+				int length = rand.nextInt(Math.max(size - 4, 1)) + 3;
 				
-				BranchDirection currentBranchDirection = BranchDirection.values()[rand.nextInt(BranchDirection.values().length)];
-				BlockState currentBlockState = getCurrentBlockState(currentBranchDirection.axis, logUp, rotatedX, rotatedZ);
+				BlockPos currentBlockPos = new BlockPos(pos.getX(), pos.getY() + i, pos.getZ()).add(currentBranchDir.getToAdd());
+				BlockState currentBlockState = getCurrentBlockState(currentBranchDir.getAxis(), logUp, rotatedX, rotatedZ);
 				
-				for(int j = 0; j < branchLength; j++)
+				for(int j = 0; j < length; j++)
 				{
-					currentPos = currentPos.add(currentBranchDirection.getToAdd());
+					reader.setBlockState(currentBlockPos, currentBlockState, 0);
 					
-					// We change the block state afterwards, causing the log block to look up before he actually goes up. This is all intentional.
-					currentBranchDirection = BranchDirection.values()[rand.nextInt(BranchDirection.values().length)];
-					currentBlockState = getCurrentBlockState(currentBranchDirection.axis, logUp, rotatedX, rotatedZ);
+					if(rand.nextInt(2) == 0)
+					{
+						currentBranchDir = branches[rand.nextInt(branches.length)];
+						currentBlockState = getCurrentBlockState(currentBranchDir.getAxis(), logUp, rotatedX, rotatedZ);
+					}
 					
-					reader.setBlockState(currentPos, currentBlockState, 0);
+					currentBlockPos = currentBlockPos.add(currentBranchDir.getToAdd());
 				}
 			}
 		}
 		
 		return true;
 	}
-	
+		
 	private BlockState getCurrentBlockState(Direction.Axis axis, BlockState logUp, BlockState rotatedX, BlockState rotatedZ)
 	{
 		switch (axis)
@@ -74,16 +86,20 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 	
 	public static enum BranchDirection
 	{
-		POSITIVE_X(Direction.Axis.X, new BlockPos(1, 0, 0)), NEGATIVE_X(Direction.Axis.X, new BlockPos(-1, 0, 0)), POSITIVE_Y(Direction.Axis.Y, new BlockPos(0, 1, 0)), NEGATIVE_Y(Direction.Axis.Y, new BlockPos(0, -1, 0)), 
-		POSITIVE_Z(Direction.Axis.Z, new BlockPos(0, 0, 1)), NEGATIVE_Z(Direction.Axis.Z, new BlockPos(0, 0, -1));
+		POSITIVE_X(Direction.Axis.X, "NEGATIVE_X", new BlockPos(1, 0, 0)), NEGATIVE_X(Direction.Axis.X, "POSITIVE_X", new BlockPos(-1, 0, 0)), POSITIVE_Y(Direction.Axis.Y,"NEGATIVE_Y",  new BlockPos(0, 1, 0)), 
+		NEGATIVE_Y(Direction.Axis.Y,"POSITIVE_Y",  new BlockPos(0, -1, 0)), POSITIVE_Z(Direction.Axis.Z,"NEGATIVE_Z",  new BlockPos(0, 0, 1)), NEGATIVE_Z(Direction.Axis.Z,"POSITIVE_Z",  new BlockPos(0, 0, -1)), 
+		POSITIVEXY(Direction.Axis.X, "NEGATIVEXY", new BlockPos(1, 1, 0)), NEGATIVEXY(Direction.Axis.X, "POSITIVEXY", new BlockPos(-1, -1, 0)), 
+		POSITIVEZY(Direction.Axis.X, "NEGATIVEZY", new BlockPos(0, 1, 1)), NEGATIVEZY(Direction.Axis.X, "POSITIVEZY", new BlockPos(0, -1, -1));
 		
 		private BlockPos toAdd;
 		private Direction.Axis axis;
+		private String oppositeName;
 		
-		BranchDirection(Direction.Axis axis, BlockPos toAdd)
+		BranchDirection(Direction.Axis axis, String oppositeName, BlockPos toAdd)
 		{
 			this.axis = axis;
 			this.toAdd = toAdd;
+			this.oppositeName = oppositeName;
 		}
 		
 		public BlockPos getToAdd()
@@ -94,6 +110,11 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 		public Direction.Axis getAxis()
 		{
 			return axis;
+		}
+		
+		public BranchDirection getOpposite()
+		{
+			return BranchDirection.valueOf(oppositeName);
 		}
 	}
 }
