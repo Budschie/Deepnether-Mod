@@ -11,4 +11,6 @@ public class FeatureRegistry
 {
 	public static final DeferredRegister<Feature<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.FEATURES, References.MODID);
 	public static final RegistryObject<WitheredTreeFeature> WITHERED_TREE_FEATURE = REGISTRY.register("withered_tree_feature", () -> new WitheredTreeFeature());
+	public static final RegistryObject<BasicTreeFeature<GreenForestTreeFeatureConfig>> GREEN_FOREST_TREE_FEATURE = REGISTRY.register("green_forest_tree_feature", () -> 
+	new BasicTreeFeature(GreenForestTreeFeatureConfig.CODEC, new GreenForestTrunkPlacer(), new GreenForestLeavesPlacer(), null));
 }

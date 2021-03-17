@@ -43,7 +43,10 @@ public class ScatteredHeightmapPlacement extends Placement<ScatteredPlacementCon
 					int xOff = rand.nextInt(16);
 					int zOff = rand.nextInt(16);
 					
-					positions.add(new BlockPos(pos.getX() + xOff, heights[xOff][zOff] + 1, pos.getZ() + zOff));
+					int height = heights[xOff][zOff] + 1;
+					
+					if(height >= config.getMinHeight() && height <= config.getMaxHeight())
+						positions.add(new BlockPos(pos.getX() + xOff, height, pos.getZ() + zOff));
 				}
 			}
 			else

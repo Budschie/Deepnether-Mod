@@ -13,6 +13,7 @@ import de.budschie.deepnether.biomes.biome_data_handler.SoulDesertBiomeData;
 import de.budschie.deepnether.block.BlockInit;
 import de.budschie.deepnether.block.fluids.FluidInit;
 import de.budschie.deepnether.capabilities.ToolDefinitionCapability;
+import de.budschie.deepnether.commands.CommandGenerate;
 import de.budschie.deepnether.container.DeepNetherBlastFurnaceContainer;
 import de.budschie.deepnether.dimension.DeepnetherBiomeProvider;
 import de.budschie.deepnether.dimension.DeepnetherChunkGenerator;
@@ -123,9 +124,10 @@ public class DeepnetherMain
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_PURPLE, RenderType.getTranslucent());
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_RED, RenderType.getTranslucent());
     	RenderTypeLookup.setRenderLayer(BlockInit.BLOCK_NETHER_CRYSTAL_YELLOW, RenderType.getTranslucent());
-    	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_LEAVES, RenderType.getTranslucent());
-    	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_WITHERED_LEAVES, RenderType.getTranslucent());
+    	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_LEAVES.get(), RenderType.getTranslucent());
+    	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_WITHERED_LEAVES.get(), RenderType.getTranslucent());
     	RenderTypeLookup.setRenderLayer(BlockInit.ANCIENT_MUSHROOM, RenderType.getCutout());
+    	RenderTypeLookup.setRenderLayer(BlockInit.GREEN_FOREST_LEAVES.get(), RenderType.getCutout());
     	
     	ScreenManager.registerFactory(DeepNetherBlastFurnaceContainer.TYPE, NetherBlastFurnaceGUI.FACTORY);
     	
@@ -158,5 +160,6 @@ public class DeepnetherMain
     public void onServerStarting(FMLServerStartingEvent event) 
     {
     	server = event.getServer();
+    	CommandGenerate.registerCommandGenerate(server.getCommandManager().getDispatcher());    
     }
 }

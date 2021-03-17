@@ -65,6 +65,7 @@ public class BlockInit
 	
 	public static final RegistryObject<Block> WITHERED_TREE_LOG = REGISTRY.register("withered_tree_log", () -> new RotatedPillarBlock(Properties.create(Material.ROCK).sound(SoundType.HYPHAE).hardnessAndResistance(2, 0.25f)));
 	public static final RegistryObject<Block> SOUL_INFUSED_WITHERED_TREE_LOG = REGISTRY.register("soul_infused_withered_tree_log", () -> new RotatedPillarBlock(Properties.create(Material.ORGANIC).sound(SoundType.HYPHAE).hardnessAndResistance(5, 15f)));
+	public static final RegistryObject<ModLeavesBlock> GREEN_FOREST_LEAVES = REGISTRY.register("green_forest_leaves", () -> new ModLeavesBlock(ModProperties.MOD_LEAVES.sound(SoundType.NETHER_VINE_LOWER_PITCH)));
 
 	/*
 	@SubscribeEvent
@@ -255,8 +256,9 @@ public class BlockInit
 	public static final NetherBlastFurnaceBlock DEEP_NETHER_BLAST_FURNACE = new NetherBlastFurnaceBlock(ModProperties.MOD_STONE_PROPERTY, "deep_nether_blast_furnace", ModItemGroups.MOD_BLOCKS);
 	public static final NetherGrassBase NETHER_DUST_GRASS = new NetherGrassBase("nether_dust_grass", ModProperties.MOD_GRASS, ModItemGroups.MOD_BLOCKS, NETHER_DUST_GRASS_BLOCK.getDefaultState());
 	public static final AncientLog ANCIENT_LOG = new AncientLog("ancient_log", ModItemGroups.MOD_BLOCKS);
-	public static final ModLeavesBlock ANCIENT_LEAVES = new ModLeavesBlock(ModProperties.MOD_LEAVES, "ancient_leaves", ModItemGroups.MOD_BLOCKS);
-	public static final ModLeavesBlock ANCIENT_WITHERED_LEAVES = new ModLeavesBlock(ModProperties.MOD_LEAVES, "ancient_leaves_withered", ModItemGroups.MOD_BLOCKS);
+	
+	public static final RegistryObject<ModLeavesBlock> ANCIENT_LEAVES = REGISTRY.register("ancient_leaves", () -> new ModLeavesBlock(ModProperties.MOD_LEAVES));
+	public static final RegistryObject<ModLeavesBlock> ANCIENT_WITHERED_LEAVES = REGISTRY.register("ancient_leaves_withered", () -> new ModLeavesBlock(ModProperties.MOD_LEAVES));
 	
 	public static final FlowingFluidBlock HOT_JELLY_FLUID_BLOCK = new FlowingFluidBlock(new Supplier<FlowingFluid>()
 	{

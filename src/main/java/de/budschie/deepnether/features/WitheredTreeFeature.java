@@ -14,16 +14,16 @@ import net.minecraft.world.gen.feature.BambooFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.Features;
 
-public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
+public class WitheredTreeFeature extends Feature<BasicLogFeatureConfig>
 {
 	public WitheredTreeFeature()
 	{
-		super(WitheredTreeFeatureConfig.CODEC);
+		super(BasicLogFeatureConfig.CODEC);
 	}
 	
 	// Branches are much shorter than expected. Is this maybe a bug?
 	@Override
-	public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, WitheredTreeFeatureConfig config)
+	public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, BasicLogFeatureConfig config)
 	{		
 		if(pos.getY() < 0)
 			return false;
@@ -36,7 +36,7 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 		
 		for(int i = 0; i < size; i++)
 		{
-			reader.setBlockState(new BlockPos(pos.getX(), pos.getY() + i, pos.getZ()), logUp, 0);
+			reader.setBlockState(new BlockPos(pos.getX(), pos.getY() + i, pos.getZ()), logUp, 2);
 			
 			if(rand.nextInt(1) == 0 && i > 4)
 			{
@@ -55,7 +55,7 @@ public class WitheredTreeFeature extends Feature<WitheredTreeFeatureConfig>
 				
 				for(int j = 0; j < length; j++)
 				{
-					reader.setBlockState(currentBlockPos, currentBlockState, 0);
+					reader.setBlockState(currentBlockPos, currentBlockState, 2);
 					
 					if(rand.nextInt(2) == 0)
 					{

@@ -5,6 +5,7 @@ import static de.budschie.deepnether.item.ModItemTiers.DYL_TIER;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -73,6 +74,10 @@ public class ItemInit
 	
 	public static final RegistryObject<BlockItem> WITHERED_TREE_LOG = REGISTRY.register("withered_tree_log", () -> new BlockItem(BlockInit.WITHERED_TREE_LOG.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
 	public static final RegistryObject<BlockItem> SOUL_WITHERED_TREE_LOG = REGISTRY.register("soul_infused_withered_tree_log", () -> new BlockItem(BlockInit.SOUL_INFUSED_WITHERED_TREE_LOG.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
+	
+	public static final RegistryObject<BlockItem> GREEN_FOREST_LEAVES = REGISTRY.register("green_forest_leaves", () -> new BlockItem(BlockInit.GREEN_FOREST_LEAVES.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
+	public static final RegistryObject<BlockItem> ANCIENT_LEAVES = REGISTRY.register("ancient_leaves", () -> new BlockItem(BlockInit.ANCIENT_LEAVES.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
+	public static final RegistryObject<BlockItem> ANCIENT_WITHERED_LEAVES = REGISTRY.register("ancient_leaves_withered", () -> new BlockItem(BlockInit.ANCIENT_WITHERED_LEAVES.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
 
 	/*
 	 * .setISTER(() -> new Callable<ItemStackTileEntityRenderer>()
