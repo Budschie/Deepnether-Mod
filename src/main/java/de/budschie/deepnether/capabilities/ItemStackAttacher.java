@@ -1,5 +1,6 @@
 package de.budschie.deepnether.capabilities;
 
+import de.budschie.deepnether.item.CommonTool;
 import de.budschie.deepnether.main.References;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -19,6 +20,7 @@ public class ItemStackAttacher
 	@SubscribeEvent
 	public static void onAttachCapability(AttachCapabilitiesEvent<ItemStack> event)
 	{
-		event.addCapability(new ResourceLocation(References.MODID, "tool_def_cap"), new ToolDefinitionCapability());
+		if(event.getObject().getItem() instanceof CommonTool)
+			event.addCapability(new ResourceLocation(References.MODID, "tool_def_cap"), new ToolDefinitionCapability());
 	}
 }

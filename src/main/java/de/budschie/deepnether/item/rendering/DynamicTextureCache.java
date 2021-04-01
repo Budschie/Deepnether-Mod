@@ -1,5 +1,6 @@
 package de.budschie.deepnether.item.rendering;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 
 import de.budschie.deepnether.item.toolModifiers.IToolUsableItem;
@@ -38,6 +39,8 @@ public class DynamicTextureCache
 				DynamicTexture dyntex = new DynamicTexture(16, 16, true);
 				dyntex.setTextureData(tex);
 				dyntex.updateDynamicTexture();
+				
+				tex.write(Path.of("C:/Users/Budschie/eatyourpotatoes.png"));
 				
 				cache.put(stick.getBoundItem() + "_" + head.getBoundItem(), dyntex);
 				

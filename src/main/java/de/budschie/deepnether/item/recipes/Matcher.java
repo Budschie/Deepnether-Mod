@@ -131,20 +131,38 @@ public class Matcher
 		if(c > (headIndices.size() + stickIndices.size()))
 			return false;
 		
+		Item firstItemHead = null, firstItemStick = null;
+		
 		for(Point point : headIndices)
 		{
 			if(isAIOB(point, itemArray.length, itemArray[0].length))
 				return false;
-			else if(!ToolUsableItemRegistry.get(itemArray[point.y][point.x].getRegistryName().toString()).isPresent())
-				return false;
+			else 
+			{
+				Item currentItem = itemArray[point.y][point.x];
+				
+				if(firstItemHead == null)
+					firstItemHead = currentItem;
+				
+				if(!ToolUsableItemRegistry.get(currentItem.getRegistryName().toString()).isPresent() || firstItemHead != currentItem)
+					return false;
+			}
 		}
 		
 		for(Point point : stickIndices)
 		{
 			if(isAIOB(point, itemArray.length, itemArray[0].length))
 				return false;
-			else if(!ToolUsableItemRegistry.get(itemArray[point.y][point.x].getRegistryName().toString()).isPresent())
-				return false;
+			else 
+			{
+				Item currentItem = itemArray[point.y][point.x];
+				
+				if(firstItemStick == null)
+					firstItemStick = currentItem;
+				
+				if(!ToolUsableItemRegistry.get(currentItem.getRegistryName().toString()).isPresent() || firstItemStick != currentItem)
+					return false;
+			}
 		}
 		
 		return true;

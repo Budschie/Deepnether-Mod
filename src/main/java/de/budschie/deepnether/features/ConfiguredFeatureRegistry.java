@@ -35,14 +35,14 @@ public class ConfiguredFeatureRegistry
         				new SimpleBlockStateProvider(BlockInit.SOUL_INFUSED_WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z))))
         		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.SOUL_DESERT_ISLANDS, 1, 1, .125f))));
         
-        Registry.register(registry, new ResourceLocation(References.MODID, "green_forest_tree_feature"), FeatureRegistry.GREEN_FOREST_TREE_FEATURE.get()
-        		.withConfiguration(new GreenForestTreeFeatureConfig(        				
-        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)), 
-        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)), 
-        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)),
-        				new SimpleBlockStateProvider(BlockInit.GREEN_FOREST_LEAVES.get().getDefaultState().with(LeavesBlock.PERSISTENT, false)),
-        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)),
-        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z))))
-        .withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.GROUND, 2, 2, 1, WorldGenConsts.SEA_LEVEL + 11, 255))));
+//        Registry.register(registry, new ResourceLocation(References.MODID, "green_forest_tree_feature"), FeatureRegistry.GREEN_FOREST_TREE_FEATURE.get()
+//        		.withConfiguration(new GreenForestTreeFeatureConfig(        				
+//        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y)), 
+//        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.X)), 
+//        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)),
+//        				new SimpleBlockStateProvider(BlockInit.GREEN_FOREST_LEAVES.get().getDefaultState().with(LeavesBlock.PERSISTENT, false)),
+//        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z)),
+//        				new SimpleBlockStateProvider(BlockInit.WITHERED_TREE_LOG.get().getDefaultState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z))))
+//        .withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.GROUND, 2, 2, 1, WorldGenConsts.SEA_LEVEL + 11, 255))));
     }
 }

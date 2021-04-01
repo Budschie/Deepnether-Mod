@@ -98,17 +98,15 @@ public class CommonTool extends Item
 	@Override
 	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack)
 	{
+		//Multimap<Attribute, AttributeModifier> basicAttributes = stack.getAttributeModifiers(slot);
+		
 		if(slot == EquipmentSlotType.MAINHAND)
 		{
 			com.google.common.collect.ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
 			IToolDefinition toolDefinition = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).resolve().get();
-			
 			Stats stats = toolDefinition.constructStats(this, stack);
-			
 			stats.getAttributesToApply().forEach((attribute) -> builder.put(attribute.name, attribute.modifier));
-			
 			builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier("attackDamage", stats.getAttackDamage(), Operation.ADDITION));
-			
 			return builder.build();
 		}
 		
