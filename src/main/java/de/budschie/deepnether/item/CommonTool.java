@@ -1,5 +1,6 @@
 package de.budschie.deepnether.item;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -48,6 +50,15 @@ public class CommonTool extends Item
 		Stats stats = optional.resolve().get().constructStats(this, stack);
 		
 		return stats.getDurability();
+	}
+	
+	@Override
+	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player)
+	{
+		ItemStack currentItemStack = player.getHeldItemMainhand();
+		LazyOptional<IToolDefinition> toolDefinition = currentItemStack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP);
+		
+		return !toolDefinition.isPresent() || !(toolDefinition.resolve().get().getToolType() == ToolType.get("sword") && player.isCreative());
 	}
 	
 	@Override
@@ -95,6 +106,8 @@ public class CommonTool extends Item
 		}
 	}
 	
+	private HashMap<CommonToolDescriptor, Multimap<Attribute, AttributeModifier>> attributeMap = new HashMap<>();
+	
 	@Override
 	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack)
 	{
@@ -102,12 +115,16 @@ public class CommonTool extends Item
 		
 		if(slot == EquipmentSlotType.MAINHAND)
 		{
-			com.google.common.collect.ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
 			IToolDefinition toolDefinition = stack.getCapability(ToolDefinitionCapability.TOOL_DEF_CAP).resolve().get();
-			Stats stats = toolDefinition.constructStats(this, stack);
-			stats.getAttributesToApply().forEach((attribute) -> builder.put(attribute.name, attribute.modifier));
-			builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier("attackDamage", stats.getAttackDamage(), Operation.ADDITION));
-			return builder.build();
+			
+			return attributeMap.computeIfAbsent(new CommonToolDescriptor(toolDefinition.getHead(), toolDefinition.getStick()), descriptor ->
+			{
+				com.google.common.collect.ImmutableListMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableListMultimap.builder();
+				Stats stats = toolDefinition.constructStats(this, stack);
+				stats.getAttributesToApply().forEach((attribute) -> builder.put(attribute.name, attribute.modifier));
+				builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier("attackDamage", stats.getAttackDamage(), Operation.ADDITION));
+				return builder.build();
+			});
 		}
 		
 		return super.getAttributeModifiers(slot, stack);

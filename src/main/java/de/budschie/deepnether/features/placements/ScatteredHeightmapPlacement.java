@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.WorldDecoratingHelper;
+import net.minecraft.world.gen.feature.structure.FortressStructure;
 import net.minecraft.world.gen.placement.Placement;
 
 public class ScatteredHeightmapPlacement extends Placement<ScatteredPlacementConfig>

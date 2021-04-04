@@ -104,7 +104,7 @@ public class ToolUsableItemRegistry
 			@Override
 			public ArrayList<IModifier> getModifiers(Part part, ToolType type)
 			{
-				return part == Part.HEAD ? Lists.newArrayList(new AttackSpeedModifier(Operation.ADDITION, 5.0f), new DurabilityModifier(Operation.MULTIPLY_BASE, 0.75f)) : Lists.newArrayList(new DurabilityModifier(Operation.ADDITION, 250));
+				return part == Part.HEAD ? Lists.newArrayList(new AttackSpeedModifier(Operation.ADDITION, -1f), new DurabilityModifier(Operation.MULTIPLY_BASE, 0.75f)) : Lists.newArrayList(new DurabilityModifier(Operation.ADDITION, 250));
 			}
 			
 			@Override
