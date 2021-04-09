@@ -66,6 +66,7 @@ public class BlockInit
 	public static final RegistryObject<Block> WITHERED_TREE_LOG = REGISTRY.register("withered_tree_log", () -> new RotatedPillarBlock(Properties.create(Material.ROCK).sound(SoundType.HYPHAE).hardnessAndResistance(2, 0.25f)));
 	public static final RegistryObject<Block> SOUL_INFUSED_WITHERED_TREE_LOG = REGISTRY.register("soul_infused_withered_tree_log", () -> new RotatedPillarBlock(Properties.create(Material.ORGANIC).sound(SoundType.HYPHAE).hardnessAndResistance(5, 15f)));
 	public static final RegistryObject<ModLeavesBlock> GREEN_FOREST_LEAVES = REGISTRY.register("green_forest_leaves", () -> new ModLeavesBlock(ModProperties.MOD_LEAVES.sound(SoundType.NETHER_VINE_LOWER_PITCH)));
+	public static final RegistryObject<RotatedPillarBlock> GREEN_FOREST_LOG = REGISTRY.register("green_forest_log", () -> new RotatedPillarBlock(ModProperties.MOD_LOG_BLOCK.sound(SoundType.WOOD)));
 
 	/*
 	@SubscribeEvent

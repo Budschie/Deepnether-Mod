@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "deepnether:block/green_forest_log_top",
+        "side": "deepnether:block/green_forest_log_side"
+    }
+}

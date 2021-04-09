@@ -40,13 +40,14 @@ public class WitheredTreeFeature extends Feature<BasicLogFeatureConfig>
 			
 			if(rand.nextInt(1) == 0 && i > 4)
 			{
-				int randDir = rand.nextInt(4);
-				final BranchDirection initialBranchDir = randDir < 2 ? BranchDirection.values()[randDir] : BranchDirection.values()[randDir + 2];
+				int randDir = rand.nextInt(BranchDirection.values().length);
+				//final BranchDirection initialBranchDir = randDir < 2 ? BranchDirection.values()[randDir] : BranchDirection.values()[randDir + 2];
+				final BranchDirection initialBranchDir = BranchDirection.values()[randDir];
 				BranchDirection currentBranchDir = initialBranchDir;
-				BranchDirection[] branches = Stream.of(BranchDirection.values()).filter(dir -> dir != initialBranchDir.getOpposite()).toArray((length) -> 
-				{ 
-					return new BranchDirection[length];
-				});
+//				BranchDirection[] branches = Stream.of(BranchDirection.values()).filter(dir -> dir != initialBranchDir.getOpposite()).toArray((length) -> 
+//				{ 
+//					return new BranchDirection[length];
+//				});
 				
 				int length = rand.nextInt(Math.max(size - 4, 1)) + 3;
 				
@@ -59,7 +60,7 @@ public class WitheredTreeFeature extends Feature<BasicLogFeatureConfig>
 					
 					if(rand.nextInt(2) == 0)
 					{
-						currentBranchDir = branches[rand.nextInt(branches.length)];
+						currentBranchDir = BranchDirection.values()[rand.nextInt(BranchDirection.values().length)];
 						currentBlockState = getCurrentBlockState(currentBranchDir.getAxis(), logUp, rotatedX, rotatedZ);
 					}
 					
@@ -88,7 +89,7 @@ public class WitheredTreeFeature extends Feature<BasicLogFeatureConfig>
 	{
 		POSITIVE_X(Direction.Axis.X, "NEGATIVE_X", new BlockPos(1, 0, 0)), NEGATIVE_X(Direction.Axis.X, "POSITIVE_X", new BlockPos(-1, 0, 0)), POSITIVE_Y(Direction.Axis.Y,"NEGATIVE_Y",  new BlockPos(0, 1, 0)), 
 		NEGATIVE_Y(Direction.Axis.Y,"POSITIVE_Y",  new BlockPos(0, -1, 0)), POSITIVE_Z(Direction.Axis.Z,"NEGATIVE_Z",  new BlockPos(0, 0, 1)), NEGATIVE_Z(Direction.Axis.Z,"POSITIVE_Z",  new BlockPos(0, 0, -1)), 
-		POSITIVEXY(Direction.Axis.X, "NEGATIVEXY", new BlockPos(1, 1, 0)), NEGATIVEXY(Direction.Axis.X, "POSITIVEXY", new BlockPos(-1, -1, 0)), 
+		POSITIVEXY(Direction.Axis.X, "NEGATIVEXY", new BlockPos(1, 1, 0)), NEGATIVEXY(Direction.Axis.X, "POSITIVEXY", new BlockPos(-1, -1, 0)), POSITIVE_XZ(Direction.Axis.Z, "NEGATIVE_XZ", new BlockPos(1, 0, 1)), NEGATIVE_XZ(Direction.Axis.X, "POSITIVE_XZ", new BlockPos(-1, 0, -1)),
 		POSITIVEZY(Direction.Axis.X, "NEGATIVEZY", new BlockPos(0, 1, 1)), NEGATIVEZY(Direction.Axis.X, "POSITIVEZY", new BlockPos(0, -1, -1));
 		
 		private BlockPos toAdd;

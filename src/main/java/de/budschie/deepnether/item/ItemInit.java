@@ -78,6 +78,8 @@ public class ItemInit
 	public static final RegistryObject<BlockItem> GREEN_FOREST_LEAVES = REGISTRY.register("green_forest_leaves", () -> new BlockItem(BlockInit.GREEN_FOREST_LEAVES.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
 	public static final RegistryObject<BlockItem> ANCIENT_LEAVES = REGISTRY.register("ancient_leaves", () -> new BlockItem(BlockInit.ANCIENT_LEAVES.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
 	public static final RegistryObject<BlockItem> ANCIENT_WITHERED_LEAVES = REGISTRY.register("ancient_leaves_withered", () -> new BlockItem(BlockInit.ANCIENT_WITHERED_LEAVES.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
+	
+	public static final RegistryObject<BlockItem> GREEN_FOREST_LOG = REGISTRY.register("green_forest_log", () -> new BlockItem(BlockInit.GREEN_FOREST_LOG.get(), new Item.Properties().group(ModItemGroups.MOD_BLOCKS)));
 
 	/*
 	 * .setISTER(() -> new Callable<ItemStackTileEntityRenderer>()

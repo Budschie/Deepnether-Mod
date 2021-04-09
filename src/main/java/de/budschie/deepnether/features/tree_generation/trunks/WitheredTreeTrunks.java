@@ -35,7 +35,7 @@ public class WitheredTreeTrunks implements ITreePart
 			
 			if(rand.nextInt(1) == 0 && i > 4)
 			{
-				BranchEmitionArgs branchEmitionArgs = new BranchEmitionArgs(pos, size, i);
+				BranchEmitionArgs branchEmitionArgs = new BranchEmitionArgs(new BlockPos(pos.getX(), pos.getY() + i, pos.getZ()), size, i);
 				emit.accept("branch", branchEmitionArgs);
 			}
 		}

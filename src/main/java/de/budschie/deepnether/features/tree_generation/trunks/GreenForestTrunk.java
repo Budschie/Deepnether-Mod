@@ -7,6 +7,7 @@ import de.budschie.deepnether.features.tree_generation.ITreePart;
 import de.budschie.deepnether.features.tree_generation.TreeEmitionArgs;
 import de.budschie.deepnether.features.tree_generation.TreeTrunkSet;
 import de.budschie.deepnether.features.tree_generation.branches.BranchEmitionArgs;
+import de.budschie.deepnether.features.tree_generation.leaves.LeavesEmitionArgs;
 import de.budschie.deepnether.util.MathUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -19,12 +20,14 @@ public class GreenForestTrunk implements ITreePart
 	private TreeTrunkSet trunkSet;
 	private float branchSparsityBias;
 	private int branchSparsityDistance;
+	private int minBranchHeight;
 	
-	public GreenForestTrunk(TreeTrunkSet trunkSet, float branchSparsityBias, int branchSparsityDistance)
+	public GreenForestTrunk(TreeTrunkSet trunkSet, float branchSparsityBias, int branchSparsityDistance, int minBranchHeight)
 	{
 		this.trunkSet = trunkSet;
 		this.branchSparsityBias = branchSparsityBias;
 		this.branchSparsityDistance = branchSparsityDistance;
+		this.minBranchHeight = minBranchHeight;
 	}
 	
 	@Override
@@ -62,7 +65,7 @@ public class GreenForestTrunk implements ITreePart
 			
 			float biasedBranchProbability = branchProbability * biasedDistanceAffection;
 			
-			if(rand.nextFloat() <= biasedBranchProbability)
+			if(i >= minBranchHeight && rand.nextFloat() <= biasedBranchProbability)
 			{
 				// Spawn in branch
 				emit.accept("branch", new BranchEmitionArgs(new BlockPos(currentX, i + emitionArgs.getEmittedFrom().getY(), currentZ), size, i));
@@ -70,6 +73,8 @@ public class GreenForestTrunk implements ITreePart
 			
 			reader.setBlockState(new BlockPos(currentX, i + emitionArgs.getEmittedFrom().getY(), currentZ), trunkSet.getLogUp(), 2);
 		}
+		
+		emit.accept("leaves", new LeavesEmitionArgs(new BlockPos(currentX, size + emitionArgs.getEmittedFrom().getY(), currentZ), size, size));
 	}
 	
 }

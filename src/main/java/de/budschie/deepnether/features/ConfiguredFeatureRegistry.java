@@ -26,8 +26,11 @@ public class ConfiguredFeatureRegistry
         Registry.register(registry, new ResourceLocation(References.MODID, "withered_tree_soul_desert_conf_feature"), FeatureRegistry.WITHERED_TREE_FEATURE.get().withConfiguration(NoFeatureConfig.field_236559_b_)
         		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.SOUL_DESERT_ISLANDS, 1, 1, .125f))));
         
-        Registry.register(registry, new ResourceLocation(References.MODID, "soul_infused_withered_tree_soul_desert_conf_feature"), FeatureRegistry.SOUL_INFUSED_WITHERED_TREE_FEATURE.get().withConfiguration(NoFeatureConfig.field_236559_b_)
+        Registry.register(registry, new ResourceLocation(References.MODID, "soul_infused_withered_tree_soul_desert_conf_feature"), FeatureRegistry.SOUL_INFUSED_WITHERED_TREE_FEATURE.get().withConfiguration(NoFeatureConfig.NO_FEATURE_CONFIG)
         		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.SOUL_DESERT_ISLANDS, 1, 1, .125f))));
+        
+        Registry.register(registry, new ResourceLocation(References.MODID, "green_forest_tree_conf_feature"), FeatureRegistry.GREEN_FOREST_TREE_FEATURE.get().withConfiguration(NoFeatureConfig.NO_FEATURE_CONFIG)
+        		.withPlacement(PlacementRegistry.SCATTERED_HEIGHTMAP_PLACEMENT.get().configure(new ScatteredPlacementConfig(HeightmapChannels.GROUND, 4, 3, 1))));
 
 //        Registry.register(registry, new ResourceLocation(References.MODID, "soul_infused_withered_tree_soul_desert_conf_feature"), FeatureRegistry.WITHERED_TREE_FEATURE.get()
 //        		.withConfiguration(new BasicLogFeatureConfig(
